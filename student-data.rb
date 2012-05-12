@@ -5,14 +5,7 @@ require 'google_chart'
 
 # Use MySQL in production, but use a local SQLite database in development
 configure do
-  # if Dir.pwd.match(/stevekinney/)
-  #     require 'dm-sqlite-adapter'
-  #   DataMapper.setup(:default,  "sqlite3://#{Dir.pwd}/data.db")
-  # else
-      # DataMapper.setup(:default, 'mysql://root:jiMi613@scholarsnyc.com/student-data')
-  # end
-  
-  DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/data.db")
+ DataMapper.setup(:default, 'mysql://seawolf:Oce423@scholarsnyc.com/studentdata')
 end
 
 # Load up the models and controllers 
