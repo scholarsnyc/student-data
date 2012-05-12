@@ -1,0 +1,27 @@
+<% if @notice %><div class="alert-message warning"><%= @notice %></div><% end %>
+<div class="alert-message warning"><%= @report.count %> students in this report.</div>
+
+<table class="table table-bordered table-striped table-condensed tablesorter probation-table" id="probation-table">
+	<thead>
+		<tr>
+			<th class="name">Name</th>
+			<th class="student-id">OSIS</th>
+			<th class="homeroom">Homeroom</th>
+			<th class="probation_1">Probation: Level One</th>
+			<% if @probation_level >= 2 %><th class="probation_2">Probation: Level Two</th><% end %>
+			<% if @probation_level >= 3 %><th class="failing">Probation: Level Two +</th><% end %>
+		</tr>
+	</thead>
+	<tbody>
+	<% @report.each do |student| %>
+		<tr>
+			<td class="name"><a href="/students/<%= student.id %>"><%= student.name %></a></td>
+			<td class="student-id"><a href="/students/<%= student.id %>"><%= student.id %></a></td>
+			<td class="homeroom"><a href="/students?homeroom=<%= student.homeroom %>"><%= student.homeroom %></a></td>
+			<td class="probation_1"><%= student.subject_list(:probation_1)  %></td>
+			<% if @probation_level >= 2 %><td class="probation_2"><%= student.subject_list(:probation_2) %></td><% end %>
+			<% if @probation_level >= 3 %><td class="failing"><%= student.subject_list(:failing) %></td><% end %>
+		</tr>
+	<% end %>
+	</tbody>
+</table>

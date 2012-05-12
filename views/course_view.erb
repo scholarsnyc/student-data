@@ -1,0 +1,125 @@
+<div class="row">
+	<div class="span12">
+		<%= erb :_marking_period_filter %>
+
+		<table class="table table-bordered table-striped table-condensed">
+			<thead>
+				<th>Statistic</th>
+				<th>Report Card</th>
+				<th>Benchmark</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Average (&mu;)</td>
+					<td><%= begin @records.avg(:score) rescue nil end %></td>
+					<td><%= begin @records.avg(:exam) rescue nil end %></td>
+				</tr>
+				<tr>
+					<td>Variance (&sigma;<sup>2</sup>)</td>
+					<td><%= begin @records.variance(:score) rescue nil end %></td>
+					<td><%= begin @records.variance(:exam) rescue nil end %></td>
+				</tr>
+				<tr>
+					<td>Standard Deviation (&sigma;)</td>
+					<td><%= begin @records.standard_deviation(:score) rescue nil end %></td>
+					<td><%= begin @records.standard_deviation(:exam) rescue nil end %></td>
+				</tr>
+				<tr>
+					<td>Lowest</td>
+					<td><%= begin @records.min(:score) rescue nil end %></td>
+					<td><%= begin @records.min(:exam) rescue nil end %></td>
+				</tr>
+				<tr>
+					<td>Highest</td>
+					<td><%= begin @records.max(:score) rescue nil end %></td>
+					<td><%= begin @records.max(:exam) rescue nil end %></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<table class="table table-bordered table-striped table-condensed tablesorter student-table" id="student-table">
+			<thead>
+				<tr>
+					<th class="student-name">Student</th>
+					<th class="marking-period-grade">Grade</th>
+					<th>&sigma; Grade</th>
+					<% unless @marking_period == 1 || params[:mp] == 1 %><th class="change">&#916; Grade</th><% end %>
+					<th class="benchmark">Benchmark</th>
+					<th>&sigma; Benchmark</th>
+					<th class="change">&#916; Benchmark</th>
+					<th class="exam ela">NY ELA</th>
+					<th class="predictive test-score ela-score">ELA Predictive</th>
+					<th class="predictive test-score ela-score">&#916; ELA</th>
+					<th class="exam math">NY Math</th>
+					<th class="predictive test-score math-score">Math Predictive</th>
+					<th class="predictive test-score math-score">&#916; Math</th>
+				</tr>
+			</thead>
+			<tbody>
+			<% @records.each do |record| %>
+				<tr>
+					<td class="student-name">
+						<a href="/students/<%= record.student.id %>"><%= record.student.name %></a>
+						<% if record.failing? %><span class="label important">Failing</span><% end %>
+						<% if record.at_risk? %><span class="label warning">At Risk</span><% end %>
+						<% if record.student.iep? %><span class="label notice">IEP</span><% end %>
+						<% if record.student.targeted %><span class="label success">TARGETED</span><% end %>
+					</td>
+					<td class="marking-period-grade"><%= record.score %></td>
+					<td class="marking-period-deviance"><%= record.deviance(:score, :class, :rounded) %></td>
+					<td class="change"><%= record.change(:score) %></td>
+					<td class="benchmark"><%= record.exam %></td>
+					<td class="benchmark"><%= record.deviance(:exam, :class, :rounded) %></td>
+					<td class="change"><%= record.change(:exam) %></td>
+					<td class="exam ela"><%= record.student.ela %></td>
+					<td class="predictive test-score ela-score"><%= record.student.exam_score(2, 3) %></td>
+					<td class="predictive test-score ela-score"><%= [record.student.exam_score(2, 3), record.student.ela.to_i].difference %></td>
+					<td class="exam math"><%= record.student.math %></td>
+					<td class="predictive test-score math-score"><%= record.student.exam_score(3, 3) %></td>
+					<td class="predictive test-score math-score"><%= [record.student.exam_score(3, 3), record.student.math.to_i].difference %></td>
+				</tr>
+			<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<% unless @thirds == :off %>
+<div class="row">
+	<div class="span6">
+		<h3>Highest Third by Score</h3>
+		<ul>
+			<% @course.third([:highest, :score]).each do |student| %>
+				<li><a href="/students/<%= student.id %>"><%= student.name %></a></li>
+			<% end %>
+		</ul>
+	</div>
+	<div class="span6">
+		<h3>Lowest Third by Score</h3>
+		<ul>
+			<% @course.third([:lowest, :score]).each do |student| %>
+				<li><a href="/students/<%= student.id %>"><%= student.name %></a></li>
+			<% end %>
+		</ul>
+	</div>
+</div>
+
+<div class="row">
+	<div class="span6">
+		<h3>Highest Third by Benchmark Exam</h3>
+		<ul>
+			<% @course.third([:highest, :exam]).each do |student| %>
+				<li><a href="/students/<%= student.id %>"><%= student.name %></a></li>
+			<% end %>
+		</ul>
+	</div>
+	<div class="span6">
+		<h3>Lowest Third by Benchmark Exam</h3>
+		<ul>
+			<% @course.third([:lowest, :exam]).each do |student| %>
+				<li><a href="/students/<%= student.id %>"><%= student.name %></a></li>
+			<% end %>
+		</ul>
+	</div>
+</div>
+<% end %>

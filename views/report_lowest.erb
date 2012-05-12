@@ -1,0 +1,92 @@
+<div id="toggles" class="row">
+	<div class="table-bordered table-striped table-condensed table-condensed" id="report-toggles">
+		<p><strong>Subjects</strong>:</p>
+		<ul>
+			<% SUBJECTS.each do |subject| %><li class="toggle-<%= subject.to_class %> subject-toggles"><%= subject %> (<a href="#" class="toggle">Hide/Show</a> | <a href="#" class="show-only">Show Only</a>)<span class="toggle-switch hidden hide toggle-switch-report"> (Hidden)</span></li><% end %>
+			<li class="show-all subject-toggles"><a href="#">Show all</a></li>
+		</ul>
+	</div>
+	<div class="table-bordered table-striped table-condensed table-condensed" id="grade-toggles">
+		<p><strong>Grades</strong>:</p>
+		<ul>
+			<% GRADES.each do |grade| %><li class="toggle-<%= grade %> subject-toggles">Grade <%= grade %> (<a href="#" class="toggle">Hide/Show</a> | <a href="#" class="show-only">Show Only</a>)<span class="toggle-switch hidden hide toggle-switch-grade"> (Hidden)</span></li><% end %>
+			<li class="show-all grade-toggles"><a href="#">Show all</a></li>
+		</ul>
+	</div>
+</div>
+
+<div class="alert-message block-message info">
+	<p><strong>See the ten lowest performing students in a particular cohort:</strong></p>
+	<a href="?cohort=nil" class="primary btn">All Cohorts</a> <a href="?cohort=A" class="btn">Cohort A</a> <a href="?cohort=b" class="btn">Cohort B</a> <a href="?cohort=C" class="btn">Cohort C</a>
+</div>
+
+<div id="reports">
+<% @reports.each do |report| %>
+	<% unless report.records.empty? %>
+		<div class="report-<%= report.subject.to_class %> report-grade-<%= report.grade %> report">
+			<h2>Grade <%= report.grade %>: <%= report.subject %></h2>
+			<table class="table table-bordered table-striped table-condensed tablesorter report-table">
+				<tr>
+					<th class="student-name">Student</th>
+					<th class="marking-period-grade">MP Score</th>
+					<th class="benchmark">Benchmark</th>
+					<% if report.has_exam? %><th class="state-exam">State Exam</th><% end %>
+					<th class="homeroom">Homeroom</th>
+					<% if report.grade <= 8 %><th>Cohort</th><% end %>
+				</tr>
+				<% report.records.each do |record| %>
+				<tr class="student-record">
+					<td class="student-name"><a href="/students/<%= record.student.id %>"><%= record.student.name %></a><% if record.student.iep? %> <span class="label notice">IEP</span><% end %><% if record.student.targeted %> <span class="label success">TARGETED</span><% end %></td>
+					<td class="marking-period-grade"><%= record.score %></td>
+					<td class="benchmark"><%= record.exam %></td>
+					<% if report.has_exam? %><td class="state-exam"><%= record.state_exam %></td><% end %>
+					<td class="homeroom"><a href="/students?homeroom=<%= record.student.homeroom %>"><%= record.student.homeroom %></a></td>
+					<% if report.grade <= 8 %><td class="cohort"><a href="?cohort=<%= record.student.cohort %>">Cohort <%= record.student.cohort %></a></td><% end %>
+				</tr>
+				<% end %>
+			</table>
+		</div>
+	<% end %>
+<% end %>
+</div>
+
+<!-- Javascriptery -->
+
+<script>
+	$('div#toggles li.show-all.subject-toggles').click(function() {
+		$('div#reports div.report').show();
+		$('div#toggles div#report-toggles span.toggle-switch').hide();
+	});
+	$('div#toggles li.show-all.grade-toggles').click(function() {
+		$('div#reports div.grade').show();
+		$('div#toggles div#grade-toggles span.toggle-switch').hide();
+	});
+	<% SUBJECTS.each do |subject| %>
+	$('div#toggles li.toggle-<%= subject.to_class %> a.toggle').click(function() {
+		$('div#reports div.report-<%= subject.to_class %>').toggle();
+		$('div#toggles li.toggle-<%= subject.to_class%> span.toggle-switch').toggle();
+	});
+	$('div#toggles li.toggle-<%= subject.to_class %> a.show-only').click(function() {
+		$('div#reports div.report').hide('fast', function() {
+			$('div#reports div.report-<%= subject.to_class %>').show()
+		});
+		$('div#toggles li.subject-toggles span.toggle-switch-report').show('fast', function() {
+			$('div#toggles li.toggle-<%= subject.to_class%> span.toggle-switch').hide()
+		});
+	});
+	<% end %>
+	<% GRADES.each do |grade| %>
+	$('div#toggles li.toggle-<%= grade %> a.toggle').click(function() {
+		$('div#reports div.report-grade-<%= grade %>').toggle();
+		$('div#toggles li.toggle-<%= grade %> span.toggle-switch').toggle();
+	});
+	$('div#toggles li.toggle-<%= grade %> a.show-only').click(function() {
+		$('div#reports div.report').hide('fast', function() {
+			$('div#reports div.report-grade-<%= grade %>').show()
+		});
+		$('div#toggles li.subject-toggles span.toggle-switch-grade').show('fast', function() {
+			$('div#toggles li.toggle-<%= grade %> span.toggle-switch').hide()
+		});
+	});
+	<% end %>
+</script>

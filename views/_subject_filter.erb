@@ -1,0 +1,8 @@
+<div id="subjects">
+	<ul>
+	<li><strong>Subjects</strong>:</li>
+	<% @courses.subjects.each do |subject| %>
+		<li><a href="?subject=<%= subject %>"><%= subject %></a></li>
+	<% end %>
+	</ul>
+</div>

@@ -1,0 +1,23 @@
+<% if @notice %><div class="alert-message warning"><%= @notice %></div><% end %>
+<div class="alert-message warning"><%= @records.count %> records in this report.</div>
+
+<table class="table table-bordered table-striped table-condensed tablesorter movement-table" id="movement-table">
+	<thead>
+		<tr>
+			<th class="name">Name</th>
+			<th class="homeroom">Homeroom</th>
+			<th class="course">Course</th>
+			<th class="change">Change</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @records.each do |record| %>
+		<tr class="<%= record.student.homeroom %> grade-<%= record.student.grade %> <%= record.course.teacher.to_class %>">
+			<td class="name"><a href="/students/<%= record.student.id %>"><%= record.student.name %></a></td>
+			<td class="homeroom"><a href="/students/?homeroom=<%= record.student.homeroom %>"><%= record.student.homeroom %></a></td>
+			<td class="course"><a href="/courses/<%= record.course.code %>"><%= record.course.name %></a></td>
+			<td class="change"><%= record.change %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>

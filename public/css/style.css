@@ -1,0 +1,91 @@
+body {
+  margin-top: 60px; }
+
+div#marking-periods ul, div#student-info ul, div#subjects ul, div#grades ul {
+  margin-left: 0; }
+  div#marking-periods ul li, div#student-info ul li, div#subjects ul li, div#grades ul li {
+    display: inline;
+    list-style-type: none;
+    padding-right: 20px; }
+
+div#toggles ul {
+  margin-left: 0; }
+  div#toggles ul li {
+    list-style-type: none;
+    padding-right: 20px; }
+
+.toggle-switch {
+  color: #CCC; }
+
+.grade-box, .subject-box {
+  width: 100%;
+  clear: both; }
+  
+.cep-subject-breakdown td {
+  min-width: 25px;
+}
+
+.cep-subject-breakdown td.lte {
+  color: purple;
+}
+
+.cep-subject-breakdown td.ltm {
+  color: blue;
+}
+
+footer {
+	font-size: 0.8em;
+	border-top: #CCC solid 1px;
+	padding-top: 1em;
+}
+
+footer ul {margin-left: 0;}
+
+footer ul li {
+	display: inline;
+	list-style-type: none;
+	padding-right: 20px;
+}
+
+/* Bootstrap looks for classes that start with "span" and does some magic to them. This is a dirty little hack to fix that. */
+[class*="spanish"] {
+  display: inline;
+  float: none;
+  margin-left: 0; }
+
+/* Brings back the Tablesorter styles from Bootstrap 1.4 */
+table .header {
+  cursor: pointer; }
+  table .header:after {
+    content: "";
+    float: right;
+    margin-top: 7px;
+    border-width: 0 4px 4px;
+    border-style: solid;
+    border-color: #000000 transparent;
+    visibility: hidden; }
+  table .header:hover:after {
+    visibility: visible; }
+
+table .headerSortUp, table .headerSortDown {
+  background-color: #f7f7f9;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75); }
+
+table .headerSortDown:after, table .headerSortDown:hover:after {
+  visibility: visible;
+  filter: alpha(opacity=60);
+  -moz-opacity: 0.6;
+  opacity: 0.6; }
+
+table .headerSortUp:after {
+  border-bottom: none;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #000000;
+  visibility: visible;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  filter: alpha(opacity=60);
+  -moz-opacity: 0.6;
+  opacity: 0.6; }

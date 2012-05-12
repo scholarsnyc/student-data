@@ -1,0 +1,27 @@
+<%= erb :_marking_period_filter %>
+
+<% @subjects.each do |subject| %>
+	<h2><%= subject %></h2>
+	<table class="table table-bordered table-striped table-condensed tablesorter">
+		<thead>
+			<tr>
+				<th>Teacher</th>
+				<th>Average Score</th>
+				<th>Score Variance</th>
+				<th>Average Benchmark</th>
+				<th>Benchmark Variance</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% Course.subject(subject).teachers.each do |teacher| %>
+			<tr>
+				<td><a href="/courses?teacher=<%= teacher %>"><%= teacher %></a></td>
+				<td><%= Record.mp(@marking_period).subject(subject).teacher(teacher).avg(:score).to_i %></td>
+				<td><%= Record.mp(@marking_period).subject(subject).teacher(teacher).variance(:score).to_i %></td>
+				<td><%= Record.mp(@marking_period).subject(subject).teacher(teacher).avg(:exam).to_i %></td>
+				<td><%= Record.mp(@marking_period).subject(subject).teacher(teacher).variance(:exam).to_i %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>

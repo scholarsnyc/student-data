@@ -1,0 +1,21 @@
+<table>
+	<caption>Performance on state tests by gender by grade</caption>
+	<thead>
+		<tr>
+			<th colspan="1" rowspan="2">Grade</th>
+			<th colspan="2" rowspan="1">NYS ELA</th>
+			<th colspan="2" rowspan="1">NYS Math</th>
+		</tr>
+		<tr>
+			<th>Male</th>
+			<th>Female</th>
+			<th>Male</th>
+			<th>Female</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% Student.grades.each do |grade| %>
+			<td>Grade <%= grade %></td>
+		<% end %>
+	</tbody>
+</table>

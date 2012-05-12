@@ -1,0 +1,30 @@
+<table class="table table-bordered table-striped table-condensed tablesorter zebra-striped" id="feeder-schools">
+	<thead>
+	<tr>
+		<th class="school-name">School Name</th>
+		<th>Students Received</th>
+		<th>NYS ELA Average</th>
+		<th>NYS Math Average</th>
+		<th>Average ELA Score</th>
+		<th>Average Math Score</th>
+		<th>Average ELA Benchmark</th>
+		<th>Average Math Benchmark</th>
+		<th>Composite Score</th>
+	</tr>
+	</thead>
+	<tbody>
+	<% @feeder_schools.each do |feeder| %>
+	<tr>
+		<td><%= feeder.name %></td>
+		<td><%= feeder.students.count %></td>
+		<td><%= feeder.ela_exam %></td>
+		<td><%= feeder.math_exam %></td>
+		<td><%= feeder.ela_score %></td>
+		<td><%= feeder.math_score %></td>
+		<td><%= feeder.ela_benchmark %></td>
+		<td><%= feeder.math_benchmark %></td>
+		<td><%= feeder.composite %></td>
+	</tr>
+	<% end %>
+	</tbody>
+</table>

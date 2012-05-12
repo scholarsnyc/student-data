@@ -1,0 +1,35 @@
+<% if @notice %><div class="alert-message warning"><%= @notice %></div><% end %>
+<% if @count %><div class="alert-message warning"><%= @count %> students in this report.</div><% end %>
+
+<%= erb :_grade_filter %>
+
+<table class="table table-bordered table-striped table-condensed tablesorter students-table" id="students-table">
+	<thead>
+		<tr>
+			<th class="name">Name</th>
+			<th class="grade">Grade</th>
+			<th class="homeroom">Homeroom</th>
+			<th>English</th>
+			<th>Social Studies</th>
+			<th>Mathematics</th>
+			<th>Science</th>
+			<th>Spanish</th>
+			<th>Overall</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @students.each do |student| %>
+		<tr data-student_id="<%= student.id %>" class="grade<%= student.grade %> homeroom<%= student.homeroom %>">
+			<td class="name"><a href="/students/<%= student.id %>"><%= student.name %></a></td>
+			<td class="grade"><a href="?grade=<%= student.grade %>"><%= student.grade %></a></td>
+			<td class="homeroom"><a href="?homeroom=<%= student.homeroom %>"><%= student.homeroom %></a></td>
+			<td><%= student.movement("English") %></td>
+			<td><%= student.movement("Social Studies") %></td>
+			<td><%= student.movement("Mathematics") %></td>
+			<td><%= student.movement("Science") %></td>
+			<td><%= student.movement("Spanish") %></td>
+			<td><%= student.movement(:all) %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>

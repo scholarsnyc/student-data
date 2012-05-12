@@ -1,0 +1,10 @@
+<div id="grades">
+	<ul>
+	<li><strong>Grades</strong>:</li>
+	<li><a href="?grade[]=6&grade[]=7&grade[]=8">Middle School</a></li>
+	<li><a href="?grade[]=9&grade[]=10&grade[]=11&grade[]=12">High School</a></li>
+	<% Student.grades.each do |grade| %>
+	<li><a href="?grade=<%= grade %>"><%= grade %></a></li>
+	<% end %>
+	</ul>
+</div>

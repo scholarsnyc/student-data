@@ -1,0 +1,41 @@
+<% if @notice %><div class="alert-message warning"><%= @notice %></div><% end %>
+<% if @count %><div class="alert-message warning"><%= @count %> students in this report.</div><% end %>
+
+<%= erb :_grade_filter %>
+
+<table class="table table-bordered table-striped table-condensed tablesorter students-table" id="students-table">
+	<thead>
+		<tr>
+			<th class="first-name">First Name</th>
+			<th class="last-name">Last Name</th>
+			<th class="student-id hide">OSIS</th>
+			<th class="grade">Grade</th>
+			<th class="homeroom">Homeroom</th>
+			<th class="ela-score test-score">NYS ELA</th>
+			<th class="math-score test-score">NYS Math</th>
+			<th class="predictive test-score ela-score">ELA Predictive</th>
+			<th class="predictive test-score math-score">Math Predictive</th>
+			<th class="predictive test-score ela-score">&#916; ELA</th>
+			<th class="predictive test-score math-score">&#916; Math</th>
+			<th class="college-ready">College Ready?</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @students.each do |student| %>
+		<tr data-student_id="<%= student.id %>" class="grade<%= student.grade %> homeroom<%= student.homeroom %>">
+			<td class="first-name"><a href="/students/<%= student.id %>"><%= student.firstname %></a></td>
+			<td class="last-name"><a href="/students/<%= student.id %>"><%= student.lastname %></a></td>
+			<td class="student-id hide"><a href="/students/<%= student.id %>"><%= student.id %></a></td>
+			<td class="grade"><a href="?grade=<%= student.grade %>"><%= student.grade %></a></td>
+			<td class="homeroom"><a href="?homeroom=<%= student.homeroom %>"><%= student.homeroom %></a></td>
+			<td class="ela-score test-score"><%= student.ela %></td>
+			<td class="math-score test-score"><%= student.math %></td>
+			<td class="predictive test-score ela-score"><%= student.exam_score(2, 3) %></td>
+			<td class="predictive test-score math-score"><%= student.exam_score(3, 3) %></td>
+			<td class="predictive test-score ela-score"><%= [student.exam_score(2, 3), student.ela.to_i].difference %></td>
+			<td class="predictive test-score math-score"><%= [student.exam_score(3, 3), student.math.to_i].difference %></td>
+			<td class="college-ready"><%= student.college_ready :both %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>

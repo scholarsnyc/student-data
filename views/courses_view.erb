@@ -1,0 +1,46 @@
+<p><strong>Marking Period</strong>: <%= @marking_period %></p>
+
+<%= erb :_subject_filter %>
+
+<% if @courses.empty? %>
+	<div class="alert-message error"><strong>Oh, Snap!</strong> For some reason, there are no results for your search.</div>
+<% end %>
+
+<% if @notice %>
+	<div class="alert-message error"><%= @notice %></div>
+<% end %>
+
+<table class="table table-striped table-condensed table-bordered tablesorter courses-table" id="courses-table">
+	<thead>
+		<tr>
+			<th class="course-name">Course Name</th>
+			<th class="course-code">Course Code</th>
+			<th class="teacher">Teacher</th>
+			<th class="student-count">Students</th>
+			<th class="percent-passing marking-period">Passing (MP)</th>
+			<th class="percent-passing benchmark">Passing (Benchmark)</th>
+			<th class="average-score marking-period">Average (MP)</th>
+			<th class="average-score benchmark">Average (Benchmark)</th>
+			<th class="variance marking-period">Variance (MP)</th>
+			<th class="variance Benchmark">Variance (Benchmark)</th>
+			<th class="subject">Subject</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @courses.each do |course| %>
+		<tr>
+			<td class="course-name"><a href="/courses/<%= course.code %>"><%= course.name %></a></td>
+			<td class="course-code"><%= course.code %></td>
+			<td class="teacher"><a href="/courses?teacher=<%= course.teacher %>"><%= course.teacher %></a></td>
+			<td class="student-count"><%= course.students.count / @marking_period %></td>
+			<td class="percent-passing marking-period"><%= course.percent_passing(@marking_period, :score) %></td>
+			<td class="percent-passing benchmark"><%= course.percent_passing(@marking_period, :exam) %></td>
+			<td class="average-score marking_period"><%= course.average_score(@marking_period, :score) %></td>
+			<td class="average-score benchmark"><%= course.average_score(@marking_period, :exam) %></td>
+			<td class="average-score benchmark"><%= course.records.mp(@marking_period).variance(:score, :rounded) %></td>
+			<td class="average-score benchmark"><%= course.records.mp(@marking_period).variance(:exam, :rounded) %></td>
+			<td class="subject"><a href="?subject=<%= course.subject %>"><%= course.subject %></a></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>

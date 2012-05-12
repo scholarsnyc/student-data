@@ -1,0 +1,9 @@
+<div id="marking-periods">
+	<div><strong>Marking Period:</strong> <%= @marking_period if @marking_period %></div>
+	<ul>
+	<li><strong>Marking Periods</strong>:</li>
+	<% 1.upto(CURRENT_MARKING_PERIOD) do |mp| %>
+		<li><a href="?mp=<%= mp %>">MP<%= mp %></a></li>
+	<% end %>
+	</ul>
+</div>

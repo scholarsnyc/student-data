@@ -1,0 +1,99 @@
+<!doctype html>
+
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title><%= "#{@title} – " if @title %><%= APPLICATION_NAME %></title>
+
+  <meta name="description" content="Student Assessment at the Scholars' Academy">
+  <meta name="author" content="Steve Kinney">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+ 
+  <% JAVASCRIPTS.each do |script| %>
+	  <script src="<%= script %>"></script>
+  <% end %>
+
+	<script src="/js/application.js"></script>
+</head>
+
+<body>
+  
+	<div class="navbar navbar-fixed-top">
+	  <div class="navbar-inner">
+	    <div class="container">
+	      <ul class="nav">
+					<a class="brand" href="/">
+					  <%= APPLICATION_NAME %>
+					</a>
+				  <li><a href="/courses">Courses</a></li>
+					<li><a href="/students">Students</a></li>
+					<li class="dropdown">
+					    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				        Reports <b class="caret"></b>
+					    </a>
+					    <ul class="dropdown-menu">
+						    <li><a href="/reports/probation-one">Probation: Level One</a></li>
+				      	<li><a href="/reports/probation-two">Probation: Level Two</a></li>
+				      	<li><a href="/reports/probation-two-plus">Probation: Level Two Plus</a></li>
+				      	<li><a href="/reports/ineligible">Ineligible List</a></li>
+				      	<li class="divider"></li>
+				      	<li><a href="/reports/breakdown/grades">Grade Breakdown</a></li>
+				      	<li><a href="/reports/breakdown/subject">Subject Breakdown</a></li>
+							  <li><a href="/reports/breakdown/subject-teacher">Subject-Teacher Breakdown</a></li>
+							  <li><a href="/reports/outstanding">Outstanding Scholar Eligibility</a></li>
+				      	<li class="divider"></li>
+							  <li><a href="/reports/lowest/by/report-card">Lowest by Grade</a></li>
+							  <li><a href="/reports/lowest/by/benchmark">Lowest by Benchmark</a></li>
+							  <li><a href="/reports/movement" title="Student Movement Report">Student Movement Report</a></li>
+				      	<li class="divider"></li>
+							  <li><a href="/students/targeted">Targeted Students</a></li>
+							  <li class="divider"></li>
+							  <li><a href="/reports/feeder-schools" title="Feeder Schools">Feeder School Report</a></li>
+					    </ul>
+					  </li>
+				</ul>
+	    </div>
+	  </div>
+	</div>
+
+
+  <div id="container" class="container">
+    <header>
+			<h1><%= @title %></h1>
+    </header>
+    <div id="main" role="main">
+		  <%= yield %>
+    </div>
+		<footer>
+		<ul class="symbol-glossary">
+			<li><strong>&sigma;</strong> &mdash; <a href="http://en.wikipedia.org/wiki/Standard_deviation" title="Standard deviation - Wikipedia, the free encyclopedia">Standard Deviation</a></li>
+			<li><strong>&sigma;<sup>2</sup></strong> &mdash; <a href="http://en.wikipedia.org/wiki/Variance" title="Variance - Wikipedia, the free encyclopedia">Variance</a></li>
+			<li><strong>&mu;</strong> &mdash; <a href="http://en.wikipedia.org/wiki/Mean" title="Mean - Wikipedia, the free encyclopedia">Mean</a></li>
+			<li><strong>&Delta;</strong> &mdash; <a href="http://en.wikipedia.org/wiki/Difference_operator" title="Finite difference - Wikipedia, the free encyclopedia">Change</a></li>
+		</ul>
+		</footer>
+  </div> <!--! end of #container -->
+
+  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  <!--[if lt IE 7 ]>
+    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <![endif]-->
+  
+</body>
+</html>

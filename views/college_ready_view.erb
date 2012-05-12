@@ -1,0 +1,38 @@
+<% if @notice %><div class="alert-message warning"><%= @notice %></div><% end %>
+<% if @count %><div class="alert-message warning"><%= @count %> students in this report.</div><% end %>
+
+<%= erb :_grade_filter %>
+
+<table class="table table-bordered table-striped table-condensed tablesorter students-table" id="students-table">
+	<thead>
+		<tr>
+			<th class="first-name">First Name</th>
+			<th class="last-name">Last Name</th>
+			<th class="student-id hide">OSIS</th>
+			<th class="grade">Grade</th>
+			<th class="homeroom">Homeroom</th>
+			<th class="ela-score test-score">English Regents</th>
+			<th class="math-score test-score">Math Regents</th>
+			<th class="ela-score psat-score">PSAT Reading</th>
+			<th class="ela-score psat-score">PSAT Math</th>
+			<th class="college-ready">College Ready?</th>
+			<th class="college-ready explanation">Why?</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @students.each do |student| %>
+		<tr data-student_id="<%= student.id %>" class="grade<%= student.grade %> homeroom<%= student.homeroom %>">
+			<td class="first-name"><a href="/students/<%= student.id %>"><%= student.firstname %></a></td>
+			<td class="last-name"><a href="/students/<%= student.id %>"><%= student.lastname %></a></td>
+			<td class="student-id hide"><a href="/students/<%= student.id %>"><%= student.id %></a></td>
+			<td class="grade"><a href="?grade=<%= student.grade %>"><%= student.grade %></a></td>
+			<td class="homeroom"><a href="?homeroom=<%= student.homeroom %>"><%= student.homeroom %></a></td>
+			<td class="ela-score test-score"><%= student.ela %></td>
+			<td class="math-score test-score"><%= student.math %></td>
+			<td class="ela-score psat-score"><%= student.psat(:ela).to_i %></td>
+			<td class="ela-score psat-score"><%= student.psat(:math).to_i %></td>
+			<td class="college-ready"><%= student.college_ready %></td>
+			<td class="college-ready explanation"><%= student.why_not_college_ready %></td>
+	<% end %>
+	</tbody>
+</table>
