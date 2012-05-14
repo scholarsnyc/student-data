@@ -4,7 +4,8 @@ require 'data_mapper'
 require 'google_chart'
 
 # Use MySQL in production, but use a local SQLite database in development
-configure do
+
+configure :production do
  DataMapper.setup(:default, 'mysql://seawolf:Oce423@scholarsnyc.com/studentdata')
 end
 

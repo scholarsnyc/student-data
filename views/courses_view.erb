@@ -21,8 +21,6 @@
 			<th class="percent-passing benchmark">Passing (Benchmark)</th>
 			<th class="average-score marking-period">Average (MP)</th>
 			<th class="average-score benchmark">Average (Benchmark)</th>
-			<th class="variance marking-period">Variance (MP)</th>
-			<th class="variance Benchmark">Variance (Benchmark)</th>
 			<th class="subject">Subject</th>
 		</tr>
 	</thead>
@@ -37,8 +35,6 @@
 			<td class="percent-passing benchmark"><%= course.percent_passing(@marking_period, :exam) %></td>
 			<td class="average-score marking_period"><%= course.average_score(@marking_period, :score) %></td>
 			<td class="average-score benchmark"><%= course.average_score(@marking_period, :exam) %></td>
-			<td class="average-score benchmark"><%= course.records.mp(@marking_period).variance(:score, :rounded) %></td>
-			<td class="average-score benchmark"><%= course.records.mp(@marking_period).variance(:exam, :rounded) %></td>
 			<td class="subject"><a href="?subject=<%= course.subject %>"><%= course.subject %></a></td>
 		</tr>
 	<% end %>
