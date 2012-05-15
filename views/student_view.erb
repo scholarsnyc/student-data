@@ -3,8 +3,6 @@
 		<li><strong>Grade</strong>: <a href="/students?grade=<%= @student.grade %>"><%= @student.grade %></a></li>
 		<li><strong>Homeroom</strong>: <a href="/students?homeroom=<%= @student.homeroom %>"><%= @student.homeroom %></a></li>
 		<li><strong>Home Language</strong>: <%= @student.language %></li>
-		<% if @student.iep == 1 %><li><span class="label notice">IEP</span></li><% end %>
-		<% if @student.targeted %><span class="label success">TARGETED</span><% end %>
 	</ul>
 </div>
 
