@@ -122,6 +122,10 @@ class Student
       student.college_ready? == true || student.college_ready?.nil?
     end
   end
+  
+  def self.to_comprehensive_report(subject, options = {})
+    ComprehensiveReport.new(all, subject, options)
+  end
 
   # ================ #
   # Instance Methods #

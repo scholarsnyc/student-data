@@ -111,7 +111,7 @@ get '/api/trend-lines' do
           :wholeCLass => {
             :exams => {           
               :ela => c.exam_average(:state, :subject => :ela).round,
-              :math =>c.exam_average(:state, :subject => :math).round
+              :math => c.exam_average(:state, :subject => :math).round
             },
             :benchmarks => [ 
               c.average(:exam, :mp => 1).round,
@@ -120,6 +120,34 @@ get '/api/trend-lines' do
               c.average(:exam, :mp => 4).round,
               c.average(:exam, :mp => 5).round,
               c.average(:exam, :mp => 6).round
+            ]
+          },
+          :lowestThirdMath => {
+            :exams => {           
+              :ela => lm.exam_average(:state, :subject => :ela).round,
+              :math => lm.exam_average(:state, :subject => :math).round
+            },
+            :benchmarks => [ 
+              lm.average(:exam, :mp => 1).round,
+              lm.average(:exam, :mp => 2).round,
+              lm.average(:exam, :mp => 3).round,
+              lm.average(:exam, :mp => 4).round,
+              lm.average(:exam, :mp => 5).round,
+              lm.average(:exam, :mp => 6).round
+            ]
+          },
+          :lowestThirdELA => {
+            :exams => {           
+              :ela => le.exam_average(:state, :subject => :ela).round,
+              :math =>le.exam_average(:state, :subject => :math).round
+            },
+            :benchmarks => [ 
+              le.average(:exam, :mp => 1).round,
+              le.average(:exam, :mp => 2).round,
+              le.average(:exam, :mp => 3).round,
+              le.average(:exam, :mp => 4).round,
+              le.average(:exam, :mp => 5).round,
+              le.average(:exam, :mp => 6).round
             ]
           }
         }

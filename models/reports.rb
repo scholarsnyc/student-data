@@ -13,8 +13,14 @@ class ComprehensiveReport
     end
     @students = students
     @subject = Courses.convert_to_sym(subject)
-    @mp = options[:mp]
+    @options = options
+    @mp = @options[:mp]
     @coursework = @students.records(options).subject(Courses.convert_to_s(@subject))
+  end
+  
+  def cohort(c)
+    raise ArgumentError unless @students.cohorts.include?(c)
+    return ComprehensiveReport.new(@students.cohort(c), @subject, @options)
   end
   
   def exam_average(type, options = {})
@@ -72,6 +78,10 @@ class ComprehensiveReport
       :compareBenchmarkToState => compare_benchmark_with_state.rounded,
       :comparePredictiveToState => compare_predictive_with_state(2011, 2012).rounded
     }
+  end
+  
+  def to_json
+    to_hash.to_json
   end
   
   def to_a
