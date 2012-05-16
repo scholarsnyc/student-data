@@ -1,22 +1,95 @@
+<div id="cep-data-contols">
+  <form id="pull-cep-data">
+  <select id="select-subject" name="select-subject">
+    <% Conversions::Courses::COURSES.each do |k, v| %>
+      <option value="<%= k %>"><%= v %></option>
+    <% end %>
+  </select>
+  <select id="select-grade" name="select-grade">
+    <% GRADES.each do |g| %>
+      <option value="<%= g %>">Grade <%= g %></option>
+    <% end %>
+  </select>
+  <input type="submit" value="Pull in Benchmark Data" class="btn" id="pull-cep-data">
+  </form>
+</div>
+
 <div id="cep-data">
-  
 </div>
 
 <script type="text/javascript" charset="utf-8">
 (function () {
-  'use strict';
-  $.getJSON('/api/cep/grade/7/subject/ela', function (data) {
+  var pullData = function (grade, subject) {
+    'use strict';
     
-    var report = $('<div>')
-      .addClass('cep-report')
-      .addClass('grade' + data.grade)
-      .addClass(data.subject);
+    var courses = {
+     ela: "English",
+     library: "Library",
+     math: "Mathematics",
+     media: "Media Arts",
+     music: "Music",
+     newspaper: "Newspaper",
+     gym: "Physical Education",
+     science: "Science",
+     socialstudies: "Social Studies",
+     spanish: "Spanish",
+     tech: "Technology",
+     art: "Visual Art"
+    }
     
-    $('<h2>Grade ' + data.grade  + ': ' + data.subject + '</h2>').prependTo(report);
+    $('#cep-data').text('Loading...');
+    $.getJSON('/api/cep/grade/' + grade + '/subject/' + subject, function (data) {
     
+      var report = $('<div>')
+        .addClass('cep-report')
+        .addClass('grade' + data.grade)
+        .addClass(data.subject);
     
+      $('<h2>Grade ' + data.grade  + ': ' + courses[data.subject] + '</h2>').prependTo(report);
     
-    report.appendTo('#cep-data');
+      var createCohortTable = function (i, c) {
+        var element, table;
+        element = $('<div></div>')
+          .append('<h3>' + c.cohort + ': Average Benchmark by Marking Period</h3>');
+      
+        table = $('<table class="table table-bordered table-striped table-condensed tablesorter cep-subject-breakdown">\
+        <thead>\
+        <tr>\
+        <th>Group</th>\
+        <th>Exam Average</th>\
+        <th>T1MP1</th>\
+        <th>T1MP2</th>\
+        <th>T1MP3</th>\
+        <th>T2MP1</th>\
+        <th>T2MP2</th>\
+        </tr>\
+        </thead>\
+        <tbody>\
+        </tbody>');
+      
+        $.each([c.wholeGrade, c.lowestThirdELA, c.lowestThirdMath], function (index, group) {
+          var row = $('<tr>');
+          row.append('<td class="group-name">' +  group.groupName + '</td>');
+          row.append('<td class="exam-average">' +  (group.examAverage || '') + '</td>');
+          $.each(group.benchmarkByMarkingPeriod, function (index, mp) {
+            row.append('<td class="mp' + mp.mp  + '">' + (mp.score || '') + '</td>')
+          });
+          row.appendTo(table)
+        });
+      
+        element.append(table).appendTo(report);
+      }
+    
+      $.each(data.cohorts, createCohortTable);
+      
+      $('#cep-data').text('');
+      report.appendTo('#cep-data');
+    });
+  };
+  
+  $('#pull-cep-data').submit(function (event) {
+    event.preventDefault();
+    pullData($('#select-grade').attr('value'), $('#select-subject').attr('value'));
   });
 })();
 </script>
