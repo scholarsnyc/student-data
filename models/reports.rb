@@ -82,7 +82,9 @@ class ComprehensiveReport
       :comparePredictiveToState => compare_predictive_with_state(2011, 2012).rounded,
       :benchmarkByMarkingPeriod => (1.upto(CURRENT_MARKING_PERIOD).to_a.map { |mp| 
         {:mp => mp, :score => average(:exam, :mp => mp).rounded}
-        }.flatten )
+        }.flatten ),
+      :examAverageELA => exam_average(:state, :subject => :ela).rounded,
+      :examAverageMath => exam_average(:state, :subject => :math).rounded,
     }
   end
   
