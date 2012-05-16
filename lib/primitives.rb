@@ -16,6 +16,13 @@ class Float
   end
 end
 
+class Fixnum
+  def rounded
+    return nil if self == 0
+    sprintf("%.2f", self).to_f
+  end
+end
+
 class Array
   def difference
     self.each {|i| return nil if i.nil? || i.to_i == 0}

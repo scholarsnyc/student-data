@@ -109,9 +109,9 @@ get '/reports/lowest/by/benchmark' do
 	GRADES.each do |grade|
 		SUBJECTS.each do |subject|
 			if cohort
-				lowest_performers = LowestReport.new(grade, subject, cohort, :exam, @marking_period, @count)
+				lowest_performers = LowestPerformers.new(grade, subject, cohort, :exam, @marking_period, @count)
 			else
-				lowest_performers = LowestReport.new(grade, subject, :all, :exam, @marking_period, @count)
+				lowest_performers = LowestPerformers.new(grade, subject, :all, :exam, @marking_period, @count)
 			end
 			@reports << lowest_performers
 		end
@@ -133,28 +133,12 @@ get '/reports/lowest/third/by/nys/:type/grade/:grade' do
 	erb :students_view
 end
 
-get '/reports/feeder-schools' do
-	@title = "Feeder School Report"
-	@feeder_schools = Array.new
-	FEEDERS.each do |feeder| 
-    @feeder_schools << FeederSchool.new(feeder)
-  end
-	
-	erb :feeder_schools
-end
 
 get '/reports/breakdown/subject-teacher' do
 	@title = "Subject-Teacher Breakdown"
 	@subjects = Course.subjects
 	
 	erb :subject_teacher_breakdown
-end
-
-get '/reports/movement' do
-	@title = "Student Movement"
-	@students = Student.all(params)
-	
-	erb :student_movement
 end
 
 get '/reports/hs-math' do

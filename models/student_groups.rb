@@ -24,15 +24,15 @@ class Grade
     output[:cohorts] << {
       :cohort => "Grade #{@grade}",
       :wholeGrade => {:groupName => "Whole Grade"}.merge(@students.to_comprehensive_report(subject, options).to_hash),
-      :lowestThirdELA => {:groupName => "Lowest Third ELA"}.merge(@lowest_third_ela.to_comprehensive_report(subject, options).to_hash),
-      :lowestThirdMath => {:groupName => "Lowest Third Math"}.merge(@lowest_third_math.to_comprehensive_report(subject, options).to_hash),
+      :lowestThirdELA => {:groupName => "Lowest Third (ELA)"}.merge(@lowest_third_ela.to_comprehensive_report(subject, options).to_hash),
+      :lowestThirdMath => {:groupName => "Lowest Third (Math)"}.merge(@lowest_third_math.to_comprehensive_report(subject, options).to_hash),
     }
     @cohorts.each do |c|
       output[:cohorts] << {
         :cohort => "Grade #{@grade.to_s + c.to_s}",
-        :wholeGrade => {:groupName => "Whole Grade"}.merge(@students.cohort(c).to_comprehensive_report(subject, options).to_hash),
-        :lowestThirdELA => {:groupName => "Lowest Third ELA"}.merge(@lowest_third_ela.cohort(c).to_comprehensive_report(subject, options).to_hash),
-        :lowestThirdMath => {:groupName => "Lowest Third Math"}.merge(@lowest_third_math.cohort(c).to_comprehensive_report(subject, options).to_hash)
+        :wholeGrade => {:groupName => "Whole Cohort"}.merge(@students.cohort(c).to_comprehensive_report(subject, options).to_hash),
+        :lowestThirdELA => {:groupName => "Lowest Third (ELA)"}.merge(@lowest_third_ela.cohort(c).to_comprehensive_report(subject, options).to_hash),
+        :lowestThirdMath => {:groupName => "Lowest Third (Math)"}.merge(@lowest_third_math.cohort(c).to_comprehensive_report(subject, options).to_hash)
       }
     end
     output

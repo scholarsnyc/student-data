@@ -146,8 +146,8 @@ class GradeReport
     exams = Exam.all(:student => {:grade => grade, :cohort => cohort})
     records = Record.all(:mp => @marking_period, :student => {:grade => @grade, :cohort => cohort})
 
-    @ela_state = Examinations.adjust(exams.all(:type => 0).avg(:score))
-    @math_state = Examinations.adjust(exams.all(:type => 1).avg(:score))
+    @ela_state = Conversions::Examinations.adjust(exams.all(:type => 0).avg(:score))
+    @math_state = Conversions::Examinations.adjust(exams.all(:type => 1).avg(:score))
     @ela_predictive = exams.all(:type => 2).avg(:score)
     @math_predictive = exams.all(:type => 3).avg(:score)
     @ela_delta = @ela_predictive - @ela_state

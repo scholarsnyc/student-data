@@ -1,25 +1,3 @@
-<div id="toggles" class="row">
-	<div class="table-bordered table-striped table-condensed table-condensed" id="report-toggles">
-		<p><strong>Subjects</strong>:</p>
-		<ul>
-			<% SUBJECTS.each do |subject| %><li class="toggle-<%= subject.to_class %> subject-toggles"><%= subject %> (<a href="#" class="toggle">Hide/Show</a> | <a href="#" class="show-only">Show Only</a>)<span class="toggle-switch hidden hide toggle-switch-report"> (Hidden)</span></li><% end %>
-			<li class="show-all subject-toggles"><a href="#">Show all</a></li>
-		</ul>
-	</div>
-	<div class="table-bordered table-striped table-condensed table-condensed" id="grade-toggles">
-		<p><strong>Grades</strong>:</p>
-		<ul>
-			<% GRADES.each do |grade| %><li class="toggle-<%= grade %> subject-toggles">Grade <%= grade %> (<a href="#" class="toggle">Hide/Show</a> | <a href="#" class="show-only">Show Only</a>)<span class="toggle-switch hidden hide toggle-switch-grade"> (Hidden)</span></li><% end %>
-			<li class="show-all grade-toggles"><a href="#">Show all</a></li>
-		</ul>
-	</div>
-</div>
-
-<div class="alert-message block-message info">
-	<p><strong>See the ten lowest performing students in a particular cohort:</strong></p>
-	<a href="?cohort=nil" class="primary btn">All Cohorts</a> <a href="?cohort=A" class="btn">Cohort A</a> <a href="?cohort=b" class="btn">Cohort B</a> <a href="?cohort=C" class="btn">Cohort C</a>
-</div>
-
 <div id="reports">
 <% @reports.each do |report| %>
 	<% unless report.records.empty? %>
