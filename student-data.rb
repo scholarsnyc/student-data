@@ -85,72 +85,8 @@ get '/cep' do
       :data => ms_groups.map do |g| 
         [
           g[:name],
-          ComprehensiveReport.new(Student.all(g[:opts]), s).to_a
+          ComprehensiveReport.new(Student.all(g[:opts]), s).to_a[0..4]
         ].flatten 
-      end
-    }
-  end
-  
-  @column_titles = [
-      "grade",
-      {:type => "nys", :subject => "ela", :subgroup => "all"},
-      {:type => "nys", :subject => "ela", :subgroup => "lte"},
-      {:type => "nys", :subject => "math", :subgroup => "all"},
-      {:type => "nys", :subject => "math", :subgroup => "ltm"},
-      {:type => "benchmark", :mp => "mp1", :subgroup => "all"},
-      {:type => "benchmark", :mp => "mp1", :subgroup => "lte"},
-      {:type => "benchmark", :mp => "mp1", :subgroup => "ltm"},
-      {:type => "benchmark", :mp => "mp2", :subgroup => "all"},
-      {:type => "benchmark", :mp => "mp2", :subgroup => "lte"},
-      {:type => "benchmark", :mp => "mp2", :subgroup => "ltm"},
-      {:type => "benchmark", :mp => "mp3", :subgroup => "all"},
-      {:type => "benchmark", :mp => "mp3", :subgroup => "lte"},
-      {:type => "benchmark", :mp => "mp3", :subgroup => "ltm"},
-      {:type => "benchmark", :mp => "mp4", :subgroup => "all"},
-      {:type => "benchmark", :mp => "mp4", :subgroup => "lte"},
-      {:type => "benchmark", :mp => "mp4", :subgroup => "ltm"},
-      {:type => "benchmark", :mp => "mp5", :subgroup => "all"},
-      {:type => "benchmark", :mp => "mp5", :subgroup => "lte"},
-      {:type => "benchmark", :mp => "mp5", :subgroup => "ltm"},
-      {:type => "benchmark", :mp => "mp6", :subgroup => "all"},
-      {:type => "benchmark", :mp => "mp6", :subgroup => "lte"},
-      {:type => "benchmark", :mp => "mp6", :subgroup => "ltm"}
-    ]
-  
-  @data_for_each_subject = [:ela, :socialstudies, :math, :science, :spanish].map do |s|
-    {
-      :name => Conversions::Courses::COURSES[s],
-      :data => ms_groups.map do |g|
-        c = ComprehensiveReport.new(@students.all(g[:opts]), s)
-        le = ComprehensiveReport.new(@students.lowest_third_ela.all(g[:opts]), s)
-        lm = ComprehensiveReport.new(@students.lowest_third_math.all(g[:opts]), s)
-        [
-          g[:name],
-          [
-            c.exam_average(:state, :subject => :ela).round,
-            le.exam_average(:state, :subject => :ela).round,
-            c.exam_average(:state, :subject => :math).round,
-            lm.exam_average(:state, :subject => :math).round,
-            c.average(:exam, :mp => 1).round,
-            le.average(:exam, :mp => 1).round,
-            lm.average(:exam, :mp => 1).round,
-            c.average(:exam, :mp => 2).round,
-            le.average(:exam, :mp => 2).round,
-            lm.average(:exam, :mp => 2).round,
-            c.average(:exam, :mp => 3).round,
-            le.average(:exam, :mp => 3).round,
-            lm.average(:exam, :mp => 3).round,
-            c.average(:exam, :mp => 4).round,
-            le.average(:exam, :mp => 4).round,
-            lm.average(:exam, :mp => 4).round,
-            c.average(:exam, :mp => 5).round,
-            le.average(:exam, :mp => 5).round,
-            lm.average(:exam, :mp => 5).round,
-            c.average(:exam, :mp => 6).round,
-            le.average(:exam, :mp => 6).round,
-            lm.average(:exam, :mp => 6).round
-          ]
-        ].flatten
       end
     }
   end
