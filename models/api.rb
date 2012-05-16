@@ -40,9 +40,3 @@ class LowestThirdAPI
     end
   end
 end
-
-class TrendLineAPI
-  def initialize
-    
-  end
-end

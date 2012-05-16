@@ -158,7 +158,7 @@ get '/cep' do
   erb :charts
 end
 
-get '/rebuild' do
-  DataImport.rebuild!
-  erb :index
+get '/test' do
+  @data = Grade.new(7).to_comprehensive_report(:ela)
+  erb :test
 end

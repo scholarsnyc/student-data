@@ -25,6 +25,7 @@ class ComprehensiveReport
   
   def exam_average(type, options = {})
     subject = options.delete(:subject) || @subject
+    return nil unless [:ela, :math].include?(subject)
     exams = @students.exams(options).filter(:type => type, :subject => subject).avg(:score)
   end
   
@@ -48,7 +49,9 @@ class ComprehensiveReport
   end
   
   def compare_predictive_with_state(state_year, predictive_year)
-    predictive_exam(predictive_year) - state_exam(state_year)
+    unless predictive_exam(predictive_year).nil? || state_exam(state_year).nil?
+      predictive_exam(predictive_year) - state_exam(state_year)
+    end
   end
   
   def compare_benchmark_with_state(year = Time.now.year - 1, options = {})
@@ -76,7 +79,10 @@ class ComprehensiveReport
       :benchmarkAverage => average(:exam).rounded,
       :predictiveAverage => predictive_exam(2012).rounded,
       :compareBenchmarkToState => compare_benchmark_with_state.rounded,
-      :comparePredictiveToState => compare_predictive_with_state(2011, 2012).rounded
+      :comparePredictiveToState => compare_predictive_with_state(2011, 2012).rounded,
+      :benchmarkByMarkingPeriod => (1.upto(CURRENT_MARKING_PERIOD).to_a.map { |mp| 
+        {:mp => mp, :score => average(:exam, :mp => mp).rounded}
+        }.flatten )
     }
   end
   

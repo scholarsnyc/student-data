@@ -19,16 +19,16 @@ class Grade
     output = {
       :grade => @grade,
       :subject => subject,
-      :wholeGrade => @students.comprehensive_report(subject, options).to_hash,
-      :lowestThirdELA => @lowest_third_ela.comprehensive_report(subject, options).to_hash,
-      :lowestThirdMath => @lowest_third_math.comprehensive_report(subject, options).to_hash,
+      :wholeGrade => @students.to_comprehensive_report(subject, options).to_hash,
+      :lowestThirdELA => @lowest_third_ela.to_comprehensive_report(subject, options).to_hash,
+      :lowestThirdMath => @lowest_third_math.to_comprehensive_report(subject, options).to_hash,
       :cohort => {}
     }
     @cohorts.each do |c|
       output[:cohort][c] = {
-        :wholeGrade => @students.cohort(c).comprehensive_report(subject, options).to_hash,
-        :lowestThirdELA => @lowest_third_ela.cohort(c).comprehensive_report(subject, options).to_hash,
-        :lowestThirdMath => @lowest_third_math.cohort(c).comprehensive_report(subject, options).to_hash
+        :wholeGrade => @students.cohort(c).to_comprehensive_report(subject, options).to_hash,
+        :lowestThirdELA => @lowest_third_ela.cohort(c).to_comprehensive_report(subject, options).to_hash,
+        :lowestThirdMath => @lowest_third_math.cohort(c).to_comprehensive_report(subject, options).to_hash
       }
     end
     output

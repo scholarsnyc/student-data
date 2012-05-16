@@ -12,7 +12,7 @@ class Float
 	end
   def rounded
     return nil if self == 0
-    sprintf("%.2f", self)
+    sprintf("%.2f", self).to_f
   end
 end
 
@@ -26,6 +26,10 @@ end
 
 class NilClass
   def round
+    nil
+  end
+  
+  def rounded
     nil
   end
 end

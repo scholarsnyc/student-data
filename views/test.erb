@@ -1,7 +1,22 @@
+<div id="cep-data">
+  
+</div>
+
 <script type="text/javascript" charset="utf-8">
-  var x;
-  x = $.getJSON('/api/lowest-third/ela', function(data) {
-    return data.perGrade.seven.wholeGradeAverage;
+(function () {
+  'use strict';
+  $.getJSON('/api/cep/grade/7/subject/ela', function (data) {
+    
+    var report = $('<div>')
+      .addClass('cep-report')
+      .addClass('grade' + data.grade)
+      .addClass(data.subject);
+    
+    $('<h2>Grade ' + data.grade  + ': ' + data.subject + '</h2>').prependTo(report);
+    
+    
+    
+    report.appendTo('#cep-data');
   });
-  alert(x);
+})();
 </script>
