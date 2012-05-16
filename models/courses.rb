@@ -63,7 +63,8 @@ class Course
 	end
 	
 	def average_score(marking_period = CURRENT_MARKING_PERIOD, type_of_score = :score)
-		records(:mp	=> marking_period).avg(type_of_score).to_i
+		score = records(:mp	=> marking_period).avg(type_of_score).to_i
+		score == 0 ? nil : score
 	end
 	
   def total_students(mp = 1.upto(CURRENT_MARKING_PERIOD).to_a)

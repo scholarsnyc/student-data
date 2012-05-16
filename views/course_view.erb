@@ -11,18 +11,13 @@
 			<tbody>
 				<tr>
 					<td>Average (&mu;)</td>
-					<td><%= begin @records.avg(:score) rescue nil end %></td>
-					<td><%= begin @records.avg(:exam) rescue nil end %></td>
-				</tr>
-				<tr>
-					<td>Variance (&sigma;<sup>2</sup>)</td>
-					<td><%= begin @records.variance(:score) rescue nil end %></td>
-					<td><%= begin @records.variance(:exam) rescue nil end %></td>
+					<td><%= begin @records.avg(:score).rounded rescue nil end %></td>
+					<td><%= begin @records.avg(:exam) == 0 ? nil : @records.avg(:exam).rounded rescue nil end %></td>
 				</tr>
 				<tr>
 					<td>Standard Deviation (&sigma;)</td>
-					<td><%= begin @records.standard_deviation(:score) rescue nil end %></td>
-					<td><%= begin @records.standard_deviation(:exam) rescue nil end %></td>
+					<td><%= begin @records.standard_deviation(:score).rounded rescue nil end %></td>
+					<td><%= begin @records.standard_deviation(:exam).rounded rescue nil end %></td>
 				</tr>
 				<tr>
 					<td>Lowest</td>
@@ -81,43 +76,3 @@
 		</table>
 	</div>
 </div>
-
-<% unless @thirds == :off %>
-<div class="row">
-	<div class="span6">
-		<h3>Highest Third by Score</h3>
-		<ul>
-			<% @course.third([:highest, :score]).each do |student| %>
-				<li><a href="/students/<%= student.id %>"><%= student.name %></a></li>
-			<% end %>
-		</ul>
-	</div>
-	<div class="span6">
-		<h3>Lowest Third by Score</h3>
-		<ul>
-			<% @course.third([:lowest, :score]).each do |student| %>
-				<li><a href="/students/<%= student.id %>"><%= student.name %></a></li>
-			<% end %>
-		</ul>
-	</div>
-</div>
-
-<div class="row">
-	<div class="span6">
-		<h3>Highest Third by Benchmark Exam</h3>
-		<ul>
-			<% @course.third([:highest, :exam]).each do |student| %>
-				<li><a href="/students/<%= student.id %>"><%= student.name %></a></li>
-			<% end %>
-		</ul>
-	</div>
-	<div class="span6">
-		<h3>Lowest Third by Benchmark Exam</h3>
-		<ul>
-			<% @course.third([:lowest, :exam]).each do |student| %>
-				<li><a href="/students/<%= student.id %>"><%= student.name %></a></li>
-			<% end %>
-		</ul>
-	</div>
-</div>
-<% end %>

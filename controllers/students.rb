@@ -51,11 +51,6 @@ get '/students/:id/mp/:mp' do
 	erb :student_view
 end
 
-get '/students.csv' do
-	content_type 'text/csv', :charset => 'utf-8'
-	Student.all(params).to_csv
-end
-
 get '/students.json' do
 	Student.all(params).to_json
 end
