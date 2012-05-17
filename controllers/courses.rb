@@ -34,7 +34,6 @@ get '/courses/grade/:grade/subject/:subject' do
 	@grade = params[:grade]
 	@subject = params[:subject]
 	@title = "Grade #{@grade}: #{@subject}"
-	@thirds = :off
 	unless params[:cohort]	
 		@records = Record.all(:student => {:grade => @grade}, :course => {:subject => @subject}, :mp => @marking_period)
 	else
@@ -42,5 +41,6 @@ get '/courses/grade/:grade/subject/:subject' do
 		@title += " (Cohort #{@cohort})"
 		@records = Record.all(:student => {:grade => @grade, :cohort => @cohort}, :course => {:subject => @subject}, :mp => @marking_period)
 	end
+	@breakdown = @records.courses.to_breakdown
 	erb :course_view
 end
