@@ -94,4 +94,34 @@ class Course
 		records.map! { |record| record.student }
 	end
 	
+	def self.to_breakdown
+	  CourseBreakdown.new(all).breakdown
+  end
+	
+	def to_breakdown
+	  CourseBreakdown.new(self).breakdown
+  end
+	
+end
+
+class CourseBreakdown
+  attr_reader :students
+  def initialize(course, mp = CURRENT_MARKING_PERIOD)
+    raise ArgumentError unless course.is_a?(DataMapper::Collection) || course.is_a?(Course)
+    @course = course
+    @students = @course.students
+    @records = @course.records.mp(mp)
+  end
+  
+  def above(number)
+   ((@records.above(number).count * 1.0) / @records.count).to_percent
+  end
+  
+  def breakdown
+    {
+      55 => above(55),
+      65 => above(65),
+      85 => above(85)
+    }
+  end
 end

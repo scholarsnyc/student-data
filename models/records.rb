@@ -97,6 +97,10 @@ class Record
     nil
   end
   
+  def self.above(number, type = :score)
+    all(type.gte => number)
+  end
+  
   def deviance(type, scope = :class, format = nil)
     return nil if self[type].nil?
     if scope == :grade

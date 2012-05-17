@@ -7,6 +7,7 @@ get '/courses' do
   params.delete("mp")
   
   @courses = Course.all(params)
+  @breakdown = CourseBreakdown.new(@courses).breakdown
 		
 	erb :courses_view
 end
@@ -15,6 +16,7 @@ get '/courses/:code' do # Pull up all records for a course.
 	@course = Course.get(params[:code])
 	@title = @course.name
 	@records = @course.records(:mp => @marking_period)
+	@breakdown = @course.to_breakdown
   
 	@records_lowest_third = Array.new
 	@records_highest_third = Array.new
