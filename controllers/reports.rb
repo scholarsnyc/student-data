@@ -147,3 +147,15 @@ get '/reports/hs-math' do
 	
 	erb :students_view
 end
+
+get '/reports/performance-histogram' do
+  @title = "Performance Histograms"
+  @courses = Course.subject(["English","Mathematics","Science","Social Studies","Spanish"])
+  
+  erb :grade_subject_histogram
+end
+
+get '/reports/benchmark-data-by-subject-and-grade' do
+  @title = "Analyze Benchmark Data by Subject and Grade"
+  erb :benchmark_data_by_subject_and_grade
+end

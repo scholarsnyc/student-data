@@ -94,11 +94,11 @@ class Course
 		records.map! { |record| record.student }
 	end
 	
-	def self.to_breakdown
+	def self.to_breakdown(mp = CURRENT_MARKING_PERIOD)
 	  CourseBreakdown.new(all).breakdown
   end
 	
-	def to_breakdown
+	def to_breakdown(mp = CURRENT_MARKING_PERIOD)
 	  CourseBreakdown.new(self).breakdown
   end
 	
