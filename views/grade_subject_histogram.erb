@@ -1,0 +1,23 @@
+<% GRADES.each do |grade| %>
+  <% @courses.grade(grade).subjects.each do |sub| %>
+    <div id="grade<%= grade %>-<%= sub.to_class %>">
+      <h2>Grade <%= grade %>: <%= sub %> </h2>
+        <table class="table table-bordered table-striped table-condensed">
+        <thead>
+          <tr>
+            <th>Above 55</th>
+            <th>Above 65</th>
+            <th>Above 85</th>
+          <tr>
+        </thead>
+        <tbody>
+          <tr>
+        <% @courses.grade(grade).subject(sub).to_breakdown((1..CURRENT_MARKING_PERIOD).to_a).each do |k, v| %>
+            <td><%= v %>%</td>
+        <% end %>
+          </tr>
+        </tbody>
+        </table>
+    </div>
+  <% end %>
+<% end %>

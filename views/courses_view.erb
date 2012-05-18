@@ -17,6 +17,7 @@
 		<tr>
 			<th class="course-name">Course Name</th>
 			<th class="course-code">Course Code</th>
+			<th class="course-code">Section</th>
 			<th class="teacher">Teacher</th>
 			<th class="subject">Subject</th>
 		</tr>
@@ -25,7 +26,8 @@
 	<% @courses.each do |course| %>
 		<tr>
 			<td class="course-name"><a href="/courses/<%= course.code %>"><%= course.name %></a></td>
-			<td class="course-code"><%= course.code %></td>
+			<td class="course-code"><%= course.course_id %></td>
+			<td class="course-code"><%= course.section %></td>
 			<td class="teacher"><a href="/courses?teacher=<%= course.teacher %>"><%= course.teacher %></a></td>
 			<td class="subject"><a href="?subject=<%= course.subject %>"><%= course.subject %></a></td>
 		</tr>

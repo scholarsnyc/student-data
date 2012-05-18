@@ -60,7 +60,7 @@ get '/' do
   erb :index  
 end
 
-get '/cep' do
+get '/reports/cep' do
   @title = "CEP Reports"
   
   @students = Student.all
@@ -91,10 +91,5 @@ get '/cep' do
     }
   end
   
-  erb :charts
-end
-
-get '/test' do
-  @data = Grade.new(7).to_comprehensive_report(:ela)
-  erb :test
+  erb :cep_report
 end
