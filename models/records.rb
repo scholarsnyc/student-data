@@ -97,7 +97,7 @@ class Record
     nil
   end
   
-  def self.above(number, type = :score)
+  def self.above(number, type = :exam)
     all(type.gte => number)
   end
   
