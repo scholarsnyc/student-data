@@ -7,9 +7,9 @@
 			<tr>
 				<th>Teacher</th>
 				<th>Average Score</th>
-				<th>Score Variance</th>
+				<th>Score Standard Deviation</th>
 				<th>Average Benchmark</th>
-				<th>Benchmark Variance</th>
+				<th>Benchmark Standard Deviation</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -17,9 +17,9 @@
 			<tr>
 				<td><a href="/courses?teacher=<%= teacher %>"><%= teacher %></a></td>
 				<td><%= Record.mp(@marking_period).subject(subject).teacher(teacher).avg(:score).to_i %></td>
-				<td><%= Record.mp(@marking_period).subject(subject).teacher(teacher).variance(:score).to_i %></td>
+				<td><%= Record.mp(@marking_period).subject(subject).teacher(teacher).standard_deviation(:score).to_i %></td>
 				<td><%= Record.mp(@marking_period).subject(subject).teacher(teacher).avg(:exam).to_i %></td>
-				<td><%= Record.mp(@marking_period).subject(subject).teacher(teacher).variance(:exam).to_i %></td>
+				<td><%= Record.mp(@marking_period).subject(subject).teacher(teacher).standard_deviation(:exam).to_i %></td>
 			</tr>
 			<% end %>
 		</tbody>
