@@ -7,6 +7,14 @@ get '/courses' do
   params.delete("mp")
   
   @courses = Course.all(params)
+  @title = "Courses"
+  if params[:teacher] && params[:subject]
+    @title = @title + ": " +  params[:teacher] + ", " + params[:subject]
+  elsif params[:teacher]
+    @title = @title + ": " +  params[:teacher]
+  elsif params[:subject]
+    @title = @title + ": " +  params[:subject]
+  end
   @breakdown = CourseBreakdown.new(@courses).breakdown
 		
 	erb :courses_view
