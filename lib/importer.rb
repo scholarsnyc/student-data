@@ -21,6 +21,7 @@ class Importer
 
   def save_to_db
     @data.each do |data|
+      next if Record.get(data[:id])
       next if data[:student_id] && (Student.get(data[:student_id]).nil? || data[:student_id].nil?)
       next if data[:score] && data[:score] == 0
       next if @type == Record && (Student.get(data[:student_id]).nil? || Course.get(data[:course_code]).nil?)
@@ -32,7 +33,7 @@ end
 
 class RecordImporter < Importer
   attr_reader :mp
-	def initialize(csv, timestamp)
+	def initialize(csv, timestamp = Time.now.to_i)
     @mp = /records-mp(\d)\.csv$/.match(csv)[1].to_i
     super(csv, Record, timestamp)
 	end
@@ -59,7 +60,7 @@ class RecordImporter < Importer
 end
 
 class StudentImporter < Importer
-  def initialize(csv, timestamp)
+  def initialize(csv, timestamp = Time.now.to_i)
     super(csv, Student, timestamp)
     raise ArgumentError, "You must provide a CSV full of students." unless /students.+\.csv$/.match(csv)
   end
@@ -84,7 +85,7 @@ class StudentImporter < Importer
 end
 
 class CourseImporter < Importer
-  def initialize(csv, timestamp)
+  def initialize(csv, timestamp = Time.now.to_i)
     super(csv, Course, timestamp)
     raise ArgumentError, "You must provide a CSV full of courses." unless /courses.+\.csv$/.match(csv)
   end
