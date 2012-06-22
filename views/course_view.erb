@@ -59,8 +59,6 @@
 				<tr>
 					<td class="student-name">
 						<a href="/students/<%= record.student.id %>"><%= record.student.name %></a>
-						<% if record.failing? %><span class="label important">Failing</span><% end %>
-						<% if record.at_risk? %><span class="label warning">At Risk</span><% end %>
 					</td>
 					<td class="marking-period-grade"><%= record.score %></td>
 					<td class="marking-period-deviance"><%= record.deviance(:score, :class, :rounded) %></td>

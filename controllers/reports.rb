@@ -159,3 +159,37 @@ get '/reports/benchmark-data-by-subject-and-grade' do
   @title = "Analyze Benchmark Data by Subject and Grade"
   erb :benchmark_data_by_subject_and_grade
 end
+
+get '/reports/cep' do
+  @title = "CEP Reports"
+  
+  @students = Student.all
+  @subjects = {:ela => "English Language Arts", :math => "Mathematics"}
+
+  ms_groups = [
+    {:name => "Grade 6", :opts => {:grade => 6}},
+    {:name => "Grade 6A", :opts => {:grade => 6, :cohort => :A}},
+    {:name => "Grade 6B", :opts => {:grade => 6, :cohort => :B}},
+    {:name => "Grade 6C", :opts => {:grade => 6, :cohort => :C}},
+    {:name => "Grade 7", :opts => {:grade => 7}},
+    {:name => "Grade 7A", :opts => {:grade => 7, :cohort => :A}},
+    {:name => "Grade 7B", :opts => {:grade => 7, :cohort => :B}},
+    {:name => "Grade 8", :opts => {:grade => 8}},
+    {:name => "Grade 8A", :opts => {:grade => 8, :cohort => :A}},
+    {:name => "Grade 8B", :opts => {:grade => 8, :cohort => :B}}
+  ]
+  
+  @data = @subjects.keys.map do |s|
+    {
+      :name => Conversions::Courses::COURSES[s],
+      :data => ms_groups.map do |g| 
+        [
+          g[:name],
+          ComprehensiveReport.new(Student.all(g[:opts]), s).to_a[0..4]
+        ].flatten 
+      end
+    }
+  end
+  
+  erb :cep_report
+end
