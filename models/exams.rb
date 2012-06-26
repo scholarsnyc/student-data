@@ -2,16 +2,42 @@ class Exam
   include DataMapper::Resource
   include DataModel::Attributes
 
-  property :id,				Serial
-  property :score,		Float
-  property :type,			Integer
-  property :comment,	String
-  property :mp,				Integer
-  property :year,			Integer
+  property :id,									Serial
+  property :score,							Float
+  property :type,								Integer
+  property :comment,						String
+  property :mp,									Integer
+  property :year,								Integer
   property :import,             Integer, :default => Time.now.to_i
 	property :created_at,         DateTime, :default => Time.now
 	property :updated_at,         DateTime, :default => Time.now
 
+
+	# Code Key (it sucks that I have to do this)
+	#		0 - State ELA Test (Middle School)
+	#		1 - State Math Test (Middle School)
+	#		2 - Predictive ELA Test (Middle School)
+	#		3 - Predictive Math Test (Middle School)
+	#		4 - Acuity ELA Test (Middle School)
+	#		5 - Acuity Math Test (Middle School)
+	#   6 - PSAT English (High School)
+	#		7	- PSAT Math (High School)
+	#		8 - 
+	#		9 - 
+	# 	10 - English Regents
+	# 	11 - U.S. History and Government
+	# 	12 - Global History
+	# 	13 - Integrated Algebra
+	# 	14 - Geometry
+	# 	15 - Algebra 2 / Trigonometry
+	# 	16 - Living Environment
+	# 	17 - Earth Science
+	# 	18 - Chemistry
+	# 	19 - Physics
+	# 	30 - Spanish Proficiency (Grade 8)
+	#		31 - Spanish Proficiency (Grade 10)
+	#		32 - Spanish Proficiency (Grade 11)
+	
   belongs_to :student
   
   before :save do
@@ -22,21 +48,21 @@ class Exam
 	  self.updated_at = Time.now
   end
 
-  def self.valid_subject?(subject)
-    [:math, :ela].include? subject
-  end
-
   def self.filter(options = {})
     exams = all
 
     exams = exams.grade(options[:grade]) if options[:grade]
     exams = exams.cohort(options[:cohort]) if options[:cohort]
-    exams = exams.all(:type => [0, 2, 4, 6]) if options[:subject] == :ela || options[:subject] == :english || options[:subject] == :ela
-    exams = exams.all(:type => [1, 3, 5, 7]) if options[:subject] == :math || options[:subject] == :math
+    exams = exams.all(:type => [0, 2, 4, 6, 10]) if options[:subject] == :ela || options[:subject] == :english
+    exams = exams.all(:type => [1, 3, 5, 7, 13, 14, 15]) if options[:subject] == :math
+    exams = exams.all(:type => [16, 17, 17, 19]) if options[:subject] == :science
+    exams = exams.all(:type => [11, 12, 13]) if options[:subject] == :socialstudies
+    exams = exams.all(:type => [30, 31, 32]) if options[:subject] == :spanish
     exams = exams.all(:type => [0, 1]) if options[:type] == :state
     exams = exams.all(:type => [2, 3]) if options[:type] == :predictive
     exams = exams.all(:type => [4, 5]) if options[:type] == :acuity
     exams = exams.all(:type => [6, 7]) if options[:type] == :psat
+    exams = exams.all(:type => (10...20).to_a) if options[:type] == :regents
 
     return exams
   end
@@ -52,6 +78,10 @@ class Exam
   def self.acuity
     all.filter(:type => :acuity)
   end
+  
+  def self.regents
+  	all.filter(:type => :regents)
+  end
 
   def self.psat
     all.filter(:type => :psat)
@@ -63,6 +93,18 @@ class Exam
 
   def self.math
     all.filter(:subject => :math)
+  end
+  
+  def self.science
+    all.filter(:subject => :science)
+  end
+  
+  def self.socialstudies
+    all.filter(:subject => :socialstudies)
+  end
+  
+  def self.spanish
+    all.filter(:subject => :spanish)
   end
 
   def self.compare(subject, grade, cohort, options = {})

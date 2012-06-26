@@ -292,14 +292,18 @@ class Student
     return nil
   end
   
+  def exam_score(type)
+  	exams.all(:type => type, :order => [:year.desc, :mp.desc]).first.score
+  rescue
+  	nil
+  end
+  
   def ela
-    return nil if self.test_score(0).nil?
-    self.test_score(0).to_f.rounded.to_i unless self.test_score(0) == 0.to_i
+    grade < 9 ? exam_score(0) : exam_score(10)
   end
   
   def math
-    return nil if self.test_score(1).nil?
-    self.test_score(1).to_f.rounded.to_i unless self.test_score(1) == 0.to_i
+    grade < 9 ? exam_score(1) : exam_score(13)
   end
   
   def score(type, subject, mp = CURRENT_MARKING_PERIOD)
@@ -318,12 +322,6 @@ class Student
       }
     end
     return scores
-  end
-  
-  def exam_score(type, mp = CURRENT_MARKING_PERIOD)
-    exams = self.exams(:type => type, :mp => mp)
-    exam = exams.first unless exams.empty?
-    exam.score unless exam.nil?
   end
   
   def math_benchmark(mp = CURRENT_MARKING_PERIOD)
