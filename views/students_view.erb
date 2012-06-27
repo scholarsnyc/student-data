@@ -13,10 +13,6 @@
 			<th class="homeroom">Homeroom</th>
 			<th class="ela-score test-score">NYS ELA</th>
 			<th class="math-score test-score">NYS Math</th>
-			<th class="predictive test-score ela-score">ELA Predictive</th>
-			<th class="predictive test-score math-score">Math Predictive</th>
-			<th class="predictive test-score ela-score">&#916; ELA</th>
-			<th class="predictive test-score math-score">&#916; Math</th>
 			<th class="college-ready">College Ready?</th>
 		</tr>
 	</thead>
@@ -30,10 +26,6 @@
 			<td class="homeroom"><a href="?homeroom=<%= student.homeroom %>"><%= student.homeroom %></a></td>
 			<td class="ela-score test-score"><%= student.ela %></td>
 			<td class="math-score test-score"><%= student.math %></td>
-			<td class="predictive test-score ela-score"><%= student.exam_score(2, 3) %></td>
-			<td class="predictive test-score math-score"><%= student.exam_score(3, 3) %></td>
-			<td class="predictive test-score ela-score"><%= [student.exam_score(2, 3), student.ela.to_i].difference %></td>
-			<td class="predictive test-score math-score"><%= [student.exam_score(3, 3), student.math.to_i].difference %></td>
 			<td class="college-ready"><%= student.college_ready :both %></td>
 		</tr>
 	<% end %>

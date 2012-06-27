@@ -152,6 +152,10 @@ class Exam
   def self.cohort(cohort)
     all(:student => {:cohort => cohort.upcase})
   end
+  
+  def self.comments
+  	all.map {|e| e.comment}.uniq
+  end
 
   def adjusted_score
     if @score < 5
