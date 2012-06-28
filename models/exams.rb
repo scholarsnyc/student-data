@@ -37,6 +37,7 @@ class Exam
 	# 	30 - Spanish Proficiency (Grade 8)
 	#		31 - Spanish Proficiency (Grade 10)
 	#		32 - Spanish Proficiency (Grade 11)
+	#		40 - 
 	
   belongs_to :student
   

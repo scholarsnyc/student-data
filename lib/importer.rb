@@ -8,7 +8,7 @@ class Importer
   def initialize(csv, type, timestamp = Time.now.to_i)
     raise ArgumentError, "Type must be a class" unless type.is_a? Class
     raise ArgumentError, "You must provide a CSV" unless /\.csv$/.match(csv)
-    raw_data = CSV.open(csv, 'rb').to_a[1..10000]
+    raw_data = CSV.open(csv, 'rb').to_a[1..100000]
     @type = type
     @filename = /(.+)\.csv/.match(csv)[1]
     @timestamp = timestamp

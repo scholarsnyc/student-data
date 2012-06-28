@@ -47,11 +47,7 @@
 					<th>&sigma; Benchmark</th>
 					<th class="change">&#916; Benchmark</th>
 					<th class="exam ela">NY ELA</th>
-					<th class="predictive test-score ela-score">ELA Predictive</th>
-					<th class="predictive test-score ela-score">&#916; ELA</th>
 					<th class="exam math">NY Math</th>
-					<th class="predictive test-score math-score">Math Predictive</th>
-					<th class="predictive test-score math-score">&#916; Math</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -67,11 +63,7 @@
 					<td class="benchmark"><%= record.deviance(:exam, :class, :rounded) %></td>
 					<td class="change"><%= record.change(:exam) %></td>
 					<td class="exam ela"><%= record.student.ela %></td>
-					<td class="predictive test-score ela-score"><%= record.student.exam_score(2, 3) %></td>
-					<td class="predictive test-score ela-score"><%= [record.student.exam_score(2, 3), record.student.ela.to_i].difference %></td>
 					<td class="exam math"><%= record.student.math %></td>
-					<td class="predictive test-score math-score"><%= record.student.exam_score(3, 3) %></td>
-					<td class="predictive test-score math-score"><%= [record.student.exam_score(3, 3), record.student.math.to_i].difference %></td>
 				</tr>
 			<% end %>
 			</tbody>
