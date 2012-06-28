@@ -52,4 +52,8 @@ class DataImport
     DataMapper.auto_migrate!
     [Student, Course, Record, Exam].each { |type| import_records(type, true, import_code) }
   end
+  
+  def self.update_db
+  	DataMapper.auto_upgrade!
+  end
 end

@@ -37,7 +37,10 @@ class Exam
 	# 	30 - Spanish Proficiency (Grade 8)
 	#		31 - Spanish Proficiency (Grade 10)
 	#		32 - Spanish Proficiency (Grade 11)
-	#		40 - 
+	#		40 - Polish Regents and/or LOTE
+	#		41 - Anything French
+	#		42 - Anything Italian
+	#		50 - Math A
 	
   belongs_to :student
   

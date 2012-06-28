@@ -96,6 +96,7 @@ class RegentsExam
 	end
 	
 	def save
+		return nil if Student.get(@osis).nil?
 		exam = Exam.create(:score => @score, :type => @type, :student_id => @osis, :comment => @comment, :year => @year, :mp => @term)
 	end
 end
