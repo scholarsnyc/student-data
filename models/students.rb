@@ -7,6 +7,7 @@ class Student
   property :lastname,           String
   property :grade,              Integer 
   property :homeroom,           Integer
+  property :previous_homeroom, 	Integer
   property :cohort,             String
   property :gender,             Integer
   property :ethnicity,          Integer

@@ -9,6 +9,7 @@ class Record
   property :course_id,    String
   property :section,      Integer
 	property :mp,						Integer
+  property :year,         Integer
 	property :import,             Integer, :default => Time.now.to_i
 	property :created_at,         DateTime, :default => Time.now
 	property :updated_at,         DateTime, :default => Time.now

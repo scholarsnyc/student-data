@@ -10,6 +10,10 @@ get '/api/exams' do
   Exam.all(params).to_json
 end
 
+get '/api/records' do
+  Record.all(params).to_json
+end
+
 get '/api/course/by/id/:id' do
   Course.all(:course_id => params[:id]).to_json
 end
