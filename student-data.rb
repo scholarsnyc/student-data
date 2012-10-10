@@ -4,7 +4,6 @@ require 'data_mapper'
 require 'google_chart'
 
 # Use MySQL in production, but use a local SQLite database in development
-
 configure :development do
  DataMapper.setup(:default,
                   "sqlite://#{Dir.pwd}/data.db")
