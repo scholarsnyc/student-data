@@ -8,6 +8,7 @@ class Course
 	property :course_id,	String
 	property :section,		Integer
 	property :subject,		String
+  property :year,       Integer
 	property :import,     Integer, :default => Time.now.to_i
 	property :created_at, DateTime, :default => Time.now
 	property :updated_at, DateTime, :default => Time.now

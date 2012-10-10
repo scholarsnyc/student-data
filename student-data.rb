@@ -21,6 +21,7 @@ begin
   Dir["./controllers/*.rb"].each {|file| require file}
   Dir["./lib/*.rb"].each {|file| require file}
   DataMapper.finalize
+  DataMapper.auto_upgrade!
 end
 
 # Some constants that get referenced often in the application
