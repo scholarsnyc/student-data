@@ -54,6 +54,7 @@ end
 # unless passed a parameter that instructs otherwise
 before do
   @marking_period = params[:mp] || CURRENT_MARKING_PERIOD
+  @year = params[:year] || CURRENT_YEAR
 end
 
 # Basic route for pulling up the home page
