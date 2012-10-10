@@ -4,30 +4,30 @@
 <%= erb :_grade_filter %>
 
 <table class="table table-bordered table-striped table-condensed tablesorter students-table" id="students-table">
-	<thead>
-		<tr>
-			<th class="first-name">First Name</th>
-			<th class="last-name">Last Name</th>
-			<th class="student-id hide">OSIS</th>
-			<th class="grade">Grade</th>
-			<th class="homeroom">Homeroom</th>
-			<th class="ela-score test-score">NYS ELA</th>
-			<th class="math-score test-score">NYS Math</th>
-			<th class="college-ready">College Ready?</th>
-		</tr>
-	</thead>
-	<tbody>
-	<% @students.each do |student| %>
-		<tr data-student_id="<%= student.id %>" class="grade<%= student.grade %> homeroom<%= student.homeroom %>">
-			<td class="first-name"><a href="/students/<%= student.id %>"><%= student.firstname %></a></td>
-			<td class="last-name"><a href="/students/<%= student.id %>"><%= student.lastname %></a></td>
-			<td class="student-id hide"><a href="/students/<%= student.id %>"><%= student.id %></a></td>
-			<td class="grade"><a href="?grade=<%= student.grade %>"><%= student.grade %></a></td>
-			<td class="homeroom"><a href="?homeroom=<%= student.homeroom %>"><%= student.homeroom %></a></td>
-			<td class="ela-score test-score"><%= student.ela %></td>
-			<td class="math-score test-score"><%= student.math %></td>
-			<td class="college-ready"><%= student.college_ready :both %></td>
-		</tr>
-	<% end %>
-	</tbody>
+  <thead>
+  	<tr>
+  		<th class="first-name">First Name</th>
+  		<th class="last-name">Last Name</th>
+  		<th class="student-id hide">OSIS</th>
+  		<th class="grade">Grade</th>
+  		<th class="homeroom">Homeroom</th>
+  		<th class="ela-score test-score">NYS ELA</th>
+  		<th class="math-score test-score">NYS Math</th>
+  		<th class="college-ready">College Ready?</th>
+  	</tr>
+  </thead>
+  <tbody>
+  <% @students.each do |student| %>
+  	<tr data-student_id="<%= student.id %>" class="grade<%= student.grade %> homeroom<%= student.homeroom %>">
+  		<td class="first-name"><a href="/students/<%= student.id %>"><%= student.firstname %></a></td>
+  		<td class="last-name"><a href="/students/<%= student.id %>"><%= student.lastname %></a></td>
+  		<td class="student-id hide"><a href="/students/<%= student.id %>"><%= student.id %></a></td>
+  		<td class="grade"><a href="?grade=<%= student.grade %>"><%= student.grade %></a></td>
+  		<td class="homeroom"><a href="?homeroom=<%= student.homeroom %>"><%= student.homeroom %></a></td>
+  		<td class="ela-score test-score"><%= student.ela %></td>
+  		<td class="math-score test-score"><%= student.math %></td>
+  		<td class="college-ready"><%= student.college_ready :both %></td>
+  	</tr>
+  <% end %>
+  </tbody>
 </table>

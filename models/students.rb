@@ -6,9 +6,11 @@ class Student
   property :firstname,          String
   property :lastname,           String
   property :grade,              Integer 
+  property :previous_grade,     Integer
   property :homeroom,           Integer
   property :previous_homeroom, 	Integer
   property :cohort,             String
+  property :previous_cohort,    String
   property :gender,             Integer
   property :ethnicity,          Integer
   property :language,           String
@@ -27,22 +29,29 @@ class Student
     self.lowest_third_ela = true if LOWEST_THIRD_ELA.include?(self.id)
     self.lowest_third_math = true if LOWEST_THIRD_MATH.include?(self.id)
     self.cohort = self.in_cohort
+    self.previous_cohort = self.in_previous_cohort
   end
   
   before :update do
 	  self.updated_at = Time.now
   end
   
+  # Redefine the default query to only look for current students
+  # TODO: This is probably going to break.
+  def self.all(query = {:homeroom.not => nil})  
+    super(query)    
+  end
+
   # ============= #
   # Class Methods #
   # ============= #
   
   def self.homerooms
-    all.map{|x| x.homeroom}.uniq.sort
+    all.map{|x| x.homeroom}.delete_if {|x| x == nil}.uniq.sort
   end
   
   def self.grades
-    all.map{|x| x.grade}.uniq.sort
+    all.map{|x| x.grade}.delete_if {|x| x == nil}.uniq.sort
   end
   
   def self.cohorts
@@ -156,6 +165,18 @@ class Student
     elsif self.homeroom.to_s =~ /[6-8]\d[4-6]/
       cohort = :B
     elsif self.homeroom.to_s =~ /[6-8]\d[7-9]/
+      cohort = :C
+    else
+      nil
+    end
+  end
+
+  def in_previous_cohort
+    if self.previous_homeroom.to_s =~ /[6-8]\d[1-3]/
+      cohort = :A
+    elsif self.previous_homeroom.to_s =~ /[6-8]\d[4-6]/
+      cohort = :B
+    elsif self.previous_homeroom.to_s =~ /[6-8]\d[7-9]/
       cohort = :C
     else
       nil
@@ -314,7 +335,6 @@ class Student
   end
   
   def scores(mp = CURRENT_MARKING_PERIOD)
-    records = self.records.all(:mp => mp)
     scores = Hash.new
     SUBJECTS.each do |subject|
       scores[subject] = {
