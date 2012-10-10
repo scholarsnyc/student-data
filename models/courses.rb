@@ -43,6 +43,11 @@ class Course
 	def grade
 		students.avg(:grade).to_i
 	end
+
+	def self.year(y)
+		all(:year => y)
+	end
+	
 	
 	def passing(marking_period = CURRENT_MARKING_PERIOD, type_of_score = :score)
 		records(type_of_score.gte => PASSING_GRADE, :mp => marking_period)
