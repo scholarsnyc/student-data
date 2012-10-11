@@ -1,4 +1,8 @@
 data.db
 .idea
 .sass-cache
+<<<<<<< HEAD
 *.un~
+=======
+.DS_Store
+>>>>>>> 7e796a521045f814daa8a288b46d46ff406e4439
