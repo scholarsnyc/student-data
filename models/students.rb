@@ -36,12 +36,6 @@ class Student
 	  self.updated_at = Time.now
   end
   
-  # Redefine the default query to only look for current students
-  # TODO: This is probably going to break.
-  def self.all(query = {:homeroom.not => nil})  
-    super(query)    
-  end
-
   # ============= #
   # Class Methods #
   # ============= #
@@ -79,8 +73,8 @@ class Student
   end
   
   def self.gender(gender)
-      {:male => 0, :female => 1}[gender] if gender.is_a? Symbol
-      all(:gender => gender)
+    {:male => 0, :female => 1}[gender] if gender.is_a? Symbol
+    all(:gender => gender)
   end
 
   def self.cohort(cohort)
@@ -104,27 +98,27 @@ class Student
   end
   
   def self.good_standing(marking_period = CURRENT_MARKING_PERIOD)
-    all(:records => {:score.gte => PASSING_GRADE, :mp => marking_period}) - self.on_probation(marking_period)
+    all.records(:score.gte => PASSING_GRADE, :mp => marking_period) - self.on_probation(marking_period)
   end
   
   def self.on_probation(marking_period = CURRENT_MARKING_PERIOD)
-    all(:records => {:score.lt => AT_RISK_GRADE, :mp => marking_period})
+    all.records(:score.lt => AT_RISK_GRADE, :mp => marking_period)
   end 
   
   def self.probation_1(marking_period = CURRENT_MARKING_PERIOD)
-    all(:records => {:score.lt => AT_RISK_GRADE, :score.gte => AT_RISK_LEVEL_2, :mp => marking_period}) - self.probation_2(marking_period) - self.failing(marking_period)
+    all.records(:score.lt => AT_RISK_GRADE, :score.gte => AT_RISK_LEVEL_2, :mp => marking_period) - self.probation_2(marking_period) - self.failing(marking_period)
   end
   
   def self.probation_2(marking_period = CURRENT_MARKING_PERIOD)
-    all(:records => {:score.lt => AT_RISK_LEVEL_2, :score.gte => PASSING_GRADE, :mp => marking_period}) - self.failing(marking_period)
+    all.records(:score.lt => AT_RISK_LEVEL_2, :score.gte => PASSING_GRADE, :mp => marking_period) - self.failing(marking_period)
   end
   
   def self.failing(marking_period = CURRENT_MARKING_PERIOD)
-    all(:records => {:score.lt => PASSING_GRADE, :mp => marking_period})
+    all.records(:score.lt => PASSING_GRADE, :mp => marking_period)
   end
   
   def self.ineligible(marking_period = CURRENT_MARKING_PERIOD)
-    all(:records => {:score.lt => AT_RISK_LEVEL_2, :mp => marking_period})
+    all.records(:score.lt => AT_RISK_LEVEL_2, :mp => marking_period)
   end
 
   def self.not_college_ready
@@ -152,36 +146,15 @@ class Student
   end
   
   def ethnicity_to_s
-    ["Unknown", "American Indian or Alaskan Native", "Asian", "Hispanic or Latino", "Black or African American", "White"][self.ethnicity]
+    ["Unknown", "American Indian or Alaskan Native", "Asian", 
+     "Hispanic or Latino", "Black or African American", 
+     "White"][self.ethnicity]
   end
   
   # Determines what cohort a student is in if they're in the middle school.
   # This seems redundant, but don't delete it. Trust me.
   # It's used for setting their cohort in when saving a student to the database.
   
-  def in_cohort
-    if self.homeroom.to_s =~ /[6-8]\d[1-3]/
-      cohort = :A
-    elsif self.homeroom.to_s =~ /[6-8]\d[4-6]/
-      cohort = :B
-    elsif self.homeroom.to_s =~ /[6-8]\d[7-9]/
-      cohort = :C
-    else
-      nil
-    end
-  end
-
-  def in_previous_cohort
-    if self.previous_homeroom.to_s =~ /[6-8]\d[1-3]/
-      cohort = :A
-    elsif self.previous_homeroom.to_s =~ /[6-8]\d[4-6]/
-      cohort = :B
-    elsif self.previous_homeroom.to_s =~ /[6-8]\d[7-9]/
-      cohort = :C
-    else
-      nil
-    end
-  end
   
   # Generates a list of courses at a given probation level.
   
@@ -364,4 +337,6 @@ class Student
   def teachers
     courses.map{|course| course.teacher}.uniq.sort
   end
+  
+  
 end
