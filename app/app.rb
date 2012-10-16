@@ -6,6 +6,11 @@ class StudentDatabase < Padrino::Application
   register Padrino::Helpers
   register Padrino::Admin::AccessControl
 
+  Padrino.use OmniAuth::Builder do
+    provider :developer unless Padrino.env == :production
+    provider :google, 'scholarsnyc.com', 'gbSiQxRCLg41RgQCTK4rOV+a'
+  end
+
   enable :sessions
   
   set :login_page, "/" # determines the url login occurs
@@ -45,6 +50,6 @@ class StudentDatabase < Padrino::Application
     account = Account.find_by_provider_and_uid(auth["provider"], auth["uid"]) || 
               Account.create_with_omniauth(auth)
     set_current_account(account)
-    redirect "http://" + request.env["HTTP_HOST"] + url(:student)
+    redirect "http://" + request.env["HTTP_HOST"] + url(:profile)
   end
 end
