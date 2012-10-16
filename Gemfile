@@ -14,6 +14,7 @@ gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'haml'
 gem 'sass'
 gem 'erubis', "~> 2.7.0"
+gem 'dm-ar-finders'
 gem 'dm-mysql-adapter'
 gem 'dm-validations'
 gem 'dm-timestamps'
