@@ -1,0 +1,15 @@
+%h1= @course.name
+
+%h2 Grades
+%table{class: "table"}
+  %thead
+    %tr
+      %th Student
+      %th Score
+      %th Benchmark
+  %tbody
+  - @records.each do |record|
+    %tr
+      %td= link_to record.student.name, url_for(:students, :show, :id => record.student.id)
+      %td= record.score
+      %td= record.exam

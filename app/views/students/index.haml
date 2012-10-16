@@ -1,0 +1,16 @@
+%h1= @title || "Students"
+
+%table{class: "table"}
+  %thead
+    %tr
+      %th Name
+      %th Homeroom
+      %th State ELA Score
+      %th State Math Score
+  %tbody
+  - @students.each do |student|
+    %tr
+      %td= link_to student.name, url_for(:students, :show, :id => student.id)
+      %td= student.homeroom
+      %td= student.english_score
+      %td= student.math_score

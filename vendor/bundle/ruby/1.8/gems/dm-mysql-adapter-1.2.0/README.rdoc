@@ -1,3 +1,0 @@
-= dm-mysql-adapter
-
-A MySQL Adapter for DataMapper
