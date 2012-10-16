@@ -7,12 +7,10 @@ class StudentDatabase < Padrino::Application
   register Padrino::Admin::AccessControl
 
   enable :sessions
-  enable :reload
   
   set :login_page, "/" # determines the url login occurs
 
   access_control.roles_for :any do |role|
-    role.protect "/profile"
     role.protect "/students" # here a demo path
   end
 
@@ -47,6 +45,6 @@ class StudentDatabase < Padrino::Application
     account = Account.find_by_provider_and_uid(auth["provider"], auth["uid"]) || 
               Account.create_with_omniauth(auth)
     set_current_account(account)
-    redirect "http://" + request.env["HTTP_HOST"] + url(:profile)
+    redirect "http://" + request.env["HTTP_HOST"] + url(:student)
   end
 end
