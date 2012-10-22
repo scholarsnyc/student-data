@@ -9,13 +9,26 @@ class StudentDatabase < Padrino::Application
   
   before do
     @marking_period = params[:mp] || 6
+    unless session[:user_id] =~ /.*@scholarsnyc.com/
+      redirect url(:signin)
+    end
   end
   
   get :index do
     haml <<-HAML.gsub(/^ {6}/, '')
-      Login with
-      =link_to('Google', '/auth/google')
+      %p Hello world!
     HAML
+  end
+  
+  get :signin do
+    haml <<-HAML.gsub(/^ {6}/, '')
+      =link_to('Log in', '/auth/google')
+    HAML
+  end
+  
+  get :sighout do
+    session[:user_id] = nil
+    redirect '/'
   end
 
   get '/auth/:name/callback' do
