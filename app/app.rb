@@ -5,11 +5,6 @@ class StudentDatabase < Padrino::Application
   register Padrino::Mailer
   register Padrino::Helpers
 
-  Padrino.use OmniAuth::Builder do
-    provider :developer unless Padrino.env == :production
-    provider :google, 'scholarsnyc.com', 'gbSiQxRCLg41RgQCTK4rOV+a'
-  end
-
   enable :sessions
   
   before do
