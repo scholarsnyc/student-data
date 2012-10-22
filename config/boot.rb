@@ -37,7 +37,7 @@ begin
   require 'pry'
   require 'ostruct'
   IRB = Pry
-  $VERBOSE = true
+  $VERBOSE = false
 rescue LoadError
 end
 
