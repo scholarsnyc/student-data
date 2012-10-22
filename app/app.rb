@@ -49,7 +49,8 @@ class StudentDatabase < Padrino::Application
     auth = request.env["omniauth.auth"]
     user = Account.first_or_create({ :uid => auth["uid"]}, {
       :uid => auth["uid"],
-      :email => auth["info"]["nickname"], 
+      :email => auth["info"]["nickname"],
+      :role => "teacher",
       :name => auth["info"]["name"],
       :created_at => Time.now })
     session[:user_id] = user.id
