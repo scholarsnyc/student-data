@@ -1,11 +1,10 @@
 class Account
   include DataMapper::Resource
 
-  property :id, Serial
+  property :uid, String, :key => true
   property :name, String
-  property :email, String
-  property :role, String
-  property :uid, String
-  property :provider, String
+  property :role, String, :default => "teacher"
+  property :provider, String, :default => "google"
+  property :created_at, DateTime, :default => Time.now
   
 end

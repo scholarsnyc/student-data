@@ -1,7 +1,7 @@
 StudentDatabase.controllers :students do
 
   get :index do
-    @students = Student.active.all(params).all(order: [ :homeroom.asc ])
+    @students = Student.all({order: [ :homeroom.asc ]}.merge(params))
     render 'students/index'
   end
   
