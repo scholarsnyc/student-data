@@ -47,10 +47,13 @@ class StudentDatabase < Padrino::Application
   end
 
   get :auth, :map => '/auth/:provider/callback' do
-    auth    = request.env["omniauth.auth"]
-    account = Account.find_by_provider_and_uid(auth["provider"], auth["uid"]) || 
-              Account.create_with_omniauth(auth)
-    set_current_account(account)
-    redirect "http://" + request.env["HTTP_HOST"] + url(:profile)
+    auth = request.env["omniauth.auth"]
+    user = Account.first_or_create({ :uid => auth["uid"]}, {
+      :uid => auth["uid"],
+      :email => auth["info"]["nickname"], 
+      :name => auth["info"]["name"],
+      :created_at => Time.now })
+    session[:user_id] = user.id
+    redirect '/'
   end
 end
