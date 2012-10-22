@@ -11,6 +11,7 @@
       .navbar
         .navbar-inner
           %a{class: 'brand', href: '/'} Student Database
+      = session[:user_id] if session[:user_id]
       = yield
     %script{ :src => "//ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.js" }
       :javascript
