@@ -6,24 +6,12 @@ class StudentDatabase < Padrino::Application
   register Padrino::Helpers
   register Padrino::Admin::AccessControl
 
-  #Padrino.use OmniAuth::Builder do
-    #provider :developer unless Padrino.env == :production
-    #provider :google, 'scholarsnyc.com', 'gbSiQxRCLg41RgQCTK4rOV+a'
-  #end
+  Padrino.use OmniAuth::Builder do
+    provider :developer unless Padrino.env == :production
+    provider :google, 'scholarsnyc.com', 'gbSiQxRCLg41RgQCTK4rOV+a'
+  end
 
   enable :sessions
-  
-  #set :login_page, "/" # determines the url login occurs
-
-  #access_control.roles_for :any do |role|
-    #role.allow "/"
-    #role.protect "/students" # here a demo path
-  #end
-
-  # now we add a role for users
-  access_control.roles_for :users do |role|
-    role.allow "/profile"
-  end
   
   before do
     @marking_period = params[:mp] || 6
@@ -38,22 +26,18 @@ class StudentDatabase < Padrino::Application
 
   get :profile do
     content_type :text
-    current_account.to_yaml
-  end
-
-  get :destroy do
-    set_current_account(nil)
-    redirect url(:index)
+    session[:user_id]
   end
 
   get :auth, :map => '/auth/:provider/callback' do
     auth = request.env["omniauth.auth"]
-    user = Account.first_or_create({ :uid => auth["uid"]}, {
+    user = Account.first_or_create(auth["uid"], {
       :uid => auth["uid"],
-      :email => auth["info"]["nickname"], 
       :name => auth["info"]["name"],
-      :created_at => Time.now })
-    session[:user_id] = user.id
-    redirect '/'
+      :role => "teacher"
+    })
+    session[:user_id] = user.uid
+    session[:user_name] = user.name
+    redirect '/students'
   end
 end
