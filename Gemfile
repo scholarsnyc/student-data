@@ -23,6 +23,9 @@ gem 'dm-constraints'
 gem 'dm-aggregates'
 gem 'dm-core'
 
+# Production SQLite
+gem "dm-sqlite-adapter", :group => "development"
+
 # Test requirements
 gem 'mocha', :group => "test"
 gem 'rspec', :group => "test"
