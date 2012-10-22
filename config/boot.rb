@@ -36,10 +36,8 @@ Bundler.require(:default, PADRINO_ENV)
 begin
   require 'pry'
   require 'ostruct'
-  require 'active_support/inflector'
-  $VERBOSE = nil
   IRB = Pry
-  $VERBOSE = false
+  $VERBOSE = true
 rescue LoadError
 end
 
