@@ -6,18 +6,19 @@ class StudentDatabase < Padrino::Application
   register Padrino::Helpers
   register Padrino::Admin::AccessControl
 
-  Padrino.use OmniAuth::Builder do
-    provider :developer unless Padrino.env == :production
-    provider :google, 'scholarsnyc.com', 'gbSiQxRCLg41RgQCTK4rOV+a'
-  end
+  #Padrino.use OmniAuth::Builder do
+    #provider :developer unless Padrino.env == :production
+    #provider :google, 'scholarsnyc.com', 'gbSiQxRCLg41RgQCTK4rOV+a'
+  #end
 
   enable :sessions
   
-  set :login_page, "/" # determines the url login occurs
+  #set :login_page, "/" # determines the url login occurs
 
-  access_control.roles_for :any do |role|
-    role.protect "/students" # here a demo path
-  end
+  #access_control.roles_for :any do |role|
+    #role.allow "/"
+    #role.protect "/students" # here a demo path
+  #end
 
   # now we add a role for users
   access_control.roles_for :users do |role|
