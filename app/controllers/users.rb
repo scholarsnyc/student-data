@@ -14,8 +14,14 @@ StudentDatabase.controllers :users do
   end
   
   get :index do
-    protect_page
+    admin_only
     @users = User.all(params)
+    render 'users/index'
+  end
+  
+  post :grant_access, :map => '/users/grant_access_to/:id' do
+    admin_only
+    User.get(params[:id]).update(role: "teacher")
     render 'users/index'
   end
   

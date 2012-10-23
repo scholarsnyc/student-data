@@ -30,4 +30,10 @@ StudentDatabase.helpers do
     end
   end
   
+  def admin_only
+    unless user_is_admin
+      redirect '/'
+    end
+  end
+  
 end
