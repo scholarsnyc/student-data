@@ -1,6 +1,5 @@
 .navbar
   .navbar-inner
-<<<<<<< HEAD
     %a{class: 'brand', href: '/'} Student Database
     %ul.nav
       - if user_has_access
@@ -15,20 +14,3 @@
             %li= link_to "Ineligible", url_for(:students, :ineligible)
       - if user_is_admin
         %li= link_to "Users", url_for(:users, :index)
-=======
-    .container
-      %a{class: 'brand', href: '/'} Student Database
-      %ul.nav
-        - if user_has_access
-          %li= link_to "Students", url_for(:students, :index)
-          %li= link_to "Courses", url_for(:courses, :index)
-          %li.dropdown
-            %a{href: '#', class: 'dropdown-toggle', "data-toggle" => "dropdown"} Probation
-            %ul.dropdown-menu
-              %li= link_to "Level One", url_for(:students, :probation, :level => 1)
-              %li= link_to "Level Two", url_for(:students, :probation, :level => 2)
-              %li= link_to "Level Three", url_for(:students, :probation, :level => 3)
-              %li= link_to "Ineligible", url_for(:students, :ineligible)
-        - if user_is_admin
-          %li= link_to "Users", url_for(:users, :index)
->>>>>>> 825b8b58d4bdffe7939b426f7ddd2d3673a1f4cc
