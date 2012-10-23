@@ -16,6 +16,14 @@ StudentDatabase.helpers do
     current_account && current_account.is_admin?
   end
   
+  def user_is_revoked
+    current_account && current_account.is_revoked?
+  end
+  
+  def user_is_pending
+    current_account && current_account.is_pending?
+  end
+  
   def protect_page
     unless user_has_access
       redirect '/not_authorized'

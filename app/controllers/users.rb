@@ -30,7 +30,7 @@ StudentDatabase.controllers :users do
       :email => auth["uid"],
       :name => auth["info"]["name"] })
     session[:user_id] = user.id
-    redirect '/students'
+    redirect '/'
   end
 
 end

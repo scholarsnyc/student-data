@@ -10,9 +10,9 @@
     (
     = link_to "Sign In", url_for(:users, :signin)
     ).
-  - if current_account.is_admin?
+  - if user_is_admin
     %span.label.label-info Admin
-  - if current_account.is_pending?
-    %span.label.label-info Access Pending
-  - if current_account.is_revoked?
-    %span.label.label-info Privleges Revoked
+  - if user_is_pending
+    %span.label.label-warning Access Pending
+  - if user_is_revoked
+    %span.label.label-important Privleges Revoked
