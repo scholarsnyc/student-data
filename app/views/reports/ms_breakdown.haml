@@ -1,0 +1,33 @@
+%h1= @title || "Middle School Exam Breakdown"
+
+%table{class: "table"}
+  %thead
+    %tr
+      %td Grade
+      %td Cohort
+      %td ELA 2012
+      %td ELA 2011
+      %td ELA Progress
+      %td ELA Predictives
+      %td ELA Benchmarks
+      %td Math 2012
+      %td Math 2011
+      %td Math Change
+      %td Math Predictives
+      %td Math Benchmarks
+      
+  %tbody
+  - @reports.each do |report|
+    %tr
+      %td= report.grade
+      %td= report.cohort
+      %td= report.ela_exams
+      %td= report.ela_exams_last_year
+      %td= report.ela_change
+      %td= report.ela_predictives
+      %td= report.ela_benchmarks
+      %td= report.math_exams
+      %td= report.math_exams_last_year
+      %td= report.math_change
+      %td= report.math_predictives
+      %td= report.math_benchmarks
