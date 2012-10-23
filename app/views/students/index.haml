@@ -11,7 +11,7 @@
       %th State Math Score
   %tbody
   - @students.each do |student|
-    %tr
+    %tr{"data-grade" => student.grade, "data-homeroom" => student.homeroom}
       %td= link_to student.name, url_for(:students, :show, :id => student.id)
       %td= student.homeroom
       %td= student.english_score
