@@ -12,5 +12,6 @@
             %li= link_to "Level Two", url_for(:students, :probation, :level => 2)
             %li= link_to "Level Three", url_for(:students, :probation, :level => 3)
             %li= link_to "Ineligible", url_for(:students, :ineligible)
+          %li= link_to "Middle School Exam Report", url_for(:reports, :middle_school_exams)
       - if user_is_admin
         %li= link_to "Users", url_for(:users, :index)
