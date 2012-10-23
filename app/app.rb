@@ -17,4 +17,13 @@ class StudentDatabase < Padrino::Application
     HAML
   end
 
+  get '/auth/:name/callback' do
+    auth = request.env["omniauth.auth"]
+    user = User.first_or_create({ :uid => auth["uid"]}, {
+      :uid => auth["uid"],
+      :name => auth["info"]["name"] })
+    session[:user_id] = user.id
+    redirect '/students'
+  end
+
 end

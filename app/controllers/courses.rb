@@ -1,5 +1,11 @@
 StudentDatabase.controllers :courses do
   
+  before do
+    if current_account.nil? || current_account.uid != "kinney@scholarsnyc.com"
+      redirect :signin
+    end
+  end
+  
   get :index do
     @courses = Course.all(params).all(order: [ :code.asc ])
     render 'courses/index'

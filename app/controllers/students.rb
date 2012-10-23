@@ -1,5 +1,11 @@
 StudentDatabase.controllers :students do
 
+  before do
+    if current_account.nil? || current_account.uid != "kinney@scholarsnyc.com"
+      redirect :signin
+    end
+  end
+
   get :index do
     @students = Student.all({order: [ :homeroom.asc ]}.merge(params))
     render 'students/index'
