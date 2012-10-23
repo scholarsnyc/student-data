@@ -1,9 +1,7 @@
 StudentDatabase.controllers :courses do
   
   before do
-    if current_account.nil? || current_account.email != "kinney@scholarsnyc.com"
-      redirect :signin
-    end
+    protect_page
   end
   
   get :index do

@@ -4,7 +4,7 @@ class User
   property :id,         Serial
   property :email,      String
   property :name,       String
-  property :role,       String, :default => "teacher"
+  property :role,       String, :default => "pending"
   property :created_at, DateTime, :default => Time.now
   
   def has_access?
@@ -13,6 +13,14 @@ class User
   
   def is_admin?
     role == "admin"
+  end
+  
+  def is_pending?
+    role == "pending"
+  end
+  
+  def is_revoked?
+    role == "revoked"
   end
   
   def grant_access

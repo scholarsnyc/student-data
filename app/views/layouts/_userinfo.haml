@@ -1,0 +1,18 @@
+%footer
+  - if current_account
+    Logged in as
+    %strong= current_account.name
+    (
+    = link_to "Sign Out", url_for(:users, :signout)
+    ).
+  - else
+    Currently not logged in
+    (
+    = link_to "Sign In", url_for(:users, :signin)
+    ).
+  - if current_account.is_admin?
+    %span.label.label-info Admin
+  - if current_account.is_pending?
+    %span.label.label-info Access Pending
+  - if current_account.is_revoked?
+    %span.label.label-info Privleges Revoked

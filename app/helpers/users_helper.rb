@@ -8,4 +8,18 @@ StudentDatabase.helpers do
     end
   end
   
+  def user_has_access
+    !!current_account && current_account.has_access?
+  end
+  
+  def user_is_admin
+    current_account && current_account.is_admin?
+  end
+  
+  def protect_page
+    unless user_has_access
+      redirect '/not_authorized'
+    end
+  end
+  
 end

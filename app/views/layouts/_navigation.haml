@@ -1,0 +1,9 @@
+.navbar
+  .navbar-inner
+    %a{class: 'brand', href: '/'} Student Database
+    %ul.nav
+      - if user_has_access
+        %li= link_to "Students", url_for(:students, :index)
+        %li= link_to "Courses", url_for(:courses, :index)
+      - if user_is_admin
+        %li= link_to "Users", url_for(:users, :index)

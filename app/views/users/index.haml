@@ -1,0 +1,14 @@
+%h1= @title || "Users"
+
+%table{class: "table"}
+  %thead
+    %tr
+      %th Name
+      %th Email
+      %th Role
+  %tbody
+  - @users.each do |user|
+    %tr
+      %td= user.name
+      %td= user.email
+      %td= user.role

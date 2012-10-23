@@ -1,0 +1,7 @@
+.well.well-small
+  %strong Grades
+  .btn-group
+    - 6.upto(12) do |grade|
+      %button.btn
+        %a{href: "?grade=#{grade}"}
+          = grade
