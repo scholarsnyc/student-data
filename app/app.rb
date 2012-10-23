@@ -19,8 +19,8 @@ class StudentDatabase < Padrino::Application
 
   get '/auth/:name/callback' do
     auth = request.env["omniauth.auth"]
-    user = User.first_or_create({ :uid => auth["uid"]}, {
-      :uid => auth["uid"],
+    user = User.first_or_create({ :email => auth["uid"]}, {
+      :email => auth["uid"],
       :name => auth["info"]["name"] })
     session[:user_id] = user.id
     redirect '/students'
