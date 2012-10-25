@@ -7,12 +7,10 @@
     %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }/
     = stylesheet_link_tag 'bootstrap'
     = stylesheet_link_tag 'application'
-    = javascript_include_tag 'bootstrap'
   %body
     .container
       = partial 'layouts/navigation'
       = yield
       = partial 'layouts/userinfo'
-    %script{ :src => "//ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.js" }
-      :javascript
-        window.jQuery || document.write("<script src='/javascripts/jquery.js'>\x3C/script>")
+    = javascript_include_tag 'jquery'
+    = javascript_include_tag 'bootstrap.min'

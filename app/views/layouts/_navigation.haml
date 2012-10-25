@@ -12,5 +12,9 @@
             %li= link_to "Level Two", url_for(:students, :probation, :level => 2)
             %li= link_to "Level Three", url_for(:students, :probation, :level => 3)
             %li= link_to "Ineligible", url_for(:students, :ineligible)
+        %li.dropdown
+          %a{href: '#', class: 'dropdown-toggle', "data-toggle" => "dropdown"} Reports
+          %ul.dropdown-menu
+            %li= link_to "Middle School Exam Breakdown", url_for(:reports, :middle_school_exams)
       - if user_is_admin
         %li= link_to "Users", url_for(:users, :index)

@@ -13,7 +13,6 @@ class StudentDatabase < Padrino::Application
   
   get :index do
     haml <<-HAML.gsub(/^ {6}/, '')
-      %p Hello world!
     HAML
   end
 

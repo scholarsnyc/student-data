@@ -2,16 +2,17 @@ StudentDatabase.controllers :students do
 
   before do
     protect_page
+    params[:active] = true unless params[:active]
   end
 
-  get :index do
-    @students = Student.active.all({order: [ :homeroom.asc ]}.merge(params))
+  get :indexi do
+    @students = Student.all({order: [ :homeroom.asc ]}.merge(params))
     render 'students/index'
   end
   
   get :ineligible do
     @title = "Ineligible List"
-    @students = Student.active.ineligible.all(order: [ :homeroom.asc ]).all(params)
+    @students = Student.ineligible.all(order: [ :homeroom.asc ]).all(params)
     render 'students/index'
   end
   
@@ -19,11 +20,11 @@ StudentDatabase.controllers :students do
     @title = "Probation: Level #{params[:level]}"
     case params[:level]
     when "1"
-      @students = Student.on_level_1_probation
+      @students = Student.all(params).on_level_1_probation
     when "2"
-      @students = Student.on_level_2_probation
+      @students = Student.all(params).on_level_2_probation
     when "3"
-      @students = Student.failing
+      @students = Student.all(params).failing
     end
     render 'students/index'
   end
