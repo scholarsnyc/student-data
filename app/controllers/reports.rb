@@ -1,8 +1,8 @@
 StudentDatabase.controllers :reports do
 
   get :middle_school_exams do
-    @reports = MiddleSchoolExamCollection.new
-    return 'reports/ms_breakdown'
-  end
+    @reports = Reports::MiddleSchoolExamCollection.new
+    render 'reports/ms_breakdown'
+  end  
   
 end

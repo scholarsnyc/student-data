@@ -3,7 +3,7 @@ require 'csv'
 module Reports
   
   class MiddleSchoolExamReport
-    attr_reader :grade, :cohort, :ela_exams, :math_exams, :ela_predictives, :math_predictives, :ela_benchmarks, :math_benchmarks  
+    attr_reader :grade, :cohort, :ela_exams, :math_exams, :ela_predictives, :math_predictives, :ela_benchmarks, :math_benchmarks, :ela_exams_last_year, :math_exams_last_year, :ela_change, :math_change  
     
     def initialize(grade, cohort)
       @grade = grade
@@ -47,11 +47,16 @@ module Reports
   end
   
   class MiddleSchoolExamCollection
+    include Enumerable
   
     def initialize
       @report = [[6,:A],[6,:B],[6,:C],[7,:A],[7,:B],[8,:A],[8,:B]].map do |g|
         MiddleSchoolExamReport.new(g[0], g[1])
       end
+    end
+    
+    def each
+      @report.each { |i| yield i }
     end
     
     def to_csv
