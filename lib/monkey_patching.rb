@@ -9,3 +9,17 @@ class Float
     sprintf("%.2f", self).to_f
   end
 end
+
+class NilClass
+  def rounded
+    nil
+  end
+  
+  def -(*args)
+    nil
+  end
+  
+  def each(*args)
+    nil
+  end
+end
