@@ -1,8 +1,7 @@
 StudentDatabase.controllers :reports do
 
-  get :middle_school_exams do
-    @reports = MiddleSchoolExamCollection.new
-    return 'reports/ms_breakdown'
+  get :middle_school_exams, :map => '/reports/ms' do
+    Student.all.to_json
   end
-  
+
 end
