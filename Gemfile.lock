@@ -27,6 +27,12 @@ GEM
     dm-mysql-adapter (1.2.0)
       dm-do-adapter (~> 1.2.0)
       do_mysql (~> 0.10.6)
+    dm-serializer (1.2.2)
+      dm-core (~> 1.2.0)
+      fastercsv (~> 1.5)
+      json (~> 1.6)
+      json_pure (~> 1.6)
+      multi_json (~> 1.0)
     dm-sqlite-adapter (1.2.0)
       dm-do-adapter (~> 1.2.0)
       do_sqlite3 (~> 0.10.6)
@@ -40,12 +46,15 @@ GEM
       data_objects (= 0.10.10)
     erubis (2.7.0)
     eventmachine (1.0.0)
+    fastercsv (1.5.5)
     haml (3.1.4)
     hashie (1.2.0)
     http_router (0.10.2)
       rack (>= 1.0.0)
       url_mount (~> 0.2.1)
     i18n (0.6.1)
+    json (1.7.5)
+    json_pure (1.7.5)
     mail (2.3.3)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -132,6 +141,7 @@ GEM
       polyglot (>= 0.3.1)
     url_mount (0.2.1)
       rack
+    yaji (0.3.3)
 
 PLATFORMS
   ruby
@@ -144,11 +154,13 @@ DEPENDENCIES
   dm-core
   dm-migrations
   dm-mysql-adapter
+  dm-serializer
   dm-sqlite-adapter
   dm-timestamps
   dm-validations
   erubis (~> 2.7.0)
   haml
+  json
   mocha
   omniauth
   omniauth-google
@@ -160,3 +172,4 @@ DEPENDENCIES
   sass
   sinatra-flash
   thin
+  yaji

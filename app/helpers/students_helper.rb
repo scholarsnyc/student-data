@@ -2,4 +2,8 @@
 
 StudentDatabase.helpers do
   
+  def student_query_params
+    params.dup.keep_if { |key, value| Student.properties.map { |p| p.name }.include?(key) }
+  end
+  
 end

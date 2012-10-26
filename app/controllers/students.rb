@@ -5,9 +5,28 @@ StudentDatabase.controllers :students do
     params[:active] = true unless params[:active]
   end
 
-  get :index, :provides => [:html, :json] do
-    @students = Student.all(params)
-    render json: @students if content_type == :json
+  get :index do
+    @students = Student.all(student_query_params)
+    render 'students/index'
+  end
+  
+  get :index, :provides => :json do
+    @students = Student.all(student_query_params)
+    render json: @students
+  end
+  
+  get :middleschool do
+    @students = Student.middleschool
+    render 'students/index'
+  end
+  
+  get :highschool do
+    @students = Student.highschool
+    render 'students/index'
+  end
+  
+  get :grade, :with => :grade do
+    @students = Student.all(grade: params[:grade])
     render 'students/index'
   end
   
@@ -33,6 +52,7 @@ StudentDatabase.controllers :students do
   get :show, :map => "/students/:id" do
     @student = Student.get(params[:id])
     @records = @student.records(mp: @marking_period)
+    @notes = @student.notes
     render 'students/show'
   end
   

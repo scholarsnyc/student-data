@@ -36,7 +36,6 @@ Bundler.require(:default, PADRINO_ENV)
 begin
   require 'pry'
   require 'ostruct'
-  IRB = Pry
   $VERBOSE = false
 rescue LoadError
 end

@@ -1,29 +1,58 @@
-%h1= @student.name
+.row 
+  .span12
+    %h1= @student.name
 
-%h2 Grades
-%table{class: "table"}
-  %thead
-    %tr
-      %th Course
-      %th Score
-      %th Benchmark
-  %tbody
-  - @records.each do |record|
-    %tr
-      %td= link_to record.course.name, url_for(:courses, :show, :id => record.course.code)
-      %td= record.score
-      %td= record.exam
+.row 
+  .span12
+    %h2 Grades
+    %table{class: "table"}
+      %thead
+        %tr
+          %th Course
+          %th Score
+          %th Benchmark
+      %tbody
+      - @records.each do |record|
+        %tr
+          %td= link_to record.course.name, url_for(:courses, :show, :id => record.course.code)
+          %td= record.score
+          %td= record.exam
 
-%h2 Examinations
-%table{class: "table"}
-  %thead
-    %tr
-      %th Exam
-      %th Year
-      %th Score
-  %tbody
-  - @student.exams.each do |exam|
-    %tr
-      %td= exam.comment
-      %td= exam.year
-      %td= exam.score
+.row 
+  .span12
+    %h2 Notes
+
+.row
+  .span12
+    %table{class: "table"}
+      %thead
+        %tr
+          %th Date
+          %th Type
+          %th Teacher
+      %tbody
+      - @notes.each do |note|
+        %tr
+          %td= note.date
+          %td= link_to note.type_to_s, url_for(:notes, :show, :id => note.id)
+          %td= note.user.email
+          
+.row
+  .span12
+    %p= link_to "Create Note", url_for(:notes, :create, :id => @student.id), class: 'btn'
+
+.row
+  .span12
+    %h2 Examinations
+    %table{class: "table"}
+      %thead
+        %tr
+          %th Exam
+          %th Year
+          %th Score
+      %tbody
+      - @student.exams.each do |exam|
+        %tr
+          %td= exam.comment
+          %td= exam.year
+          %td= exam.score

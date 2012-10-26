@@ -3,8 +3,5 @@
   .btn-group
     - 6.upto(12) do |grade|
       %button.btn
-        %a{href: "?grade=#{grade}"}
+        %a{href: "/students/grade/#{grade}"}
           = grade
-    %button.btn
-      %a{href: "?active=#{false}"}
-        Alumni

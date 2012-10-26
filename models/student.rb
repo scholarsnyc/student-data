@@ -23,6 +23,7 @@ class Student
   
   has n, :records
   has n, :exams
+  has n, :notes
   has n, :courses, :through => :records
   
   before :save do

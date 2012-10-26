@@ -22,6 +22,9 @@ gem 'dm-migrations'
 gem 'dm-constraints'
 gem 'dm-aggregates'
 gem 'dm-core'
+gem 'dm-serializer'
+gem 'yaji'
+gem 'json'
 
 # Production SQLite
 gem "dm-sqlite-adapter", :group => "development"
