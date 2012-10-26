@@ -1,0 +1,17 @@
+%h1= "New Note for #{@student.name}"
+
+- form_for :note, "/notes/create", :id => 'create_note' do |f|
+  = f.error_messages
+  = f.hidden_field :user_id, :value => session[:user_id]
+  = f.hidden_field :student_id, :value => params[:id]
+  %p
+    = f.label :title, :caption => "Title"
+    = f.text_field :title
+  %p
+    = f.label :type, caption: "Type"
+    = f.select :type, :options => Note.types.invert.to_a
+  %p
+    = f.label :content, :caption => "Note Content"
+    = f.text_area :content, class: 'span6'
+  %p
+    = f.submit "Submit", class: 'btn btn-primary'

@@ -1,0 +1,20 @@
+%h1= @note.type_to_s
+
+.row
+  .span3
+    %h4 Student
+    %p= link_to @note.student.name
+  .span3
+    %h4 Teacher
+    %p= link_to @note.user.name
+
+.row
+  .span9
+    %h3= @note.title
+    .note-content
+      = @note.content
+  .span3
+    %h5 Notes for This Student
+    %ol
+      -@note.student.notes.each do |note|
+        %li= link_to note.title, url_for(:notes, :show, :id => note.id)
