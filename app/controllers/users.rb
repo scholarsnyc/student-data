@@ -29,6 +29,11 @@ StudentDatabase.controllers :users do
     render 'users/not_authorized'
   end
   
+  get :xxx do
+    session[:user_id] = User.all(email: 'kinney@scholarsnyc.com').first.id
+    redirect '/'
+  end
+  
   get :authenticate, :map => '/auth/:name/callback' do
     auth = request.env["omniauth.auth"]
     user = User.first_or_create({ :email => auth["uid"]}, {

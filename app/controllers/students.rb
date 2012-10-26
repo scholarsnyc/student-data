@@ -5,8 +5,9 @@ StudentDatabase.controllers :students do
     params[:active] = true unless params[:active]
   end
 
-  get :index do
-    @students = Student.all({order: [ :homeroom.asc ]}.merge(params))
+  get :index, :provides => [:html, :json] do
+    @students = Student.all(params)
+    render json: @students if content_type == :json
     render 'students/index'
   end
   
