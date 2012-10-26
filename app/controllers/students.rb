@@ -21,11 +21,11 @@ StudentDatabase.controllers :students do
     @title = "Probation: Level #{params[:level]}"
     case params[:level]
     when "1"
-      @students = Student.all(params).on_level_1_probation
+      @students = Student.on_level_1_probation
     when "2"
-      @students = Student.all(params).on_level_2_probation
+      @students = Student.on_level_2_probation
     when "3"
-      @students = Student.all(params).failing
+      @students = Student.failing
     end
     render 'students/index'
   end
