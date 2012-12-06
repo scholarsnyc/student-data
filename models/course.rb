@@ -23,6 +23,10 @@ class Course
   has n, :records
   has n, :students, :through => :records
   
+  def self.codes
+    all.map {|c| c.code }
+  end
+  
   def set_code
     @code = "#{course_id}#{section}#{year}"
     self

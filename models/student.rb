@@ -79,6 +79,10 @@ class Student
   
   # Descriptive Class Methods
   
+  def self.ids
+    all.map {|s| s.id.to_s }.uniq
+  end  
+  
   # Instance Methods
   
   def name
