@@ -30,6 +30,11 @@ StudentDatabase.controllers :students do
     render 'students/index'
   end
   
+  get :homeroom, :with => :homeroom do
+    @students = Student.all(homeroom: params[:homeroom])
+    render 'students/index'
+  end
+  
   get :ineligible do
     @title = "Ineligible List"
     @students = Student.ineligible.all(order: [ :homeroom.asc ]).all(params)
@@ -51,7 +56,7 @@ StudentDatabase.controllers :students do
   
   get :show, :map => "/students/:id" do
     @student = Student.get(params[:id])
-    @records = @student.records(mp: @marking_period)
+    @records = @student.records(mp: @marking_period, year: @year)
     @notes = @student.notes
     render 'students/show'
   end

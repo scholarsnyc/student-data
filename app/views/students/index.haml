@@ -13,6 +13,6 @@
   - @students.each do |student|
     %tr{"data-grade" => student.grade, "data-homeroom" => student.homeroom}
       %td= link_to student.name, url_for(:students, :show, :id => student.id)
-      %td= student.homeroom
+      %td= link_to_homeroom student.homeroom
       %td= student.english_score
       %td= student.math_score

@@ -6,4 +6,8 @@ StudentDatabase.helpers do
     params.dup.keep_if { |key, value| Student.properties.map { |p| p.name }.include?(key) }
   end
   
+  def link_to_homeroom(homeroom)
+    link_to homeroom, url_for(:students, :homeroom, :homeroom => homeroom)
+  end
+  
 end
