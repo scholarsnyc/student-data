@@ -38,4 +38,4 @@ gem 'rack-test', :require => "rack/test", :group => "test"
 gem 'padrino', '0.10.7'
 
 # Pry Console
-gem 'pry'
+gem 'pry-padrino'
