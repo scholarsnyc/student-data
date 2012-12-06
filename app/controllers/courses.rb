@@ -5,7 +5,7 @@ StudentDatabase.controllers :courses do
   end
   
   get :index do
-    @courses = Course.all(params).all(order: [ :code.asc ])
+    @courses = Course.all(params).all(order: [ :code.asc ], year: CURRENT_YEAR)
     render 'courses/index'
   end
   

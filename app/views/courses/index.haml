@@ -8,6 +8,7 @@
       %th Subject
       %th Code
       %th Section
+      %th Year
   %tbody
   - @courses.each do |course|
     %tr
@@ -16,3 +17,4 @@
       %td= course.subject
       %td= course.code
       %td= course.section
+      %td= course.year
