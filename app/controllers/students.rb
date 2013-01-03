@@ -46,12 +46,15 @@ StudentDatabase.controllers :students do
     case params[:level]
     when "1"
       @students = Student.on_level_1_probation
+      @probation_level = 1
     when "2"
       @students = Student.on_level_2_probation
+      @probation_level = 2
     when "3"
       @students = Student.failing
+      @probation_level = 3
     end
-    render 'students/index'
+    render 'students/probation'
   end
   
   get :show, :map => "/students/:id" do

@@ -1,0 +1,18 @@
+%h1= @title || "Students on Probation"
+
+%table{class: "table"}
+  %thead
+    %tr
+      %th Name
+      %th Homeroom
+      %th Level 1 Probation
+      %th Level 2 Probation
+      %th Failing
+  %tbody
+  - @students.each do |student|
+    %tr{"data-grade" => student.grade, "data-homeroom" => student.homeroom}
+      %td= link_to student.name, url_for(:students, :show, :id => student.id)
+      %td= link_to_homeroom student.homeroom
+      %td= student.probation_subjects(1)
+      %td= student.probation_subjects(2)
+      %td= student.probation_subjects(3)

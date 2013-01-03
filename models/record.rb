@@ -97,6 +97,10 @@ class Record
     all(year: most_recent_year, order: [ :mp.desc ]).first.mp
   end
   
+  def self.subjects
+    all.map { |r| r.course.subject }.uniq.compact
+  end
+  
   # Instance Methods
     
   def outstanding?

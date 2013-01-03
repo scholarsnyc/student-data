@@ -23,3 +23,9 @@ class NilClass
     nil
   end
 end
+
+def String
+  def dearray
+    self.gsub(/[\[\]"]/, '')
+  end
+end

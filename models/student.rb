@@ -92,11 +92,22 @@ class Student
   def probation_report
     OpenStruct.new(outstanding: records.current.outstanding,
                    good_standing: records.current.good_standing,
+                   probationary: records.current.probationary,
                    level_1: records.current.probation_level(1),
                    level_2: records.current.probation_level(2),
                    failing: records.current.failing)
   end
   
+  def probation_subjects(level = probation_status)
+    p = probation_report
+    case level
+      when 1 then p.level_1.subjects.to_s.gsub(/[\[\]"]/, '')
+      when 2 then p.level_2.subjects.to_s.gsub(/[\[\]"]/, '')
+      when 3 then p.failing.subjects.to_s.gsub(/[\[\]"]/, '')
+      when :all then p.probationary.subjects.to_s.gsub(/[\[\]"]/, '')
+    end
+  end
+    
   def probation_status
     if probation_report.failing.count > 0
       3
@@ -104,8 +115,6 @@ class Student
       2
     elsif probation_report.level_1.count > 0
       1
-    else
-      nil
     end
   end
   
