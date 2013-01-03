@@ -43,7 +43,7 @@ StudentDatabase.controllers :students do
 
   get :honors do
     @title = "Students Eligible for the National Honor Society"
-    @students = Student.all(grade: [7,10], order: [ :grade.asc  ]).keep_if {|s| s.records(:score.lt => 90).count == 0}
+    @students = Student.all(grade: [7,10]).eligible_for_honor_society
     render 'students/index'
   end
   

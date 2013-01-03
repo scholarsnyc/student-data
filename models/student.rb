@@ -77,6 +77,10 @@ class Student
     all.records.current.failing.students
   end
   
+  def self.eligible_for_honor_society
+    all.keep_if { |s| s.eligible_for_honor_society? }
+  end
+  
   # Descriptive Class Methods
   
   def self.ids
@@ -138,6 +142,16 @@ class Student
     grade >= 9 && grade <= 12
   end
   
+  def eligible_for_honor_society?
+    eligible = true
+    records.active_mps.each do |mp|
+      if records(mp).avg(:score) < 90
+        eligible = false
+      end
+    end
+    return eligible
+  end
+
   def english_score
     scores = exams(type: [0,10], order: [ :year.desc ])
     scores.empty? ? nil : scores.first.score.rounded

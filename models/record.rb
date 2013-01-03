@@ -22,7 +22,7 @@ class Record
   end
   
   before :update do
-    updated_at = Time.now
+    self.updated_at = Time.now
   end
   
   # Constants
@@ -99,6 +99,10 @@ class Record
   
   def self.subjects
     all.map { |r| r.course.subject }.uniq.compact
+  end
+
+  def self.active_mps
+    all.map { |r| {mp: r.mp, year: r.year} }.uniq
   end
   
   # Instance Methods
