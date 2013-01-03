@@ -78,7 +78,7 @@ class Student
   end
   
   def self.eligible_for_honor_society
-    all.keep_if { |s| s.eligible_for_honor_society? }
+    all(order: [:grade.asc, :homeroom.asc, :lastname.asc]).keep_if { |s| s.eligible_for_honor_society? }
   end
   
   # Descriptive Class Methods
