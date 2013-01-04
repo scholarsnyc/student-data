@@ -1,0 +1,14 @@
+%h1 Courses
+
+%table{class: "table"}
+  %thead
+    %tr
+      %th Name
+      %th Code
+      %th Weight
+  %tbody
+  - @courses.each do |course|
+    %tr
+      %td= link_to course.name, url_for(:courses, :show, :id => course.code)
+      %td= course.code
+      %td= course.weight

@@ -14,6 +14,11 @@ StudentDatabase.controllers :courses do
     @records = @course.records(mp: @marking_period, year: @year)
     render 'courses/show'
   end
+
+  get :weights do
+    @courses = Course.all(order: [ :code.asc ])
+    render 'courses/index-weights'
+  end
   
   post :weight, map: "/courses/:course/weight/:weight", provides: :json  do 
     @course = Course.get(params[:course])
