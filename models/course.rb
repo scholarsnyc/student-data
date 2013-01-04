@@ -11,6 +11,7 @@ class Course
   property :import,     Integer, :default => Time.now.to_i
   property :created_at, DateTime, :default => Time.now
   property :updated_at, DateTime, :default => Time.now
+  property :weight,     Float, :default => 1.0
   
   before :save do
     self.code = "#{course_id}#{section}#{year}"
