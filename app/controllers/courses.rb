@@ -15,9 +15,10 @@ StudentDatabase.controllers :courses do
     render 'courses/show'
   end
   
-  post :weight, map: "/course/:course/weight/:weight", provides: :json  do 
+  post :weight, map: "/courses/:course/weight/:weight", provides: :json  do 
     @course = Course.get(params[:course])
     @course.update(weight: params[:weight])
+    render json: {course: @course, success: true}
   end
   
 end
