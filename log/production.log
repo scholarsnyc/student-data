@@ -3715,3 +3715,4 @@
  /usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.12/lib/phusion_passenger/abstract_server.rb:357:in `server_main_loop'
  /usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.12/lib/phusion_passenger/abstract_server.rb:206:in `start_synchronously'
  /usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.12/helper-scripts/passenger-spawn-server:99:in `<main>'
+[31m  ERROR[0m -[33m04/Jan/2013 08:24:51[0mUnknown column 'weight' in 'field list' (code: 1054, sql state: 42S22, query: SELECT `code`, `name`, `teacher`, `course_id`, `section`, `subject`, `year`, `import`, `created_at`, `updated_at`, `weight` FROM `courses` ORDER BY `code`, uri: mysql:seawolf@scholarsnyc.com/studentdata?scheme=mysql&user=seawolf&password=Oce423&host=scholarsnyc.com&port=&path=/studentdata&query=&fragment=&adapter=mysql)

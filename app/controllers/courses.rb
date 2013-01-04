@@ -11,8 +11,14 @@ StudentDatabase.controllers :courses do
   
   get :show, :map => "/courses/:id" do
     @course = Course.get(params[:id])
-    @records = @course.records(mp: @marking_period)
+    @records = @course.records(mp: @marking_period, year: @year)
     render 'courses/show'
+  end
+  
+  post :weight, map: "/course/:course/weight/:weight", provides: :json  do 
+    @course = Course.get(params[:course])
+    @course.update(weight: params[:weight])
+    return {course: @course, success: true}
   end
   
 end
