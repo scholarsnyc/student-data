@@ -1,5 +1,17 @@
 %h1= @course.name
-%p.lead= "Section: #{@course.section}, Year: #{@year}, Marking Period: #{@marking_period}"
+
+%table.table
+  %thead
+    %tr
+      %th Section
+      %th Marking Period
+      %th Year
+      %th Weight
+    %tr
+      %td= @course.section
+      %td= @course.marking_period
+      %td= @course.year
+      %td= @course.weight
 
 %h2 Grades
 %table{class: "table"}
