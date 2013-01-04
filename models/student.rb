@@ -144,8 +144,8 @@ class Student
   
   def eligible_for_honor_society?
     eligible = true
-    records.active_mps.each do |mp|
-      if records(mp).avg(:score) < 90
+    records.years.each do |year|
+      if records(year: year).avg(:score) < 90
         eligible = false
       end
     end

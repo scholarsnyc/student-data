@@ -101,6 +101,10 @@ class Record
     all.map { |r| r.course.subject }.uniq.compact
   end
 
+  def self.years
+    all.map { |r| r.year }.uniq.compact.sort
+  end
+
   def self.active_mps
     all.map { |r| {mp: r.mp, year: r.year} }.uniq
   end
