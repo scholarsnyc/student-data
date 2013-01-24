@@ -16,8 +16,8 @@ StudentDatabase.controllers :courses do
   end
 
   get :weights do
-    @courses = Course.all(order: [ :code.asc ])
-    render 'courses/index-weights'
+    @courses = Course.all(params).all(order: [ :code.asc ])
+    render 'courses/weights'
   end
   
   post :weight, map: "/courses/:course/weight/:weight", provides: :json  do 

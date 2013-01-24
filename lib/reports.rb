@@ -19,8 +19,8 @@ module Reports
       @math_change = (@math_exams - @math_exams_last_year).rounded
       @ela_predictives = @exams.all(type: 2).avg(:score).rounded
       @math_predictives = @exams.all(type: 3).avg(:score).rounded
-      @ela_benchmarks = @students.courses(subject: "English").records(mp: 6, year: 2012).avg(:exam).rounded
-      @math_benchmarks = @students.courses(subject: "Mathematics").records(mp: 6, year: 2012).avg(:exam).rounded
+      @ela_benchmarks = @students.courses(subject: "English").records(mp: 3, year: 2012).avg(:exam).rounded
+      @math_benchmarks = @students.courses(subject: "Mathematics").records(mp: 3, year: 2012).avg(:exam).rounded
     end
     
     def to_a
