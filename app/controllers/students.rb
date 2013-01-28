@@ -12,6 +12,10 @@ StudentDatabase.controllers :students do
   
   get :index, :provides => :json do
     @students = Student.all(student_query_params)
+		@student_hash = {}
+		@students.each do |s|
+			@student_hash[s.id] = {name: s.name, grade: s.grade, homeroom: s.homeroom}
+		end
     render json: @students
   end
   
@@ -68,6 +72,11 @@ StudentDatabase.controllers :students do
     @records = @student.records(mp: @marking_period, year: @year)
     @notes = @student.notes
     render 'students/show'
+  end
+  
+   get :show, :map => "/students/:id" do
+    @student = Student.all
+    
   end
   
 end

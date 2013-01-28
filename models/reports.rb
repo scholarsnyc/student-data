@@ -5,7 +5,7 @@ module Reports
   class MiddleSchoolExamReport
     attr_reader :grade, :cohort, :ela_exams, :math_exams, :ela_predictives, :math_predictives, :ela_benchmarks, :math_benchmarks, :ela_exams_last_year, :math_exams_last_year, :ela_change, :math_change  
     
-    def initialize(grade, cohort)
+    def initialize(grade, cohort, mp = 6, year = CURRENT_YEAR)
       @grade = grade
       @cohort = cohort
       @students = Student.all(previous_grade: @grade, previous_cohort: @cohort)
@@ -19,8 +19,8 @@ module Reports
       @math_change = (@math_exams - @math_exams_last_year).rounded
       @ela_predictives = @exams.all(type: 2).avg(:score).rounded
       @math_predictives = @exams.all(type: 3).avg(:score).rounded
-      @ela_benchmarks = @students.courses(subject: "English").records(mp: 3, year: 2012).avg(:exam).rounded
-      @math_benchmarks = @students.courses(subject: "Mathematics").records(mp: 3, year: 2012).avg(:exam).rounded
+      @ela_benchmarks = @students.courses(subject: "English").records(mp: mp, year: year).avg(:exam).rounded
+      @math_benchmarks = @students.courses(subject: "Mathematics").records(mp: mp, year: year).avg(:exam).rounded
     end
     
     def to_a
@@ -49,9 +49,9 @@ module Reports
   class MiddleSchoolExamCollection
     include Enumerable
   
-    def initialize
+    def initialize(mp = 6, year = CURRENT_YEAR)
       @report = [[6,:A],[6,:B],[6,:C],[7,:A],[7,:B],[8,:A],[8,:B]].map do |g|
-        MiddleSchoolExamReport.new(g[0], g[1])
+        MiddleSchoolExamReport.new(g[0], g[1], mp, year)
       end
     end
     
@@ -64,5 +64,13 @@ module Reports
     end
   
   end
+
+	class BenchmarkBreakdown
+	
+		def initialize(year = CURRENT_YEAR - 1)
+			
+		end
+	
+	end
   
 end
