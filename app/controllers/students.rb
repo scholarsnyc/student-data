@@ -61,6 +61,9 @@ StudentDatabase.controllers :students do
     when "3"
       @students = Student.failing
       @probation_level = 3
+    else
+      @students = Student.on_probation
+      @probation_level = 3
     end
     render 'students/probation'
   end
