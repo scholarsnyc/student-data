@@ -2,7 +2,7 @@ StudentDatabase.controllers :students do
 
   before do
     protect_page
-    params[:active] = true unless params[:active]
+    params[:active] = true if params[:active].nil?
   end
 
   get :index do
@@ -11,11 +11,9 @@ StudentDatabase.controllers :students do
   end
   
   get :index, :provides => :json do
-    @students = Student.all(student_query_params)
-		@student_hash = {}
-		@students.each do |s|
-			@student_hash[s.id] = {name: s.name, grade: s.grade, homeroom: s.homeroom}
-		end
+    @students = Student.all.map do |s| 
+      {id: s.id, name: s.name, grade: s.grade, homeroom: s.homeroom}
+    end
     render json: @students
   end
   

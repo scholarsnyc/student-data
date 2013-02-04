@@ -12,7 +12,6 @@ StudentDatabase.controllers :notes do
   
   post :create, :map => "/notes/create" do
     @note = Note.create(params[:note])
-    redirect "/notes/#{@note.id}"
   end
   
 end
