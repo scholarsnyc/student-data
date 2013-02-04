@@ -9,10 +9,12 @@ StudentDatabase.helpers do
   end
   
   def user_has_access
+    return true if Padrino.env == :development
     !!current_account && current_account.has_access?
   end
   
   def user_is_admin
+    return true if Padrino.env == :development
     current_account && current_account.is_admin?
   end
   
@@ -25,15 +27,11 @@ StudentDatabase.helpers do
   end
   
   def protect_page
-    unless user_has_access
-      redirect '/not_authorized'
-    end
+    redirect '/not_authorized' unless user_has_access
   end
   
   def admin_only
-    unless user_is_admin
-      redirect '/'
-    end
+    redirect '/' unless user_is_admin
   end
   
 end
