@@ -47,6 +47,6 @@
         %tr
           %th Student
       %tbody
-      - @records.top_bottom.each do |record|
+      - @records.bottom_third.each do |record|
         %tr
           %td= link_to record.student.name, url_for(:students, :show, :id => record.student.id)
