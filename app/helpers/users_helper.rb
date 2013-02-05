@@ -26,7 +26,9 @@ StudentDatabase.helpers do
   
   def protect_page
     return if Padrino.env == :development
-    halt(403, render("users/not_authorized"))
+    unless current_account.has_access?
+      halt 403, render("users/not_authorized")
+    end
   end
   
   def admin_only
