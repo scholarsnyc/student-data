@@ -86,6 +86,14 @@ class Record
   def self.this_year
     all(year: most_recent_year)
   end
+
+  def self.top_third(metric = :exam)
+    all(:order => [ metric.desc ]).first(all.count / 3)
+  end
+
+  def self.bottom_third(metric = :exam)
+    all(:order => [ metric.asc ]).first(all.count / 3)
+  end
   
   # Descriptive Class Methods
   

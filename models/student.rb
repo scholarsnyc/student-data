@@ -86,6 +86,10 @@ class Student
   def self.ids
     all.map {|s| s.id.to_s }.uniq
   end  
+
+  def self.names
+    all.map {|s| s.name }.uniq
+  end
   
   # Instance Methods
   

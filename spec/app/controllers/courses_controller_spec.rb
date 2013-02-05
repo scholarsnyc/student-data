@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe "CoursesController" do
-  before do
-    get "/"
-  end
+# describe "CoursesController" do
+#   before do
+#     get "/"
+#   end
 
-  it "returns hello world" do
-    last_response.body.should == "Hello World"
-  end
-end
+#   it "returns hello world" do
+#     last_response.body.should == "Hello World"
+#   end
+# end
