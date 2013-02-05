@@ -86,29 +86,26 @@ StudentDatabase.controllers :students do
   end
   
   get :aat, provides: [:html, :json] do
-    @title = "Students in AAT"
     @students = Student.all(aat: true)
     case content_type
       when :html then render 'students/index'
-      when :json then return @student.to_json
+      when :json then return @students.to_json
     end
   end
   
   get :lowest_third_math, map: '/students/lowest-third/math', provides: [:html, :json] do
     @students = Student.all(lowest_third_math: true)
-    @title = "Lowest Third: Math"
     case content_type
       when :html then render 'students/index'
-      when :json then return @student.to_json
+      when :json then return @students.to_json
     end
   end
 
   get :lowest_third_ela, map: '/students/lowest-third/ela', provides: [:html, :json] do
     @students = Student.all(lowest_third_ela: true)
-    @title = "Lowest Third: ELA"
     case content_type
       when :html then render 'students/index'
-      when :json then return @student.to_json
+      when :json then return @students.to_json
     end
   end
 
