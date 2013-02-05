@@ -25,7 +25,8 @@ StudentDatabase.helpers do
   end
   
   def protect_page
-    redirect '/not_authorized' unless user_has_access
+    return if Padrino.env == :development
+    halt(403, render("users/not_authorized"))
   end
   
   def admin_only
