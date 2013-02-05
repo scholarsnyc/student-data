@@ -1,0 +1,16 @@
+%h1= @title || "Notes"
+
+%table{class: "table"}
+  %thead
+    %tr
+      %th Note ID
+      %th Student
+      %th Type
+      %th Date Submitted
+  %tbody
+  - @notes.each do |note|
+    %tr{"data-grade" => note.student.grade, "data-homeroom" => note.student.homeroom}
+      %td= link_to note.id, url_for(:notes, :show, :id => note.id)
+      %td= link_to note.student.name, url_for(:students, :show, :id => note.student.id)
+      %td= note.to_s
+      %td= note.date
