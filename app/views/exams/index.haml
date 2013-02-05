@@ -1,0 +1,14 @@
+%table.table
+  %thead
+    %tr
+      %th Exam
+      %th Student
+      %th Marking Period
+      %th Year
+  %tbody
+  - @exams.each do |exam|
+    %tr{"data-grade" => exam.student.grade, "data-homeroom" => exam.student.homeroom}
+      %td= link_to exam.comment, url_for(:exams, :show, :id => exam.id)
+      %td= link_to exam.student.name, url_for(:students, :show, :id => exam.student.id)
+      %td= exam.mp
+      %td= exam.year
