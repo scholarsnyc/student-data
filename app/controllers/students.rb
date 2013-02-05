@@ -1,6 +1,5 @@
-StudentDatabase.controllers :students, conditions: { protect: true } do
+StudentDatabase.controllers :students do
 
-  extend Protections
 
   before do
     params[:active] = true if params[:active].nil?

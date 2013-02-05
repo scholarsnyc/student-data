@@ -1,7 +1,5 @@
-StudentDatabase.controllers :notes, conditions: { protect: true } do
+StudentDatabase.controllers :notes do
   
-  extend Protections
-
   get :index, provides: [:html, :json] do
     @notes = Note.all
     case content_type

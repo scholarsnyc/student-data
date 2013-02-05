@@ -1,14 +1,4 @@
-StudentDatabase.controllers :reports, conditions: { protect: true } do
-
-  extend Protections
-
-  def self.protect(*args)
-    condition do
-      unless user_has_access
-        halt 403, "No secrets for you!"
-      end
-    end
-  end
+StudentDatabase.controllers :reports do
 
   get :middle_school_exams do
     @reports = Reports::MiddleSchoolExamCollection.new

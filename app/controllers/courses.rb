@@ -1,6 +1,4 @@
-StudentDatabase.controllers :courses, conditions: { protect: true } do
-  
-  extend Protections
+StudentDatabase.controllers :courses do
 
   get :index, provides: [:html, :json] do
     @courses = Course.all(order: [ :code.asc ], year: @year)
