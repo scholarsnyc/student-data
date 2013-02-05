@@ -1,17 +1,30 @@
-StudentDatabase.controllers :notes do
+StudentDatabase.controllers :notes, conditions: { protect: true } do
   
-  get :show, :map => "/notes/:id" do
+  extend Protections
+
+  get :index, provides: [:html, :json] do
+    @notes = Note.all
+    case content_type
+      when :html then render 'notes/index'
+      when :json then return @notes.to_json
+    end
+  end
+
+  get :show, with: :id, provides: [:html, :json] do
     @note = Note.get(params[:id])
-    render 'notes/show'
+    case content_type
+      when :html then render 'notes/show'
+      when :json then return @note.to_json
+    end
   end
   
-  get :create, :map => "students/:id/notes/create" do
-    @student = Student.get(params[:id])
+  get :create, with: :student_id do
+    @student = Student.get(params[:student_id])
     render 'notes/create'
   end
   
-  post :create, :map => "/notes/create" do
-    @note = Note.create(params[:note])
+  post :create do
+    @note = Note.create(params[:note]).inspect
   end
   
 end

@@ -39,7 +39,7 @@
           
 .row
   .span12
-    %p= link_to "Create Note", url_for(:notes, :create, :id => @student.id), class: 'btn'
+    %p= link_to "Create Note", url_for(:notes, :create, :student_id => @student.id), class: 'btn'
 
 .row
   .span12

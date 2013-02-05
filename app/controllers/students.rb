@@ -1,55 +1,70 @@
-StudentDatabase.controllers :students do
+StudentDatabase.controllers :students, conditions: { protect: true } do
+
+  extend Protections
 
   before do
-    protect_page
     params[:active] = true if params[:active].nil?
   end
 
-  get :index do
+  get :index, provides: [:html, :json] do
     @students = Student.all(student_query_params)
-    render 'students/index'
-  end
-  
-  get :index, :provides => :json do
-    @students = Student.all.map do |s| 
-      {id: s.id, name: s.name, grade: s.grade, homeroom: s.homeroom}
+    case content_type
+      when :html then render 'students/index'
+      when :json then return @students.to_json
     end
-    render json: @students
   end
   
-  get :middleschool do
+  get :middleschool, provides: [:html, :json] do
     @students = Student.middleschool
-    render 'students/index'
+    case content_type
+      when :html then render 'students/index'
+      when :json then return @students.to_json
+    end
   end
   
-  get :highschool do
+  get :highschool, provides: [:html, :json] do
     @students = Student.highschool
-    render 'students/index'
+    case content_type
+      when :html then render 'students/index'
+      when :json then return @students.to_json
+    end
   end
   
-  get :grade, :with => :grade do
+  get :grade, :with => :grade, provides: [:html, :json] do
     @students = Student.all(grade: params[:grade])
-    render 'students/index'
+    case content_type
+      when :html then render 'students/index'
+      when :json then return @students.to_json
+    end
   end
   
-  get :homeroom, :with => :homeroom do
+  get :homeroom, :with => :homeroom, provides: [:html, :json] do
     @students = Student.all(homeroom: params[:homeroom])
-    render 'students/index'
+    case content_type
+      when :html then render 'students/index'
+      when :json then return @students.to_json
+    end
   end
   
-  get :ineligible do
+  get :ineligible, provides: [:html, :json] do
     @title = "Ineligible List"
     @students = Student.ineligible.all(order: [ :homeroom.asc ]).all(params)
-    render 'students/index'
+    case content_type
+      when :html then render 'students/index'
+      when :json then return @students.to_json
+    end
   end
 
-  get :honors do
+  get :honors, provides: [:html, :json] do
     @title = "Students Eligible for the National Honor Society"
     @students = Student.all(grade: [7,10]).eligible_for_honor_society
-    render 'students/index'
+    case content_type
+      when :html then render 'students/index'
+      when :json then return @students.to_json
+    end
   end
   
-  get :probation, :map => "/students/probation/:level" do
+  get :probation, with: :level, provides: [:html, :json] do
     @title = "Probation: Level #{params[:level]}"
     case params[:level]
     when "1"
@@ -65,19 +80,20 @@ StudentDatabase.controllers :students do
       @students = Student.on_probation
       @probation_level = 3
     end
-    render 'students/probation'
+    case content_type
+      when :html then render 'students/probation'
+      when :json then return @students.to_json
+    end
   end
   
-  get :show, :map => "/students/:id" do
+  get :show, with: :id, provides: [:html, :json] do
     @student = Student.get(params[:id])
     @records = @student.records(mp: @marking_period, year: @year)
     @notes = @student.notes
-    render 'students/show'
-  end
-  
-   get :show, :map => "/students/:id" do
-    @student = Student.all
-    
+    case content_type
+      when :html then render 'students/show'
+      when :json then return @student.to_json
+    end
   end
   
 end

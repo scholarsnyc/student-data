@@ -1,7 +1,7 @@
 # Helper methods defined here can be accessed in any controller or view in the application
 
 StudentDatabase.helpers do
-  
+
   def current_account
     if session[:user_id]
       User.get(session[:user_id])
@@ -9,12 +9,10 @@ StudentDatabase.helpers do
   end
   
   def user_has_access
-    return true if Padrino.env == :development
     !!current_account && current_account.has_access?
   end
   
   def user_is_admin
-    return true if Padrino.env == :development
     current_account && current_account.is_admin?
   end
   

@@ -1,18 +1,22 @@
-StudentDatabase.controllers :courses do
+StudentDatabase.controllers :courses, conditions: { protect: true } do
   
-  before do
-    protect_page
+  extend Protections
+
+  get :index, provides: [:html, :json] do
+    @courses = Course.all(order: [ :code.asc ], year: @year)
+    case content_type
+      when :html then render 'courses/index'
+      when :json then return @courses.to_json
+    end
   end
   
-  get :index do
-    @courses = Course.all(params).all(order: [ :code.asc ], year: CURRENT_YEAR)
-    render 'courses/index'
-  end
-  
-  get :show, :map => "/courses/:id" do
+  get :show, with: :id, provides: [:html, :json] do
     @course = Course.get(params[:id])
     @records = @course.records(mp: @marking_period, year: @year)
-    render 'courses/show'
+    case content_type
+      when :html then render 'courses/show'
+      when :json then return {course: @course, students: @course.students}.to_json
+    end
   end
   
 end

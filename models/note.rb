@@ -30,7 +30,7 @@ class Note
     11 => "In-School Suspension"
   }
   
-  def type_to_s
+  def to_s
     TYPES[type]
   end
   

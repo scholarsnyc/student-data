@@ -1,6 +1,14 @@
-StudentDatabase.controllers :users do
+StudentDatabase.controllers :users, conditions: { protect: true } do
   
-  get :signin, :map => '/signin' do
+  extend Protections
+
+  get :index, provides: [:html, :json] do
+    admin_only
+    @users = User.all(params)
+    render 'users/index'
+  end
+
+  get :signin do
     if user_has_access
       redirect '/'
     else
@@ -8,15 +16,9 @@ StudentDatabase.controllers :users do
     end
   end
   
-  get :signout, :map => '/signout' do
+  get :signout do
     session[:user_id] = nil
     redirect '/'
-  end
-  
-  get :index do
-    admin_only
-    @users = User.all(params)
-    render 'users/index'
   end
   
   post :grant_access, :map => '/users/grant_access_to/:id' do
@@ -27,11 +29,6 @@ StudentDatabase.controllers :users do
   
   get :not_authorized, :map => '/not_authorized' do
     render 'users/not_authorized'
-  end
-  
-  get :xxx do
-    session[:user_id] = User.all(email: 'kinney@scholarsnyc.com').first.id
-    redirect '/'
   end
   
   get :authenticate, :map => '/auth/:name/callback' do
