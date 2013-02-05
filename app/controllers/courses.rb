@@ -1,4 +1,6 @@
 StudentDatabase.controllers :courses do
+  
+  before { protect_page }
 
   get :index, provides: [:html, :json] do
     @courses = Course.all(order: [ :code.asc ], year: @year)

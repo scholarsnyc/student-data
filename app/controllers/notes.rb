@@ -1,5 +1,7 @@
 StudentDatabase.controllers :notes do
   
+  before { protect_page }
+  
   get :index, provides: [:html, :json] do
     @notes = Note.all
     case content_type

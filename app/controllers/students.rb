@@ -1,7 +1,7 @@
 StudentDatabase.controllers :students do
 
-
   before do
+    protect_page
     params[:active] = true if params[:active].nil?
   end
 

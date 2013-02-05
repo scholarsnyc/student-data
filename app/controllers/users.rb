@@ -6,7 +6,7 @@ StudentDatabase.controllers :users do
     render 'users/index'
   end
 
-  get :signin, protect: false do
+  get :signin, do
     if user_has_access
       redirect '/'
     else
@@ -25,11 +25,11 @@ StudentDatabase.controllers :users do
     render 'users/index'
   end
   
-  get :not_authorized, :map => '/not_authorized', protect: false do
+  get :not_authorized, :map => '/not_authorized' do
     render 'users/not_authorized'
   end
   
-  get :authenticate, :map => '/auth/:name/callback', protect: false do
+  get :authenticate, :map => '/auth/:name/callback' do
     auth = request.env["omniauth.auth"]
     user = User.first_or_create({ :email => auth["uid"]}, {
       :email => auth["uid"],
