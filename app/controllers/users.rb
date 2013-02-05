@@ -6,7 +6,7 @@ StudentDatabase.controllers :users do
     render 'users/index'
   end
 
-  get :signin, do
+  get :signin do
     if user_has_access
       redirect '/'
     else
