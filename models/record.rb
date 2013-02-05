@@ -88,10 +88,16 @@ class Record
   end
 
   def self.top_third(metric = :exam)
+    if all.avg(:exam).zero? && metric == :exam
+      metric = :score
+    end
     all(:order => [ metric.desc ]).first(all.count / 3)
   end
 
   def self.bottom_third(metric = :exam)
+    if all.avg(:exam).zero? && metric == :exam
+      metric = :score
+    end
     all(:order => [ metric.asc ]).first(all.count / 3)
   end
   
