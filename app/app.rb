@@ -18,12 +18,3 @@ class StudentDatabase < Padrino::Application
   end
 
 end
-
-module Protections
-  def protect(protected)
-    user = User.get(session[:user_id])
-    condition do
-      halt 403, "No secrets for you!" unless user && user.has_access?
-    end if protected
-  end
-end
