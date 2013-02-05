@@ -28,3 +28,25 @@
       %td= link_to_homeroom record.student.homeroom
       %td= record.score
       %td= record.exam
+
+%h2 Top and Bottom Third
+
+.row
+  .span6
+    %table.table.top-third
+      %thead
+        %tr
+          %th Student
+      %tbody
+      - @records.top_third.each do |record|
+        %tr
+          %td= link_to record.student.name, url_for(:students, :show, :id => record.student.id)
+  .span6
+    %table.table.bottom-third
+      %thead
+        %tr
+          %th Student
+      %tbody
+      - @records.top_third.each do |record|
+        %tr
+          %td= link_to record.student.name, url_for(:students, :show, :id => record.student.id)
