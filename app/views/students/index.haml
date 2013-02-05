@@ -7,8 +7,8 @@
     %tr
       %th First Name
       %th Last Name
-      %th Homeroom
       %th Grade
+      %th Homeroom
   %tbody
   - @students.each do |student|
     %tr{"data-grade" => student.grade, "data-homeroom" => student.homeroom}
