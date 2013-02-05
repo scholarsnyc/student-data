@@ -17,6 +17,7 @@ class Student
   property :iep,                Integer
   property :lowest_third_ela,   Boolean, :default => false
   property :lowest_third_math,  Boolean, :default => false
+  property :aat,                Boolean, :default => false
   property :import,             Integer, :default => Time.now.to_i
   property :created_at,         DateTime, :default => Time.now
   property :updated_at,         DateTime, :default => Time.now
@@ -48,7 +49,15 @@ class Student
   def self.highschool
     all(:grade.gte => 9, :grade.lte => 12)
   end
-  
+
+  def self.lowest_third_ela
+    all(lowest_third_ela: true)
+  end
+
+  def self.lowest_third_math
+    all(lowest_third_math: true)
+  end
+
   def self.outstanding
     all.records.current.outstanding.students - all.records.current.not_outstanding.students
   end
