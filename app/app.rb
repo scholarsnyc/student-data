@@ -10,6 +10,10 @@ class StudentDatabase < Padrino::Application
   before do
     @marking_period = params[:mp] || 1
     @year = params[:year] || 2013
+
+    if Padrino.env == :development && session[:user_id]
+      session[:user_id] = User.all(email: 'kinney@scholarsnyc.com').first.id
+    end
   end
   
   get :index do
