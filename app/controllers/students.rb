@@ -94,5 +94,14 @@ StudentDatabase.controllers :students do
       when :json then return @student.to_json
     end
   end
+
+  get :aat, provides: [:html, :json] do
+    @title = "Students in AAT"
+    @students = Student.all(aat: true)
+    case content_type
+      when :html then render 'students/index'
+      when :json then return @student.to_json
+    end
+  end
   
 end
