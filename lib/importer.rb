@@ -61,7 +61,7 @@ class RecordImporter < DataImporter
       if eligible?(row)
         record = Record.create(format_row(row))
         logger.warn "Record #{record.id}, \ 
-          Course #{record.course.code}, \
+          Course #{record.course.name}, \
           #{record.student.name} \
           Score #{record.score}" unless record.save
       end
