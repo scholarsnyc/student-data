@@ -5,10 +5,10 @@ class DataImporter
   attr_accessor :year, :mp
   attr_reader :data
   
-  def initialize(datasource, year = CURRENT_YEAR, mp = /^.*\/T1MP(\d)\.csv$/.match(datasource)[1])
+  def initialize(datasource, year = CURRENT_YEAR, mp = nil)
     @data = CSV.read(datasource)
     @year = year
-    @mp = mp
+    @mp = mp || /^.*\/T1MP(\d)\.csv$/.match(datasource)[1]
     @import = Time.now.to_i
     @courses = Course.codes
     @students = Student.ids
@@ -62,7 +62,8 @@ class RecordImporter < DataImporter
         record = Record.create(format_row(row))
         logger.warn "Record #{record.id}, \ 
           Course #{record.course.code}, \
-          #{student.name}" unless record.save
+          #{record.student.name} \
+          Score #{record.score}" unless record.save
       end
     end
   end
