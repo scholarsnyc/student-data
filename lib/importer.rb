@@ -1,13 +1,11 @@
 require 'csv'
 
-COURSES = "./data/master_course_list_2013.csv"
-GRADES = "./data/T1MP1.csv"
 
 class DataImporter
   attr_accessor :year, :mp
   attr_reader :data
   
-  def initialize(datasource, year = CURRENT_YEAR, mp = CURRENT_MARKING_PERIOD)
+  def initialize(datasource, year = CURRENT_YEAR, mp = /^.*\/T1MP(\d)\.csv$/.match(datasource)[1])
     @data = CSV.read(datasource)
     @year = year
     @mp = mp
