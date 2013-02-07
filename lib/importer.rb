@@ -34,7 +34,6 @@ class CourseImporter < DataImporter
 end
 
 class RecordImporter < DataImporter 
-
   def format_row(row)
     {
       score: row[9],
@@ -60,7 +59,10 @@ class RecordImporter < DataImporter
   def process
     @data.each do |row|
       if eligible?(row)
-        Record.create(format_row(row))
+        record = Record.create(format_row(row))
+        logger.warn "Record #{record.id}, \ 
+          Course #{record.course.code}, \
+          #{student.name}" unless record.save
       end
     end
   end
