@@ -86,6 +86,7 @@ StudentDatabase.controllers :students do
   end
   
   get :aat, provides: [:html, :json] do
+    @title = "Students in AAT"
     @students = Student.all(aat: true)
     case content_type
       when :html then render 'students/index'
@@ -94,6 +95,7 @@ StudentDatabase.controllers :students do
   end
   
   get :lowest_third_math, map: '/students/lowest-third/math', provides: [:html, :json] do
+    @title = "Students in the Lowest Third for Math"
     @students = Student.all(lowest_third_math: true)
     case content_type
       when :html then render 'students/index'
@@ -102,6 +104,7 @@ StudentDatabase.controllers :students do
   end
 
   get :lowest_third_ela, map: '/students/lowest-third/ela', provides: [:html, :json] do
+    @title = "Students in the Lowest Third for ELA"
     @students = Student.all(lowest_third_ela: true)
     case content_type
       when :html then render 'students/index'
