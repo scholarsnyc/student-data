@@ -53,5 +53,6 @@ table .headerSortUp:after {
 }
 
 .home-page-form {
-  width: 600px;
+  width: 500px;
+  min-width: 400px;
 }
