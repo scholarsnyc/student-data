@@ -13,7 +13,7 @@ class StudentDatabase < Padrino::Application
   end
   
   get :index do
-    if current_account.has_access?
+    if user_has_access
       @students = Student.all
       @courses = Course.all
       render('misc/home')
