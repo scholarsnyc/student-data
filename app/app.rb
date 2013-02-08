@@ -13,8 +13,7 @@ class StudentDatabase < Padrino::Application
   end
   
   get :index do
-    haml <<-HAML.gsub(/^ {6}/, '')
-    HAML
+    render('misc/home')
   end
 
   error 403 do
