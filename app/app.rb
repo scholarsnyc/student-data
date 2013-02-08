@@ -13,6 +13,8 @@ class StudentDatabase < Padrino::Application
   end
   
   get :index do
+    @students = Student.all
+    @courses = Course.all
     render('misc/home')
   end
 

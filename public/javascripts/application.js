@@ -1,4 +1,7 @@
 $(document).ready(function() {
+  
+  $('#student-selector').select2();
+  $('#course-selector').select2();
 
   // Tablesorter Defaults
   $("table#student-index").tablesorter( {sortList: [[1,0]] } ); 

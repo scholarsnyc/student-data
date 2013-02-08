@@ -121,5 +121,13 @@ StudentDatabase.controllers :students do
       when :json then return @student.to_json
     end
   end
+  
+  get :show do
+    if params[:id]
+      redirect url_for :students, :show, id: params[:id]
+    else
+      redirect :students, :index
+    end
+  end
 
 end

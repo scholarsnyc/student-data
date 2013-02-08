@@ -10,6 +10,19 @@ StudentDatabase.controllers :courses do
     end
   end
   
+  get :teachers, with: :teacher, provides: [:html, :json] do
+    @title = "Courses Offered by #{params[:teacher].capitalize}"
+    @courses = Course.all(order: [ :code.asc ], year: @year, teacher: params[:teacher])
+    case content_type
+      when :html then render 'courses/index'
+      when :json then return @courses.to_json
+    end
+  end
+  
+  get :teachers do
+    redirect url_for :courses, :teachers, teacher: params[:teacher]
+  end
+    
   get :show, with: :id, provides: [:html, :json] do
     @course = Course.get(params[:id])
     @records = @course.records(mp: @marking_period, year: @year)

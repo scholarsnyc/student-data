@@ -25,7 +25,19 @@ class Course
   has n, :students, :through => :records
   
   def self.subjects
-    all.map {|c| c.subject }
+    all.map {|c| c.subject }.uniq
+  end
+  
+  def self.teachers
+    all(order: [ :teacher.asc ]).map {|c| c.teacher }.uniq
+  end
+  
+  def self.by_teacher
+    courses_by_teacher = {}
+    all.teachers.each do |teacher|
+      courses_by_teacher[teacher] = all(teacher: teacher)
+    end
+    return courses_by_teacher
   end
 
   def self.codes
