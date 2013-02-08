@@ -25,7 +25,7 @@ StudentDatabase.controllers :users do
     render 'users/index'
   end
   
-  get :not_authorized, :map => '/not_authorized' do
+  get :not_authorized do
     render 'users/not_authorized'
   end
   

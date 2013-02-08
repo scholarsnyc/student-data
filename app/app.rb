@@ -17,4 +17,8 @@ class StudentDatabase < Padrino::Application
     HAML
   end
 
+  error 403 do
+    render("users/not_authorized")
+  end
+
 end

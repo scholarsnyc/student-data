@@ -25,11 +25,10 @@ StudentDatabase.helpers do
   end
   
   def protect_page
-    unless current_account.has_access?
-      halt 403, render("users/not_authorized")
-    end
+    #403 unless current_account.has_access?
+    redirect 'users/not_authorized'
   end
-  
+
   def admin_only
     redirect '/' unless user_is_admin
   end
