@@ -24,6 +24,10 @@ class Course
   has n, :records
   has n, :students, :through => :records
   
+  def self.subjects
+    all.map {|c| c.subject }
+  end
+
   def self.codes
     all.map {|c| c.code }
   end

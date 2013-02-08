@@ -10,11 +10,11 @@
       %th Section
       %th Year
   %tbody
-  - @courses.each do |course|
-    %tr
-      %td= link_to course.name, url_for(:courses, :show, :id => course.code)
-      %td= course.teacher
-      %td= course.subject
-      %td= course.code
-      %td= course.section
-      %td= course.year
+    - @courses.each do |course|
+      %tr{"data-subject" => course.subject, "data-teacher" => course.teacher}
+        %td= link_to course.name, url_for(:courses, :show, :id => course.code)
+        %td= course.teacher
+        %td= course.subject
+        %td= course.code
+        %td= course.section
+        %td= course.year
