@@ -12,7 +12,7 @@ $(document).ready(function() {
     var activeRows, inactiveRows, grade = $(this).data("grade");
     e.preventDefault();
     if (grade === "all") {
-      studentRows.show
+      studentRows.show();
     } else {
       activeRows = studentRows.filter(function () {
         return $(this).data("grade") === grade;
