@@ -13,9 +13,13 @@ class StudentDatabase < Padrino::Application
   end
   
   get :index do
-    @students = Student.all
-    @courses = Course.all
-    render('misc/home')
+    if current_account.has_access?
+      @students = Student.all
+      @courses = Course.all
+      render('misc/home')
+    else
+      render('misc/visiting')
+    end
   end
 
   error 403 do
