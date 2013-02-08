@@ -18,7 +18,7 @@ class Course
   end
   
   before :update do
-    updated_at = Time.now
+    self.updated_at = Time.now
   end
   
   has n, :records
