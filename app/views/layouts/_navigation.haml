@@ -2,6 +2,7 @@
   .navbar-inner
     %a{class: 'brand', href: '/'} Student Database
     %ul.nav
+    - if current_account && current_account.has_access?
       %li.dropdown
         %a{href: '#', class: 'dropdown-toggle', "data-toggle" => "dropdown"} Students
         %ul.dropdown-menu
