@@ -10,9 +10,9 @@
       %th Grade
       %th Homeroom
   %tbody
-  - @students.each do |student|
-    %tr
-      %td= link_to student.firstname, url_for(:students, :show, :id => student.id)
-      %td= link_to student.lastname, url_for(:students, :show, :id => student.id)
-      %td= student.grade
-      %td= student.homeroom
+    - @students.each do |student|
+      %tr
+        %td= link_to student.firstname, url_for(:students, :show, :id => student.id)
+        %td= link_to student.lastname, url_for(:students, :show, :id => student.id)
+        %td= student.grade
+        %td= student.homeroom

@@ -1,9 +1,10 @@
 %h1= @title || "Students on Probation"
 
-%table{class: "table"}
+%table#probation-index.table.tablesorter
   %thead
     %tr
-      %th Name
+      %th First Name
+      %th Last Name
       %th Homeroom
       %th Level 1 Probation
       %th Level 2 Probation
@@ -11,7 +12,8 @@
   %tbody
   - @students.each do |student|
     %tr{"data-grade" => student.grade, "data-homeroom" => student.homeroom}
-      %td= link_to student.name, url_for(:students, :show, :id => student.id)
+      %td= link_to student.firstname, url_for(:students, :show, :id => student.id)
+      %td= link_to student.lastname, url_for(:students, :show, :id => student.id)
       %td= link_to_homeroom student.homeroom
       %td= student.probation_subjects(1)
       %td= student.probation_subjects(2)
