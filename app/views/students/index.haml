@@ -11,7 +11,7 @@
       %th Homeroom
   %tbody
     - @students.each do |student|
-      %tr
+      %tr{"data-student-id" => student.id, "data-homeroom" => student.homeroom, "data-grade" => student.grade}
         %td= link_to student.firstname, url_for(:students, :show, :id => student.id)
         %td= link_to student.lastname, url_for(:students, :show, :id => student.id)
         %td= student.grade
