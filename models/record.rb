@@ -141,4 +141,22 @@ class Record
     score - exam if score && exam
   end
   
+  def previous
+    Record.all(
+      course: self.course,
+      student_id: self.student_id,
+      year: self.year,
+      mp: self.mp - 1
+    ).first
+  end
+  
+  def next
+    Record.all(
+      course: self.course,
+      student_id: self.student_id,
+      year: self.year,
+      mp: self.mp + 1
+    ).first
+  end
+
 end

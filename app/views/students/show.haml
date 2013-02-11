@@ -5,9 +5,9 @@
 .row
   .span12
     %ul#student-info
-      %li= "Marking Period: #{@marking_period}"
-      %li= "Grade: #{link_to @student.grade, url_for(:students, :grade, grade: @student.grade)}"
-      %li= "Homeroom: #{link_to @student.homeroom, url_for(:students, :homeroom, homeroom: @student.homeroom)}"
+      %li= "<strong>Marking Period</strong>: #{@marking_period}"
+      %li= "<strong>Grade</strong>: #{link_to @student.grade, url_for(:students, :grade, grade: @student.grade)}"
+      %li= "<strong>Homeroom</strong>: #{link_to @student.homeroom, url_for(:students, :homeroom, homeroom: @student.homeroom)}"
 
 .row 
   .span12
