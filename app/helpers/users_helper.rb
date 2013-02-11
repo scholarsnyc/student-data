@@ -26,6 +26,7 @@ StudentDatabase.helpers do
   
   def protect_page
     #403 unless current_account.has_access?
+    return if Padrino.env == :development
     redirect 'users/not_authorized' unless current_account.has_access?
   end
 
