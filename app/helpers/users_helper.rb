@@ -3,8 +3,10 @@
 StudentDatabase.helpers do
 
   def current_account
-    if session[:user_id]
-      User.get(session[:user_id])
+    if Padrino.env == :development
+      User.get(1)
+    else
+      User.get(session[:user_id]) if session[:user_id]
     end
   end
   
