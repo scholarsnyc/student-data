@@ -141,13 +141,22 @@ class Record
     score - exam if score && exam
   end
   
-  def get_mp(number)
+  def siblings
     self.class.all(
       course: self.course,
       student_id: self.student_id,
       year: self.year,
-      mp: number
-    ).first
+      :mp.not => self.mp,
+      order: [ :mp.asc  ]
+    )
+  end
+
+  def younger_siblings
+    self.siblings.all(:mp.lt => self.mp)
+  end
+
+  def get_mp(marking_period)
+    self.siblings.all(mp: marking_period)[0]
   end
 
   def offset(amount)
@@ -169,17 +178,17 @@ class Record
     offset(1)
   end
 
-  def progress(metric = :exam, iteration = 0)
-    return nil if iteration > 2
+  def progress(metric = :exam)
     begin
-      difference = self[metric] - previous[metric]
+      younger = self.younger_siblings
+      difference = self[metric] - younger[-1][metric]
       if difference == 0
-        self.previous.progress(metric, iteration + 1)
+        difference = self[metric] - younger[-2][metric] 
       else
         return difference
       end
     rescue
-      return nil
+      nil
     end
   end
 
