@@ -49,7 +49,7 @@ module Reports
   class MiddleSchoolExamCollection
     include Enumerable
   
-    def initialize(mp = 6, year = CURRENT_YEAR)
+    def initialize(mp = 4, year = CURRENT_YEAR)
       @report = [[6,:A],[6,:B],[6,:C],[7,:A],[7,:B],[8,:A],[8,:B]].map do |g|
         MiddleSchoolExamReport.new(g[0], g[1], mp, year)
       end

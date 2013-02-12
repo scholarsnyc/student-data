@@ -159,4 +159,24 @@ class Record
     ).first
   end
 
+  def to_hash
+    properties = self.class.properties.map {|p| p.name}
+    resulting_hash = {}
+    properties.each do |property|
+      resulting_hash[property] = self[property]
+    end
+    resulting_hash.delete(:id)
+    resulting_hash.delete(:updated_at)
+    resulting_hash.delete(:created_at)
+    resulting_hash.delete(:import)
+    return resulting_hash
+  end
+
+  def push_forward
+    return unless self.next.nil?
+    x = self.to_hash
+    x[:mp] = self.mp + 1
+    Record.create(x)
+  end
+
 end
