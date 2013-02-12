@@ -5,7 +5,7 @@ module Reports
   class MiddleSchoolExamReport
     attr_reader :grade, :cohort, :ela_exams, :math_exams, :ela_predictives, :math_predictives, :ela_benchmarks, :math_benchmarks, :ela_exams_last_year, :math_exams_last_year, :ela_change, :math_change  
     
-    def initialize(grade, cohort, mp = 6, year = CURRENT_YEAR)
+    def initialize(grade, cohort, mp = 4, year = CURRENT_YEAR)
       @grade = grade
       @cohort = cohort
       @students = Student.all(previous_grade: @grade, previous_cohort: @cohort)
