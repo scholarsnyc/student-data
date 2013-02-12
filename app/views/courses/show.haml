@@ -31,24 +31,25 @@
         %td= record.score
         %td= record.exam
 
-.row
-  .span6
-    %h3 Highest Performing Third
-    %table.table.top-third
-      %thead
-        %tr
-          %th Student
-      %tbody
-      - @records.top_third.each do |record|
-        %tr
-          %td= link_to record.student.name, url_for(:students, :show, :id => record.student.id)
-  .span6
-    %h3 Lowest Performing Third
-    %table.table.bottom-third
-      %thead
-        %tr
-          %th Student
-      %tbody
-      - @records.bottom_third.each do |record|
-        %tr
-          %td= link_to record.student.name, url_for(:students, :show, :id => record.student.id)
+- if @records.count > 15
+  .row
+    .span6
+      %h3 Highest Performing Third
+      %table.table.top-third
+        %thead
+          %tr
+            %th Student
+        %tbody
+        - @records.top_third.each do |record|
+          %tr
+            %td= link_to record.student.name, url_for(:students, :show, :id => record.student.id)
+    .span6
+      %h3 Lowest Performing Third
+      %table.table.bottom-third
+        %thead
+          %tr
+            %th Student
+        %tbody
+        - @records.bottom_third.each do |record|
+          %tr
+            %td= link_to record.student.name, url_for(:students, :show, :id => record.student.id)
