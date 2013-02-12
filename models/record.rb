@@ -181,7 +181,7 @@ class Record
     previous_mp = self.previous_mps.map { |r| r[metric] }.compact.tap do |r|
       r.delete(this_mp)
     end
-    return this_mp - previous_mp.last
+    return this_mp - previous_mp.last unless previous_mp.last.nil?
   end
 
   def to_hash

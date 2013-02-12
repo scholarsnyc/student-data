@@ -41,11 +41,11 @@
           %th Type
           %th Teacher
       %tbody
-      - @notes.each do |note|
-        %tr
-          %td= note.date
-          %td= link_to note.type_to_s, url_for(:notes, :show, :id => note.id)
-          %td= note.user.email
+        - @notes.each do |note|
+          %tr
+            %td= note.date
+            %td= link_to note.type_to_s, url_for(:notes, :show, :id => note.id)
+            %td= note.user.email
           
 .row
   .span12
