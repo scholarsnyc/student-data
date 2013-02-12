@@ -1,37 +1,47 @@
 %h1= @course.name
 
-%table.table
-  %thead
-    %tr
-      %th Section
-      %th Marking Period
-      %th Year
-      %th Weight
-    %tr
-      %td= @course.section
-      %td= @marking_period
-      %td= @year
-      %td= @course.weight
+.row
+  .span12
+    %table.table
+      %thead
+        %tr
+          %th Section
+          %th Marking Period
+          %th Year
+          %th Weight
+        %tr
+          %td= @course.section
+          %td= @marking_period
+          %td= @year
+          %td= @course.weight
 
-%h2 Grades
-%table#course-show.table
-  %thead
-    %tr
-      %th First Name
-      %th Last Name
-      %th Homeroom
-      %th Score
-      %th Benchmark
-      %th Progress
-  %tbody
-    - @records.each do |record|
-      %tr
-        %td= link_to record.student.firstname, url_for(:students, :show, :id => record.student.id)
-        %td= link_to record.student.lastname, url_for(:students, :show, :id => record.student.id)
-        %td= link_to_homeroom record.student.homeroom
-        %td= record.score
-        %td= record.exam
-        %td= record.progress
+.row
+  .span12
+    .btn-group
+      - 1.upto(CURRENT_MARKING_PERIOD) do |mp|
+        = link_to mp, url_for(:courses, :show_for_mp, :id => @course.code, mp: mp), class: "btn"
+
+.row
+  .span12
+    %h2 Grades
+    %table#course-show.table
+      %thead
+        %tr
+          %th First Name
+          %th Last Name
+          %th Homeroom
+          %th Score
+          %th Benchmark
+          %th Progress
+      %tbody
+        - @records.each do |record|
+          %tr
+            %td= link_to record.student.firstname, url_for(:students, :show, :id => record.student.id)
+            %td= link_to record.student.lastname, url_for(:students, :show, :id => record.student.id)
+            %td= link_to_homeroom record.student.homeroom
+            %td= record.score
+            %td= record.exam
+            %td= record.progress
 
 - if @records.count > 15
   .row

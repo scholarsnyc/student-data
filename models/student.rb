@@ -15,6 +15,8 @@ class Student
   property :ethnicity,          Integer
   property :language,           String
   property :iep,                Integer
+  property :math,               Integer
+  property :ela,                Integer
   property :lowest_third_ela,   Boolean, :default => false
   property :lowest_third_math,  Boolean, :default => false
   property :aat,                Boolean, :default => false
@@ -30,6 +32,8 @@ class Student
   before :save do
     self.cohort = self.determine_cohort
     self.active = false if self.grade.nil?
+    self.ela = self.english_score
+    self.math = self.math_score
   end
   
   before :update do

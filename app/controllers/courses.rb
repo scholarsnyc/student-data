@@ -31,5 +31,15 @@ StudentDatabase.controllers :courses do
       when :json then return {course: @course, students: @course.students}.to_json
     end
   end
+
+  get :show_for_mp, map: "/show/:id/mp/:mp", provides: [:html, :json] do
+    @course = Course.get(params[:id])
+    @marking_period = params[:mp]
+    @records = @course.records(mp: @marking_period, year: @year)
+    case content_type
+      when :html then render 'courses/show'
+      when :json then return {course: @course, students: @course.students}.to_json
+    end
+  end
   
 end

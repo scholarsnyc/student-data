@@ -9,7 +9,7 @@ Bundler.require(:default, PADRINO_ENV)
 
 # Contstants
 CURRENT_YEAR = 2013
-CURRENT_MARKING_PERIOD = 1
+CURRENT_MARKING_PERIOD = 4
 
 begin
   require 'pry'
