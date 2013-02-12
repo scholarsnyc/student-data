@@ -141,28 +141,26 @@ class Record
     score - exam if score && exam
   end
   
-  def siblings
+  def all_mps
     self.class.all(
       course: self.course,
       student_id: self.student_id,
       year: self.year,
-      :mp.not => self.mp,
       order: [ :mp.asc  ]
     )
   end
 
-  def younger_siblings
-    self.siblings.all(:mp.lt => self.mp)
+  def previous_mps
+    self.all_mps.all(:mp.lt => self.mp)
   end
 
   def get_mp(marking_period)
-    self.siblings.all(mp: marking_period)[0]
+    self.all_mps.all(mp: marking_period)[0]
   end
 
   def offset(amount)
     return nil if self.mp == 1
     record = self.get_mp(self.mp + amount)
-
     if record.nil? && amount < 0
       offset(amount - 1)
     else
@@ -179,17 +177,11 @@ class Record
   end
 
   def progress(metric = :exam)
-    begin
-      younger = self.younger_siblings
-      difference = self[metric] - younger[-1][metric]
-      if difference == 0
-        difference = self[metric] - younger[-2][metric] 
-      else
-        return difference
-      end
-    rescue
-      nil
+    this_mp = self[metric]
+    previous_mp = self.previous_mps.map { |r| r[metric] }.compact.tap do |r|
+      r.delete(this_mp)
     end
+    return this_mp - previous_mp.last
   end
 
   def to_hash
