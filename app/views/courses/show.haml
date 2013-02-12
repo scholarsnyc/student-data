@@ -22,6 +22,7 @@
       %th Homeroom
       %th Score
       %th Benchmark
+      %th Progress
   %tbody
     - @records.each do |record|
       %tr
@@ -30,6 +31,7 @@
         %td= link_to_homeroom record.student.homeroom
         %td= record.score
         %td= record.exam
+        %td= record.progress
 
 - if @records.count > 15
   .row

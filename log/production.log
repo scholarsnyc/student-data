@@ -34585,3 +34585,4 @@
  /usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.12/lib/phusion_passenger/abstract_server.rb:357:in `server_main_loop'
  /usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.12/lib/phusion_passenger/abstract_server.rb:206:in `start_synchronously'
  /usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.12/helper-scripts/passenger-spawn-server:99:in `<main>'
+[31m  ERROR[0m -[33m12/Feb/2013 10:56:59[0m

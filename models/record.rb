@@ -141,42 +141,57 @@ class Record
     score - exam if score && exam
   end
   
-  def previous
-    Record.all(
+  def get_mp(number)
+    self.class.all(
       course: self.course,
       student_id: self.student_id,
       year: self.year,
-      mp: self.mp - 1
+      mp: number
     ).first
+  end
+
+  def offset(amount)
+    return nil if self.mp == 1
+    record = self.get_mp(self.mp + amount)
+
+    if record.nil? && amount < 0
+      offset(amount - 1)
+    else
+      return record
+    end
+  end
+
+  def previous
+    offset(-1)
   end
   
   def next
-    Record.all(
-      course: self.course,
-      student_id: self.student_id,
-      year: self.year,
-      mp: self.mp + 1
-    ).first
+    offset(1)
+  end
+
+  def progress(metric = :exam)
+    begin
+      difference = self[metric] - previous[metric]
+      if difference == 0
+        self.previous.progress
+      else
+        return difference
+      end
+    rescue
+      return nil
+    end
   end
 
   def to_hash
-    properties = self.class.properties.map {|p| p.name}
-    resulting_hash = {}
-    properties.each do |property|
-      resulting_hash[property] = self[property]
-    end
-    resulting_hash.delete(:id)
-    resulting_hash.delete(:updated_at)
-    resulting_hash.delete(:created_at)
-    resulting_hash.delete(:import)
-    return resulting_hash
-  end
+    hash = {}
 
-  def push_forward
-    return unless self.next.nil?
-    x = self.to_hash
-    x[:mp] = self.mp + 1
-    Record.create(x)
+    self.class.properties.map { |p| p.name }.each do |property|
+      unless [:id, :updated_at, :created_at, :import].include?(property)
+        hash[property] = self[property]
+      end
+    end
+
+    return hash
   end
 
 end
