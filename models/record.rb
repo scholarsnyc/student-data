@@ -169,11 +169,12 @@ class Record
     offset(1)
   end
 
-  def progress(metric = :exam)
+  def progress(metric = :exam, iteration = 0)
+    return nil if iteration > 2
     begin
       difference = self[metric] - previous[metric]
       if difference == 0
-        self.previous.progress
+        self.previous.progress(metric, iteration + 1)
       else
         return difference
       end
