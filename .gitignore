@@ -4,3 +4,4 @@
 *.un~
 .DS_Store
 log/production.log
+log/*
