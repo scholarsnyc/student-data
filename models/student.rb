@@ -192,3 +192,23 @@ class Student
   end
 
 end
+
+class SlimStudent
+	
+	attr_reader :id, :firstname, :lastname, :grade, :cohort, :ela, :math
+	
+	def initialize(student)
+		@id = student.id
+		@firstname = student.firstname
+		@lastname = student.lastname
+		@grade = student.grade
+		@cohort = student.cohort
+		@ela = student.ela
+		@math = student.math
+	end
+	
+	def name
+ 		@firstname + " " + @lastname
+	end
+	
+end
