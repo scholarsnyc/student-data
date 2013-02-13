@@ -6,15 +6,15 @@ class Student
   property :firstname,          String
   property :lastname,           String
   property :grade,              Integer 
-  property :previous_grade,     Integer
-  property :homeroom,           Integer
-  property :previous_homeroom,  Integer
+  property :previous_grade,     Integer, lazy: [ :past ]
+  property :homeroom,           Integer, lazy: [ :demographic ]
+  property :previous_homeroom,  Integer, lazy: [ :past ]
   property :cohort,             String
-  property :previous_cohort,    String
-  property :gender,             Integer
-  property :ethnicity,          Integer
-  property :language,           String
-  property :iep,                Integer
+  property :previous_cohort,    String, lazy: [ :past ]
+  property :gender,             Integer, lazy: [ :demographic ]
+  property :ethnicity,          Integer, lazy: [ :demographic ]
+  property :language,           String, lazy: [ :demographic ]
+  property :iep,                Integer, lazy: [ :demographic ]
   property :math,               Integer
   property :ela,                Integer
   property :lowest_third_ela,   Boolean, :default => false
