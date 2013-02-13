@@ -4,8 +4,6 @@
       = flash_tag(:notice)
       %select#student-selector{"data-placeholder" => "Search for a Student", name: "id"}
         %option{value: ""}
-        - @students.each do |student|
-          %option{value: student.id}= student.name
       = submit_tag "Search &rarr;", :class => "btn btn-primary"
   .span6
     - form_tag '/courses/teachers', :class => 'teacher-search-form home-page-form', :method => 'get' do

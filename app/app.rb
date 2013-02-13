@@ -14,7 +14,7 @@ class StudentDatabase < Padrino::Application
   
   get :index do
     if user_has_access
-      @students = Student.all
+      @students = Student.all.map { |s| OpenStruct.new id: s.id, name: s.name }
       @courses = Course.all
       render('misc/home')
     else

@@ -6,10 +6,10 @@ StudentDatabase.controllers :students do
   end
 
   get :index, provides: [:html, :json] do
-    @students = Student.all(student_query_params)
+    @students = Student.all(student_query_params).slim
     case content_type
       when :html then render 'students/index'
-      when :json then return @students.to_json
+      when :json then return File.read('./static/students.json')
     end
   end
   

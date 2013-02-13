@@ -1,7 +1,25 @@
 $(document).ready(function() {
   
-  $('#student-selector').select2();
-  $('#course-selector').select2();
+  var studentSelector = $('#student-selector'),
+    courseSelector = $('#course-selector');
+
+  studentSelector.select2();
+  courseSelector.select2();
+
+  
+  // Try to build the student select list on the client because the
+  // network connection in the school is so terrible.
+  
+  $.getJSON("/students.json", function (data) {
+    var students = [];
+
+    $.each(data, function (i, s) {
+      var student = $('<option></option>', {
+        value: s.id,
+        text: s.name
+      }).appendTo(studentSelector);
+    });
+  });
 
   // Tablesorter Defaults
   $("table#student-index").tablesorter( {sortList: [[1,0]] } ); 
