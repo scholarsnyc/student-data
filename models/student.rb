@@ -15,14 +15,14 @@ class Student
   property :ethnicity,          Integer, lazy: [ :demographic ]
   property :language,           String, lazy: [ :demographic ]
   property :iep,                Integer, lazy: [ :demographic ]
-  property :math,               Integer
-  property :ela,                Integer
+  property :math,               Integer, lazy: [ :test ]
+  property :ela,                Integer, lazy: [ :test ]
   property :lowest_third_ela,   Boolean, :default => false
   property :lowest_third_math,  Boolean, :default => false
   property :aat,                Boolean, :default => false
-  property :import,             Integer, :default => Time.now.to_i
-  property :created_at,         DateTime, :default => Time.now
-  property :updated_at,         DateTime, :default => Time.now
+  property :import,             Integer, :default => Time.now.to_i, lazy: [ :meta ]
+  property :created_at,         DateTime, :default => Time.now, lazy: [ :meta ]
+  property :updated_at,         DateTime, :default => Time.now, lazy: [ :meta ]
   
   has n, :records
   has n, :exams

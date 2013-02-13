@@ -8,9 +8,9 @@ class Course
   property :section,    Integer
   property :subject,    String
   property :year,       Integer, :default => CURRENT_YEAR
-  property :import,     Integer, :default => Time.now.to_i
-  property :created_at, DateTime, :default => Time.now
-  property :updated_at, DateTime, :default => Time.now
+  property :import,     Integer, :default => Time.now.to_i, lazy: [ :meta ]
+  property :created_at, DateTime, :default => Time.now, lazy: [ :meta ]
+  property :updated_at, DateTime, :default => Time.now, lazy: [ :meta ]
   property :weight,     Float, :default => 1.0
   
   before :save do

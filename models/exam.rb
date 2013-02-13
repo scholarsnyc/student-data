@@ -7,9 +7,9 @@ class Exam
   property :comment,            String
   property :mp,                 Integer
   property :year,               Integer
-  property :import,             Integer, :default => Time.now.to_i
-  property :created_at,         DateTime, :default => Time.now
-  property :updated_at,         DateTime, :default => Time.now
+  property :import,             Integer, :default => Time.now.to_i, lazy: [ :meta ]
+  property :created_at,         DateTime, :default => Time.now, lazy: [ :meta ]
+  property :updated_at,         DateTime, :default => Time.now, lazy: [ :meta ]
 
 
   # Code Key (it sucks that I have to do this)

@@ -5,8 +5,8 @@ class Note
   property :title,        String
   property :content,      Text
   property :type,         Integer
-  property :created_at,   DateTime, :default => Time.now
-  property :updated_at,   DateTime, :default => Time.now
+  property :created_at,   DateTime, :default => Time.now, lazy: [ :meta ]
+  property :updated_at,   DateTime, :default => Time.now, lazy: [ :meta ]
   
   belongs_to :student
   belongs_to :user
