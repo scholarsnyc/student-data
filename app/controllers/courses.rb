@@ -32,7 +32,7 @@ StudentDatabase.controllers :courses do
     end
   end
 
-  get :show_for_mp, map: "/show/:id/mp/:mp", provides: [:html, :json] do
+  get :show_for_mp, map: "/courses/show/:id/mp/:mp", provides: [:html, :json] do
     @course = Course.get(params[:id])
     @marking_period = params[:mp]
     @records = @course.records(mp: @marking_period, year: @year)
