@@ -10,6 +10,7 @@ class StudentDatabase < Padrino::Application
   before do
     @marking_period = params[:mp] || 4
     @year = params[:year] || 2013
+    @options = {}
   end
   
   get :index do

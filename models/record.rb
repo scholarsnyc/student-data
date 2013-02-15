@@ -184,6 +184,19 @@ class Record
     return this_mp - previous_mp.last unless previous_mp.last.nil?
   end
 
+  def state_progress(subject)
+    begin
+      case subject
+      when "English"
+        return self.exam - self.student.ela
+      when "Mathematics"
+        return self.exam - self.student.math
+      end
+    rescue
+      return nil
+    end
+  end
+
   def to_hash
     hash = {}
 

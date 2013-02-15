@@ -11,13 +11,20 @@ $(document).ready(function() {
   // network connection in the school is so terrible.
   
   $.getJSON("/students.json", function (data) {
-    var students = [];
-
     $.each(data, function (i, s) {
       var student = $('<option></option>', {
         value: s.id,
         text: s.name
       }).appendTo(studentSelector);
+    });
+  });
+
+  $.getJSON("/courses/teachers.json", function (data) {
+    $.each(data, function (i, t) {
+      var student = $('<option></option>', {
+        value: t,
+        text: t
+      }).appendTo(courseSelector);
     });
   });
 

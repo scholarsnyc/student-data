@@ -1,4 +1,4 @@
-%h1 Courses
+%h1= @title || "Courses"
 
 %table#course-index.table.tablesorter
   %thead
@@ -13,8 +13,8 @@
     - @courses.each do |course|
       %tr{"data-subject" => course.subject, "data-teacher" => course.teacher}
         %td= link_to course.name, url_for(:courses, :show, :id => course.code)
-        %td= course.teacher
-        %td= course.subject
+        %td= link_to course.teacher, url_for(:courses, :index, teacher: course.teacher)
+        %td= link_to course.subject, url_for(:courses, :index, subject: course.subject)
         %td= course.code
         %td= course.section
         %td= course.year

@@ -4,11 +4,9 @@
 
 - if @student.active
   .row
-    .span12
-      %ul#student-info
-        %li= "<strong>Marking Period</strong>: #{@marking_period}"
-        %li= "<strong>Grade</strong>: #{@student.grade}"
-        %li= "<strong>Homeroom</strong>: #{@student.homeroom}"
+    .span4= "<strong>Marking Period</strong>: #{@marking_period}"
+    .span4= "<strong>Grade</strong>: #{@student.grade}"
+    .span4= "<strong>Homeroom</strong>: #{@student.homeroom}"
 
   .row 
     .span12
@@ -44,7 +42,7 @@
         - @notes.each do |note|
           %tr
             %td= note.date
-            %td= link_to note.type_to_s, url_for(:notes, :show, :id => note.id)
+            %td= link_to note.to_s, url_for(:notes, :show, :id => note.id)
             %td= note.user.email
           
 .row

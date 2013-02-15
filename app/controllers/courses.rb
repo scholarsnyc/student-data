@@ -3,7 +3,7 @@ StudentDatabase.controllers :courses do
   before { protect_page }
 
   get :index, provides: [:html, :json] do
-    @courses = Course.all(order: [ :code.asc ], year: @year)
+    @courses = Course.all(order: [ :code.asc ], year: @year).all(params)
     case content_type
       when :html then render 'courses/index'
       when :json then return @courses.to_json
@@ -19,10 +19,14 @@ StudentDatabase.controllers :courses do
     end
   end
   
-  get :teachers do
-    redirect url_for :courses, :teachers, teacher: params[:teacher]
+  get :teachers, provides: :json do
+    if params[:teacher]
+      redirect url_for :courses, :teachers, teacher: params[:teacher]
+    else
+      return File.read('./static/teachers.json')
+    end
   end
-    
+
   get :show, with: :id, provides: [:html, :json] do
     @course = Course.get(params[:id])
     @records = @course.records(mp: @marking_period, year: @year)

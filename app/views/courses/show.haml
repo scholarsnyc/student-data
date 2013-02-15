@@ -23,25 +23,33 @@
 
 .row
   .span12
-    %h2 Grades
-    %table#course-show.table
-      %thead
-        %tr
-          %th First Name
-          %th Last Name
-          %th Homeroom
-          %th Score
-          %th Benchmark
-          %th Progress
-      %tbody
-        - @records.each do |record|
+    - if @records.count > 0
+      %h2 Grades
+      %table#course-show.table
+        %thead
           %tr
-            %td= link_to record.student.firstname, url_for(:students, :show, :id => record.student.id)
-            %td= link_to record.student.lastname, url_for(:students, :show, :id => record.student.id)
-            %td= link_to_homeroom record.student.homeroom
-            %td= record.score
-            %td= record.exam
-            %td= record.progress
+            %th First Name
+            %th Last Name
+            %th Homeroom
+            %th Score
+            %th Benchmark
+            %th Progress
+            - if @course.subject == "Mathematics" || @course.subject == "English"
+              %th Progress from State Exam
+        %tbody
+          - @records.each do |record|
+            %tr
+              %td= link_to record.student.firstname, url_for(:students, :show, :id => record.student.id)
+              %td= link_to record.student.lastname, url_for(:students, :show, :id => record.student.id)
+              %td= link_to_homeroom record.student.homeroom
+              %td= record.score
+              %td= record.exam
+              %td= record.progress
+              - if @course.subject == "Mathematics" || @course.subject == "English"
+                %td= record.state_progress(@course.subject)
+    - else
+      .alert{style: "margin-top: 1em;"}
+        There are no records to display.
 
 - if @records.count > 15
   .row

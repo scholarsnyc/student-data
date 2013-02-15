@@ -50,6 +50,32 @@ class Exam
   before :update do
     self.updated_at = Time.now
   end
+
+  # Factory Methods
+  
+  def self.create_with_data(s, score, type, year, mp, comment)
+    student = Student.get(s)
+    if student.nil?
+      logger.warn "Student #{s} does not exist."
+      return nil
+    end
+    Exam.create(
+      score: score,
+      type: type,
+      year: year,
+      mp: mp,
+      comment: comment,
+      student_id: student.id
+    )
+  end
+
+  def self.create_for_ela(s, score)
+    self.create_with_data(s, score, 0, 2012, 5, "State ELA Exam (Spring 2012)")
+  end
+
+  def self.create_for_math(s, score)
+    self.create_with_data(s, score, 1, 2012, 5, "State Mathematics Exam (Spring 2012)")
+  end
   
   # Query Methods
   

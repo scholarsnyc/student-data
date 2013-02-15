@@ -3,7 +3,7 @@
 - form_for :note, "/notes/create", :id => 'create_note' do |f|
   = f.error_messages
   = f.hidden_field :user_id, :value => session[:user_id]
-  = f.hidden_field :student_id, :value => params[:id]
+  = f.hidden_field :student_id, :value => @student.id
   %p
     = f.label :title, :caption => "Title"
     = f.text_field :title

@@ -40,6 +40,9 @@ class Student
     self.updated_at = Time.now
   end
 
+  # Factory Methods
+  
+
   # Query Methods
 
   def self.active(boolean = true)
@@ -195,6 +198,12 @@ class Student
     else
       return nil
     end
+  end
+
+  def update_scores
+    self.ela = self.english_score
+    self.math = self.math_score
+    self.save
   end
 
   def slim

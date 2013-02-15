@@ -10,6 +10,4 @@
       = flash_tag(:notice)
       %select#course-selector{"data-placeholder" => "Search for a Teacher", name: "teacher"}
         %option{value: ""}
-        - @courses.teachers.each do |teacher|
-          %option{value: teacher}= teacher
       = submit_tag "Search &rarr;", :class => "btn btn-primary"

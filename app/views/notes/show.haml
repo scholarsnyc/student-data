@@ -3,7 +3,7 @@
 .row
   .span3
     %h4 Student
-    %p= link_to @note.student.name
+    %p= link_to @note.student.name, url_for(:students, :show, id: @note.student.id)
   .span3
     %h4 Teacher
     %p= link_to @note.user.name

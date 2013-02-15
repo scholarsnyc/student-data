@@ -56,3 +56,7 @@ table .headerSortUp:after {
   width: 500px;
   min-width: 400px;
 }
+
+.select2-container {
+  min-width: 300px;
+}

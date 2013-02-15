@@ -24,7 +24,8 @@ StudentDatabase.controllers :notes do
   end
   
   post :create do
-    @note = Note.create(params[:note]).inspect
+    @note = Note.create(params[:note])
+    redirect url_for :notes, :show
   end
   
 end
