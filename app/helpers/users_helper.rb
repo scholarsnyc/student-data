@@ -1,7 +1,6 @@
 # Helper methods defined here can be accessed in any controller or view in the application
 
 StudentDatabase.helpers do
-  StudentDatabase.helpers do
 
   def current_account
     if Padrino.env == :development
@@ -36,5 +35,4 @@ StudentDatabase.helpers do
     redirect '/' unless user_is_admin
   end
   
-end
 end
