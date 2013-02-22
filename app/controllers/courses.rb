@@ -36,6 +36,16 @@ StudentDatabase.controllers :courses do
     end
   end
 
+  get :show_all_sections, map: '/courses/code/:id', provides: [:html, :json] do
+    @courses = Course.all(course_id: params[:id])
+    @course = @courses.first
+    @records = @courses.records(mp: @marking_period, year: @year)
+    case content_type
+      when :html then render 'courses/show'
+      when :json then return {courses: @courses, students: @courses.students}.to_json
+    end
+  end
+
   get :show_for_mp, map: "/courses/show/:id/mp/:mp", provides: [:html, :json] do
     @course = Course.get(params[:id])
     @marking_period = params[:mp]

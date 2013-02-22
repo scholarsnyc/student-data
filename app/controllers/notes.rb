@@ -25,7 +25,7 @@ StudentDatabase.controllers :notes do
   
   post :create do
     @note = Note.create(params[:note])
-    redirect url_for :notes, :show
+    redirect url_for :notes, :show, id: @note.id
   end
   
 end

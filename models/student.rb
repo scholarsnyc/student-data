@@ -40,9 +40,6 @@ class Student
     self.updated_at = Time.now
   end
 
-  # Factory Methods
-  
-
   # Query Methods
 
   def self.active(boolean = true)
@@ -106,6 +103,10 @@ class Student
   def self.names
     all.map {|s| s.name }.uniq
   end
+
+  def self.grades
+    all.map {|s| s.grade}.uniq.sort
+  end
   
   # Mutating Methods
 
@@ -139,9 +140,9 @@ class Student
   end
     
   def probation_status
-    if probation_report.failing.count > 0
+    if probation_report.failing.count > 0 || probation_report.level_2 > 1
       3
-    elsif probation_report.level_2.count > 0
+    elsif probation_report.level_2.count > 0 || probation_report.level_1 > 1
       2
     elsif probation_report.level_1.count > 0
       1
