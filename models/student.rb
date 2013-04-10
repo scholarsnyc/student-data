@@ -107,12 +107,6 @@ class Student
   def self.grades
     all.map {|s| s.grade}.uniq.sort
   end
-  
-  # Mutating Methods
-
-  def self.slim
-    all.map { |s| s.slim  }
-  end
 
   # Instance Methods
   
