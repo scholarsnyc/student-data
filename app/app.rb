@@ -8,7 +8,7 @@ class StudentDatabase < Padrino::Application
   enable :sessions
   
   before do
-    @marking_period = params[:mp] || 4
+    @marking_period = params[:mp] || 5
     @year = params[:year] || 2013
     @options = {}
   end
