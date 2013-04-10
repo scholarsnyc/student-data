@@ -140,9 +140,9 @@ class Student
   end
     
   def probation_status
-    if probation_report.failing.count > 0 || probation_report.level_2 > 1
+    if probation_report.failing.count > 0
       3
-    elsif probation_report.level_2.count > 0 || probation_report.level_1 > 1
+    elsif probation_report.level_2.count > 0
       2
     elsif probation_report.level_1.count > 0
       1
