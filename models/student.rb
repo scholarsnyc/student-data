@@ -207,36 +207,4 @@ class Student
     self.save
   end
 
-  def slim
-    SlimStudent.new(self)
-  end
-
-end
-
-class SlimStudent
-  
-	attr_reader :id, :firstname, :lastname, :grade, :homeroom, :cohort, :ela, :math
-
-	def initialize(student)
-		@id = student.id
-		@firstname = student.firstname
-		@lastname = student.lastname
-		@grade = student.grade
-    @homeroom = student.homeroom
-		@cohort = student.cohort
-		@ela = student.ela
-		@math = student.math
-	end
-	
-	def name
-    @firstname + " " + @lastname
-	end
-
-  def to_json(*args)
-    hash = {}
-    [:id, :firstname, :lastname, :grade, :homeroom, :cohort, :ela, :math].each do |prop|
-      hash[prop] = self.method(prop).call
-    end
-    hash.to_json
-  end
 end
