@@ -21,13 +21,22 @@ end
 class CourseImporter < DataImporter  
   def process
     @data.each do |row|
-      Course.create_or_update(
-        course_id: row[0],
-        section: row[1],
-        name: row[2],
-        teacher: row[3],
-        import: @import,
-        year: @year
+      course_id = row[0]
+      section = row[1]
+      code = "#{course_id}#{section}#{@year}"
+      
+      Course.first_or_create(
+        {
+          code: code
+        },
+        { 
+          course_id: course_id,
+          section: section,
+          name: row[2],
+          teacher: row[3],
+          import: @import,
+          year: @year
+        }
       )
     end
   end
