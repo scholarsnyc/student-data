@@ -18,6 +18,7 @@ class Course
   end
   
   before :update do
+    self.code = "#{course_id}#{section}#{year}"
     self.updated_at = Time.now
   end
   

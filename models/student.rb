@@ -107,12 +107,6 @@ class Student
   def self.grades
     all.map {|s| s.grade}.uniq.sort
   end
-  
-  # Mutating Methods
-
-  def self.slim
-    all.map { |s| s.slim  }
-  end
 
   # Instance Methods
   
@@ -140,9 +134,9 @@ class Student
   end
     
   def probation_status
-    if probation_report.failing.count > 0 || probation_report.level_2 > 1
+    if probation_report.failing.count > 0
       3
-    elsif probation_report.level_2.count > 0 || probation_report.level_1 > 1
+    elsif probation_report.level_2.count > 0
       2
     elsif probation_report.level_1.count > 0
       1
@@ -207,36 +201,4 @@ class Student
     self.save
   end
 
-  def slim
-    SlimStudent.new(self)
-  end
-
-end
-
-class SlimStudent
-  
-	attr_reader :id, :firstname, :lastname, :grade, :homeroom, :cohort, :ela, :math
-
-	def initialize(student)
-		@id = student.id
-		@firstname = student.firstname
-		@lastname = student.lastname
-		@grade = student.grade
-    @homeroom = student.homeroom
-		@cohort = student.cohort
-		@ela = student.ela
-		@math = student.math
-	end
-	
-	def name
-    @firstname + " " + @lastname
-	end
-
-  def to_json(*args)
-    hash = {}
-    [:id, :firstname, :lastname, :grade, :homeroom, :cohort, :ela, :math].each do |prop|
-      hash[prop] = self.method(prop).call
-    end
-    hash.to_json
-  end
 end

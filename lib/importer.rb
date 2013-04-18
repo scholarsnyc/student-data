@@ -1,4 +1,4 @@
-require 'csv'
+rrequire 'csv'
 
 
 class DataImporter
@@ -21,14 +21,14 @@ end
 class CourseImporter < DataImporter  
   def process
     @data.each do |row|
-      Course.new(
+      Course.create_or_update(
         course_id: row[0],
         section: row[1],
         name: row[2],
         teacher: row[3],
         import: @import,
         year: @year
-      ).set_code.save
+      )
     end
   end
 end
