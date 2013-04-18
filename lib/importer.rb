@@ -1,4 +1,4 @@
-rrequire 'csv'
+require 'csv'
 
 
 class DataImporter
