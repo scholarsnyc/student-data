@@ -23,7 +23,7 @@ StudentDatabase.controllers :courses do
     if params[:teacher]
       redirect url_for :courses, :teachers, teacher: params[:teacher]
     else
-      return File.read('./static/teachers.json')
+      return Course.teachers.to_json
     end
   end
 
